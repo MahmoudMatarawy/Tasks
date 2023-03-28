@@ -17,18 +17,34 @@ int main(void)
 	unsigned char u_ch_player = 0;
 	while (1)
 	{
+		// Initiate the board with positions number
 		for (int i = 0; i < 10; i++)
 		{
 			ex_u_ch_graph_board[i] = i + 48;
 		}
+
+		// Clear Terminal
 		system("cls");
+
+		// Take the symbols and set player's config
 		setPlayerConfig(ex_u_ch_players_config);
+
+		// Draw the board on the Terminal
 		drawBoard(ex_u_ch_graph_board);
+
+		// Set the Game state as Continue
 		ex_u_ch_game_state = CONTINUE;
+
+		// loop till the game finished
 		while (ex_u_ch_game_state == CONTINUE)
 		{
+			// Take the symbols and update the board
 			loadAndUpdate((u_ch_player % 2) + 1);
+
+			// Check the game state if WIN , DRAW or COUNTINUE
 			getGameState(ex_u_ch_graph_board, &ex_u_ch_game_state);
+
+			// Switch on game state
 			switch (ex_u_ch_game_state)
 			{
 			case WIN :
