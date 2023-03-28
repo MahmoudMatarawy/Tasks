@@ -1,0 +1,3 @@
+﻿  XO.c
+H:\Sprints Automotive BootCamp B11\Sprints Automotive BootCamp B11\Tasks\XO\XO\XO.c(15,2): warning C4013: 'system' undefined; assuming extern returning int
+  XO.vcxproj -> H:\Sprints Automotive BootCamp B11\Sprints Automotive BootCamp B11\Tasks\XO\x64\Debug\XO.exe

@@ -1,0 +1,3 @@
+﻿  main.c
+H:\Sprints Automotive BootCamp B11\Sprints Automotive BootCamp B11\Tasks\Test VS\Test VS\main.c(12,2): warning C4013: 'system' undefined; assuming extern returning int
+  Test VS.vcxproj -> H:\Sprints Automotive BootCamp B11\Sprints Automotive BootCamp B11\Tasks\Test VS\x64\Debug\Test VS.exe
