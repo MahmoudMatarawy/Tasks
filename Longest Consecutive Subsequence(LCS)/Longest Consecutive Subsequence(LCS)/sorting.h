@@ -4,6 +4,12 @@
 #include <stdio.h>
 #include <string.h>
 
+
+#define ERR_OK 0
+#define ERR_EMPTY   -1
+#define ERR_MORE_THAN_10 -2
+
+
 int8_t insertionSort(int32_t* array, uint8_t arraySize);
 void printArray(int32_t* array, uint8_t arraySize);
 /*

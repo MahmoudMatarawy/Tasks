@@ -13,10 +13,10 @@
 /*****************************************************************************************/
 void createEmptyStack(ST_stack_t* stack)
 {
-	stack->top = -1;
-	for (int i = 0; i < STACK_SIZE; i++)
+	stack->top = STACK_TOP_INIT;
+	for (int counter = 0; counter < STACK_SIZE; counter++)
 	{
-		stack->elements[i] = 0;
+		stack->elements[counter] = STACK_INIT_VALUE;
 	}
 }
 
@@ -35,14 +35,14 @@ void createEmptyStack(ST_stack_t* stack)
 int8_t push(ST_stack_t* stack, uint8_t data)
 {
 	int8_t state = isFull(stack);
-	if (state == -1)
-		return state;
+	if (state == ERR_FULL)
+		return ERR_FULL;
 	else
 	{
 		stack->top++;
-		int8_t i_top = stack->top;
-		stack->elements[i_top] = data;
-		return state;
+		int8_t stack_top = stack->top;
+		stack->elements[stack_top] = data;
+		return ERR_OK;
 	}
 	
 }
@@ -62,15 +62,15 @@ int8_t push(ST_stack_t* stack, uint8_t data)
 int8_t pop(ST_stack_t* stack, uint8_t* data)
 {
 	int8_t state = isEmpty(stack);
-	if (state == -2)
-		return state;
+	if (state == ERR_EMPTY)
+		return ERR_EMPTY;
 	else
 	{
 		//stack->top--;
-		int8_t i_top = stack->top;
-		*data = stack->elements[i_top];
+		int8_t stack_top = stack->top;
+		*data = stack->elements[stack_top];
 		stack->top--;
-		return state;
+		return ERR_OK;
 	}
 }
 
@@ -90,9 +90,9 @@ int8_t printStack(ST_stack_t* stack)
 {
 	int8_t state = 0;
 	state = isFull(stack) | isEmpty(stack);
-	for (int8_t i = stack->top; i >= 0; i--)
+	for (int8_t counter = stack->top; counter >= 0; counter--)
 	{
-		printf("%c\n", stack->elements[i]);
+		printf("%c\n", stack->elements[counter]);
 	}
 	return state;
 	
@@ -112,7 +112,7 @@ int8_t printStack(ST_stack_t* stack)
 int8_t getStackTop(ST_stack_t* stack, uint8_t* topData)
 {
 	int8_t state = isEmpty(stack);
-	if (state == -2)
+	if (state == ERR_EMPTY)
 		return state;
 	*topData = stack->elements[stack->top];
 	return state;
@@ -131,10 +131,10 @@ int8_t getStackTop(ST_stack_t* stack, uint8_t* topData)
 /*****************************************************************************************/
 int8_t isFull(ST_stack_t* stack)
 {
-	int8_t ind = stack->top;
-	if (ind + 1 == STACK_SIZE)
-		return -1;
-	return 0;
+	int8_t stack_top = (stack->top) + 1 ;
+	if (stack_top == STACK_SIZE)
+		return ERR_FULL;
+	return ERR_OK;
 }
 
 
@@ -151,58 +151,8 @@ int8_t isFull(ST_stack_t* stack)
 /*****************************************************************************************/
 int8_t isEmpty(ST_stack_t* stack)
 {
-	int8_t ind = stack->top;
-	if (ind == -1)
-		return -2;
-	return 0 ;
-}
-
-
-
-/*****************************************************************************************/
-/*    Function Description    : This function takes an expression array max 10 characters */
-/*								Checks if the parentheses are balanced or not */
-/*								Checks the following parentheses types {, }, (, ) only */
-/*    Parameter in            : uint8_t* expression */
-/*    Parameter inout         : None */
-/*    Parameter out           : None */
-/*    Return value            : returns -2 if the neither of paranthethes is used */
-/*								returns -1 if the parentheses are not balanced */
-/*								returns 0 if the parentheses are balanced */
-/*    Requirment              : None */
-/*****************************************************************************************/
-int8_t isBalancedParanthethes(uint8_t* expression)
-{
-	uint8_t arr[4] = {0,0,0,0};
-	uint8_t var = 0;
-	for (int i = 0; i < 9; i++)
-	{
-		switch (expression[i])
-		{
-		case open_curly :
-			arr[open_curly_ind]++;
-			var++;
-			break;
-		case closed_curly :
-			arr[closed_curly_ind]++;
-			var++;
-			break;
-		case open_curved :
-			arr[open_curved_ind]++;
-			var++;
-			break;
-		case closed_curved :
-			arr[closed_curved_ind]++;
-			var++;
-			break;
-		default:
-			break;
-		}
-	}
-	if (var == 0)
-		return -2;
-	if ((arr[open_curly_ind] == arr[closed_curly_ind]) && (arr[open_curved_ind] == arr[closed_curved_ind]))
-		return 0;
-	else
-		return -1;
+	int8_t stack_top = stack->top;
+	if (stack_top == STACK_TOP_INIT)
+		return ERR_EMPTY;
+	return ERR_OK ;
 }

@@ -3,7 +3,15 @@
 #include<stdio.h>
 #include<stdint.h>
 #include<string.h>
+
+#define STACK_TOP_INIT -1
+#define STACK_INIT_VALUE 0
 #define STACK_SIZE  10
+#define ERR_OK 0
+#define ERR_FULL -1
+#define ERR_EMPTY -2
+
+
 
 typedef struct stack {
 	uint8_t elements[STACK_SIZE];
@@ -20,17 +28,8 @@ int8_t isFull(ST_stack_t* stack);
 int8_t isEmpty(ST_stack_t* stack);
 
 
-// Balanced Paranthethes Function
-#define open_curly_ind 0
-#define closed_curly_ind 1
-#define open_curved_ind 2
-#define closed_curved_ind 3
 
-#define open_curly '{'
-#define closed_curly '}'
-#define open_curved '('
-#define closed_curved ')'
-int8_t isBalancedParanthethes(uint8_t* expression);
+
 
 
 

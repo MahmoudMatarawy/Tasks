@@ -127,13 +127,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="LCS.c" />
+    <ClCompile Include="lcs.c" />
     <ClCompile Include="main.c" />
     <ClCompile Include="sorting.c" />
     <ClCompile Include="testCases.c" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="LCS.h" />
+    <ClInclude Include="lcs.h" />
+    <ClInclude Include="main.h" />
     <ClInclude Include="sorting.h" />
     <ClInclude Include="testCases.h" />
   </ItemGroup>

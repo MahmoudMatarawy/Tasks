@@ -4,20 +4,18 @@
 
 uint8_t getSmallestIndex(int32_t* array, uint8_t arraySize)
 {
-	uint8_t ind = 0;
+	uint8_t index = 0;
 	int32_t min = array[0];
-	//printf("%d\n", min);
- 	for (uint8_t i = 1; i < arraySize; i++)
+ 	for (uint8_t counter = 1; counter < arraySize; counter++)
 	{
-		//printf("%d\n", min);
-		if (array[i] < min)
+		if (array[counter] < min)
 		{
-			min = array[i];
-			ind = i;
+			min = array[counter];
+			index = counter;
 		}
 			
 	}
-	return ind;
+	return index;
 }
 /*****************************************************************************************/
 /*    Function Description    : This function takes a reference to an array of integers 
@@ -34,19 +32,19 @@ uint8_t getSmallestIndex(int32_t* array, uint8_t arraySize)
 int8_t insertionSort(int32_t* array, uint8_t arraySize)
 {
 	int32_t swap = 0;
-	uint8_t ind = 0;
+	uint8_t index = 0;
 	if (arraySize == 0)
-		return -1;
+		return ERR_EMPTY;
 	else if (arraySize > 10)
-		return -2;
-	for (uint8_t i = 0; i < arraySize-1; i++)
+		return ERR_MORE_THAN_10;
+	for (uint8_t counter = 0; counter < arraySize-1; counter++)
 	{
-		ind = i+getSmallestIndex(array+i , arraySize-i);
-		swap = array[i];
-		array[i] = array[ind];
-		array[ind] = swap;
+		index = counter+getSmallestIndex(array+counter , arraySize-counter);
+		swap = array[counter];
+		array[counter] = array[index];
+		array[index] = swap;
 	}
-	return 0;
+	return ERR_OK;
 
 }
 
@@ -64,10 +62,10 @@ int8_t insertionSort(int32_t* array, uint8_t arraySize)
 void printArray(int32_t* array, uint8_t arraySize)
 {
 	printf("\n{");
-	for (int i = 0; i < arraySize; i++)
+	for (int counter = 0; counter < arraySize; counter++)
 	{
-		printf("%d", array[i]);
-		if (i < arraySize - 1)
+		printf("%d", array[counter]);
+		if (counter < arraySize - 1)
 			printf(",");
 	}
 	printf("}\n");

@@ -24,7 +24,7 @@
     <ClCompile Include="testCases.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="LCS.c">
+    <ClCompile Include="lcs.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -35,7 +35,10 @@
     <ClInclude Include="testCases.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="LCS.h">
+    <ClInclude Include="lcs.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="main.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

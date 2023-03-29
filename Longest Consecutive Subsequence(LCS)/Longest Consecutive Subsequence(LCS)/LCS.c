@@ -1,4 +1,4 @@
-#include"LCS.h"
+#include"lcs.h"
 #include"sorting.h"
 
 
@@ -21,46 +21,44 @@
 int8_t lcsGetSize(int32_t* array, uint8_t arraySize, uint8_t* sizeofLCS)
 {
 	uint8_t lcs[10];
-	uint8_t lcs_ind = 0;
-	uint8_t var1 = 0, var = 0;
+	uint8_t lcs_index = 0;
+	uint8_t max = 0, lcs_counter = 0;
 	int8_t state = insertionSort(array, arraySize);
 	
-	if (state == -1 || state == -2)
+	if (state == ERR_EMPTY || state == ERR_MORE_THAN_10)
 		return state;
 	else {
-		//printf("\nArray size = %d\n", arraySize);
-		//printArray(array, arraySize);
-		for (int i = 0; i < arraySize-1; i++)
+		for (int counter = 0; counter < arraySize-1; counter++)
 		{
-			if (array[i + 1] - array[i] == 1)
+			if (array[counter + 1] - array[counter] == 1)
 			{
-				var++;
+				lcs_counter++;
 			}
 			else {
-				lcs[lcs_ind] = var;
-				var = 0;
-				lcs_ind++;
+				lcs[lcs_index] = lcs_counter;
+				lcs_counter = 0;
+				lcs_index++;
 			}
 		}
-		if (lcs_ind == 0)
+		if (lcs_index == 0)
 		{
-			var1 = var;
+			max = lcs_counter;
 		}
-		for (int i = 0; i < lcs_ind; i++)
+		for (int counter = 0; counter < lcs_index; counter++)
 		{
-			if (lcs[i] > var1)
+			if (lcs[counter] > max)
 			{
-				var1 = lcs[i];
+				max = lcs[counter];
 			}
 		}
-		if (var1 == 0)
+		if (max == 0)
 		{
-			return -3;
+			return ERR_no_LCS;
 		}
 		else
 		{
-			*sizeofLCS = var1 +1;
+			*sizeofLCS = max +1;
 		}
 	}
-	return 0;
+	return ERR_OK;
 }
