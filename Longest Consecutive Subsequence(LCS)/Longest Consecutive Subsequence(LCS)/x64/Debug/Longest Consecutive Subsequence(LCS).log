@@ -1,0 +1,6 @@
+﻿  main.c
+H:\Sprints Automotive BootCamp B11\Sprints Automotive BootCamp B11\Tasks\Longest Consecutive Subsequence(LCS)\Longest Consecutive Subsequence(LCS)\main.c(14,28): warning C4047: 'function': 'int32_t *' differs in levels of indirection from 'int32_t [5][30]'
+H:\Sprints Automotive BootCamp B11\Sprints Automotive BootCamp B11\Tasks\Longest Consecutive Subsequence(LCS)\Longest Consecutive Subsequence(LCS)\main.c(14,18): warning C4024: 'createTestCases': different types for formal and actual parameter 1
+H:\Sprints Automotive BootCamp B11\Sprints Automotive BootCamp B11\Tasks\Longest Consecutive Subsequence(LCS)\Longest Consecutive Subsequence(LCS)\main.c(34,28): warning C4047: 'function': 'int32_t *' differs in levels of indirection from 'int32_t [5][30]'
+H:\Sprints Automotive BootCamp B11\Sprints Automotive BootCamp B11\Tasks\Longest Consecutive Subsequence(LCS)\Longest Consecutive Subsequence(LCS)\main.c(34,18): warning C4024: 'createTestCases': different types for formal and actual parameter 1
+  Longest Consecutive Subsequence(LCS).vcxproj -> H:\Sprints Automotive BootCamp B11\Sprints Automotive BootCamp B11\Tasks\Longest Consecutive Subsequence(LCS)\x64\Debug\Longest Consecutive Subsequence(LCS).exe
