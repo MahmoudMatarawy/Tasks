@@ -10,5 +10,6 @@ int main()
 	scanf("%d", &x);
 	printf("\nX = %d \n", x);
 	system("cls");
+	printf("%d", -2 | 0);
 	return 0;
 }

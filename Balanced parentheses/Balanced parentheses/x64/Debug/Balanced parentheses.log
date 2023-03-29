@@ -1,0 +1,6 @@
+﻿  Stack.c
+  main.c
+H:\Sprints Automotive BootCamp B11\Sprints Automotive BootCamp B11\Tasks\Balanced parentheses\Balanced parentheses\main.c(116,3): warning C4013: 'system' undefined; assuming extern returning int
+H:\Sprints Automotive BootCamp B11\Sprints Automotive BootCamp B11\Tasks\Balanced parentheses\Balanced parentheses\main.c(119,10): warning C4267: '=': conversion from 'size_t' to 'uint8_t', possible loss of data
+  Generating Code...
+  Balanced parentheses.vcxproj -> H:\Sprints Automotive BootCamp B11\Sprints Automotive BootCamp B11\Tasks\Balanced parentheses\x64\Debug\Balanced parentheses.exe
