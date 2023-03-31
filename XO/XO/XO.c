@@ -263,7 +263,7 @@ void loadAndUpdate(uint8_t playerNumber)
 		scanf("%d", &u_i_position);
 
 		// Check if the move is invalid
-		if (u_i_position >= 1 && u_i_position <= 9)
+		if (u_i_position >= 1 && u_i_position <= 9 && ex_u_ch_graph_board[u_i_position] == u_i_position+48)
 		{
 			u_ch_st = 0;
 		}
