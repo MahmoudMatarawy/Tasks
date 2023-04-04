@@ -5,6 +5,7 @@
 #include<stdint.h>
 #include<stdio.h>
 #include <conio.h>
+//#include <curses.h>
 
 #define board_max 9
 #define board_min 1

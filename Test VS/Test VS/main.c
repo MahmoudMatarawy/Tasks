@@ -110,3 +110,10 @@ int main()
 	}*/
 	return 0;
 }
+
+//gcc -o app.o Application/app.c 
+//gcc -o card.o Card/card.c 
+//gcc -o server.o Server/server.c 
+//gcc -o terminal.o Terminal/terminal.c 
+//gcc -o console.o Console/console.c 
+// gcc -Wall main.c -L -larith -o app

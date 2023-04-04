@@ -78,6 +78,7 @@ uint8_t getPlayerSymbol(uint8_t playerNumber, uint8_t* symbol)
 	
 
 	// Read sumbol entered by user
+	//scanf("%c",&u_ch_p_symbol);
 	u_ch_p_symbol = _getch();
 
 	// Check if user 1  choosed the symbol before
