@@ -1,26 +1,25 @@
 
-#include <util/delay.h>
 #include "app.h"
 #include <stdint.h>
-#include <avr/io.h>
+//#include <avr/io.h>
 void appStart(void)
 {
 	uint8_t u8_process = LED_ON;
 	uint8_t u8_counter = ((uint8_t)1);
 	uint8_t u8_btn_state = BT_PRE_HOLD;
-	DDRA = 0xff;
+	//DDRA = 0xff;
 	 button_Init();
 	 led_Init();
 	 
 	while(1)
 	{
-		_delay_ms(10);
+		//_delay_ms(10);
 		button_Main_Task();
 		if (u8_process == LED_ON)
 		{
 			// set leds ON one in a press
 			u8_btn_state = getButtonState(Button_Start);
-			PORTA = u8_btn_state;
+			//PORTA = u8_btn_state;
 			if (u8_btn_state == BT_RELEASED)
 			{
 				led_ON(u8_counter);
@@ -40,7 +39,7 @@ void appStart(void)
 		{
 			// set leds OFF one in a press
 			u8_btn_state = getButtonState(Button_Start);
-			PORTA = u8_btn_state;
+			//PORTA = u8_btn_state;
 			if (u8_btn_state == BT_RELEASED)
 			{
 				led_OFF(u8_counter);

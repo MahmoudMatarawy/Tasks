@@ -147,7 +147,7 @@ static void vidPushState(Button_IdType enuBtnId)
 	}
 	else
 	{
-		strBtnInfo[enuBtnId].btn_state = BT_PRE_PUSH;
+		strBtnInfo[enuBtnId].btn_state = BT_RELEASED;
 	}
 }
 
@@ -164,7 +164,7 @@ static void vidPreHoldState(Button_IdType enuBtnId)
 	}
 	else
 	{
-		strBtnInfo[enuBtnId].btn_state    = BT_PRE_PUSH;
+		strBtnInfo[enuBtnId].btn_state    = BT_RELEASED;
 	}
 }
 
@@ -234,7 +234,7 @@ static void vidReleaseState(Button_IdType enuBtnId)
 	
 	if(u8BtnValue == BT_PUSH_LEVEL)
 	{
-		strBtnInfo[enuBtnId].u8DebounceThreshold = ((uint8_t)0);
+		//strBtnInfo[enuBtnId].u8DebounceThreshold = ((uint8_t)0);
 		strBtnInfo[enuBtnId].btn_state    = BT_PRE_PUSH;
 	}
 	else

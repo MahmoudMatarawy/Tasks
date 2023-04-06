@@ -4,10 +4,10 @@
 // Create LED ID ENUM
 typedef uint8_t LED_ID_type;
 
-#define LED_1		((LED_ID_type)0x00)
-#define LED_2		((LED_ID_type)0x01)
-#define LED_3		((LED_ID_type)0x02)
-#define	LED_4		((LED_ID_type)0x03)
+#define LED_1		((LED_ID_type)0x01)
+#define LED_2		((LED_ID_type)0x02)
+#define LED_3		((LED_ID_type)0x03)
+#define	LED_4		((LED_ID_type)0x04)
 
 
 
