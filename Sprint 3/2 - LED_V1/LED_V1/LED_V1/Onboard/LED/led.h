@@ -17,8 +17,14 @@ typedef uint8_t LED_STATE_type;
 #define LED_ON		((LED_STATE_type)0x01)
 
 
+
+// Create LED ERROR ENUM
+typedef uint8_t LED_ERROR_type;
+#define LED_OK	((LED_ERROR_type)0x00)
+#define LED_UNDEFINED	((LED_ERROR_type)0x01)
+
 void led_Init(void);
-void led_OFF(LED_ID_type led);
-void led_ON(LED_ID_type led);
+LED_ERROR_type led_OFF(LED_ID_type led);
+LED_ERROR_type led_ON(LED_ID_type led);
 
 #endif	/* LED_H	*/

@@ -3,31 +3,31 @@ LED_V1.elf:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .text         00000738  00000000  00000000  00000094  2**1
+  0 .text         0000074c  00000000  00000000  00000094  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  1 .data         0000000c  00800060  00000738  000007cc  2**0
+  1 .data         0000000c  00800060  0000074c  000007e0  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  2 .bss          00000003  0080006c  0080006c  000007d8  2**0
+  2 .bss          00000003  0080006c  0080006c  000007ec  2**0
                   ALLOC
-  3 .comment      00000030  00000000  00000000  000007d8  2**0
+  3 .comment      00000030  00000000  00000000  000007ec  2**0
                   CONTENTS, READONLY
-  4 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  00000808  2**2
+  4 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  0000081c  2**2
                   CONTENTS, READONLY
-  5 .debug_aranges 00000138  00000000  00000000  00000844  2**0
+  5 .debug_aranges 00000138  00000000  00000000  00000858  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_info   000010c8  00000000  00000000  0000097c  2**0
+  6 .debug_info   000010db  00000000  00000000  00000990  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_abbrev 000009b1  00000000  00000000  00001a44  2**0
+  7 .debug_abbrev 000009b3  00000000  00000000  00001a6b  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_line   00000baa  00000000  00000000  000023f5  2**0
+  8 .debug_line   00000bda  00000000  00000000  0000241e  2**0
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_frame  00000254  00000000  00000000  00002fa0  2**2
+  9 .debug_frame  00000254  00000000  00000000  00002ff8  2**2
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_str    00000616  00000000  00000000  000031f4  2**0
+ 10 .debug_str    00000625  00000000  00000000  0000324c  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_loc    00000b2c  00000000  00000000  0000380a  2**0
+ 11 .debug_loc    00000b5e  00000000  00000000  00003871  2**0
                   CONTENTS, READONLY, DEBUGGING
- 12 .debug_ranges 000000b8  00000000  00000000  00004336  2**0
+ 12 .debug_ranges 000000b8  00000000  00000000  000043cf  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -67,7 +67,7 @@ Disassembly of section .text:
   60:	10 e0       	ldi	r17, 0x00	; 0
   62:	a0 e6       	ldi	r26, 0x60	; 96
   64:	b0 e0       	ldi	r27, 0x00	; 0
-  66:	e8 e3       	ldi	r30, 0x38	; 56
+  66:	ec e4       	ldi	r30, 0x4C	; 76
   68:	f7 e0       	ldi	r31, 0x07	; 7
   6a:	02 c0       	rjmp	.+4      	; 0x70 <__do_copy_data+0x10>
   6c:	05 90       	lpm	r0, Z+
@@ -90,7 +90,7 @@ Disassembly of section .text:
   82:	b2 07       	cpc	r27, r18
   84:	e1 f7       	brne	.-8      	; 0x7e <.do_clear_bss_loop>
   86:	0e 94 71 00 	call	0xe2	; 0xe2 <main>
-  8a:	0c 94 9a 03 	jmp	0x734	; 0x734 <_exit>
+  8a:	0c 94 a4 03 	jmp	0x748	; 0x748 <_exit>
 
 0000008e <__bad_interrupt>:
   8e:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
@@ -104,7 +104,7 @@ Disassembly of section .text:
 	 button_Init();
   92:	0e 94 25 03 	call	0x64a	; 0x64a <button_Init>
 	 led_Init();
-  96:	0e 94 79 03 	call	0x6f2	; 0x6f2 <led_Init>
+  96:	0e 94 83 03 	call	0x706	; 0x706 <led_Init>
 #include <stdint.h>
 //#include <avr/io.h>
 void appStart(void)
@@ -171,7 +171,7 @@ void appStart(void)
 			{
 				led_ON(u8_counter);
   bc:	8d 2f       	mov	r24, r29
-  be:	0e 94 6d 03 	call	0x6da	; 0x6da <led_ON>
+  be:	0e 94 72 03 	call	0x6e4	; 0x6e4 <led_ON>
 				//_delay_ms(300);
 				if (u8_counter == ((uint8_t)4))
   c2:	d4 30       	cpi	r29, 0x04	; 4
@@ -1417,102 +1417,140 @@ Button_StateType getButtonState(Button_IdType enmButtonId)
 		
 	}
 }
-void led_OFF(LED_ID_type led)
+LED_ERROR_type led_OFF(LED_ID_type led)
 {
+	if(led > LED_NUMs)
+ 6c2:	85 30       	cpi	r24, 0x05	; 5
+ 6c4:	68 f4       	brcc	.+26     	; 0x6e0 <led_OFF+0x1e>
+	{
+		return LED_UNDEFINED;
+	}
 	Dio_WriteChannel(LED_Config[led-1].LED_CHANNEL_ID,LED_OFF);
- 6c2:	e8 2f       	mov	r30, r24
- 6c4:	f0 e0       	ldi	r31, 0x00	; 0
- 6c6:	31 97       	sbiw	r30, 0x01	; 1
- 6c8:	ee 0f       	add	r30, r30
- 6ca:	ff 1f       	adc	r31, r31
- 6cc:	ed 59       	subi	r30, 0x9D	; 157
- 6ce:	ff 4f       	sbci	r31, 0xFF	; 255
- 6d0:	60 e0       	ldi	r22, 0x00	; 0
- 6d2:	80 81       	ld	r24, Z
- 6d4:	0e 94 1e 01 	call	0x23c	; 0x23c <Dio_WriteChannel>
- 6d8:	08 95       	ret
-
-000006da <led_ON>:
+ 6c6:	e8 2f       	mov	r30, r24
+ 6c8:	f0 e0       	ldi	r31, 0x00	; 0
+ 6ca:	31 97       	sbiw	r30, 0x01	; 1
+ 6cc:	ee 0f       	add	r30, r30
+ 6ce:	ff 1f       	adc	r31, r31
+ 6d0:	ed 59       	subi	r30, 0x9D	; 157
+ 6d2:	ff 4f       	sbci	r31, 0xFF	; 255
+ 6d4:	60 e0       	ldi	r22, 0x00	; 0
+ 6d6:	80 81       	ld	r24, Z
+ 6d8:	0e 94 1e 01 	call	0x23c	; 0x23c <Dio_WriteChannel>
+	return  LED_OK;
+ 6dc:	80 e0       	ldi	r24, 0x00	; 0
+ 6de:	08 95       	ret
 }
-void led_ON(LED_ID_type led)
+LED_ERROR_type led_OFF(LED_ID_type led)
 {
-	Dio_WriteChannel(LED_Config[led-1].LED_CHANNEL_ID,LED_ON);
- 6da:	e8 2f       	mov	r30, r24
- 6dc:	f0 e0       	ldi	r31, 0x00	; 0
- 6de:	31 97       	sbiw	r30, 0x01	; 1
- 6e0:	ee 0f       	add	r30, r30
- 6e2:	ff 1f       	adc	r31, r31
- 6e4:	ed 59       	subi	r30, 0x9D	; 157
- 6e6:	ff 4f       	sbci	r31, 0xFF	; 255
- 6e8:	61 e0       	ldi	r22, 0x01	; 1
- 6ea:	80 81       	ld	r24, Z
- 6ec:	0e 94 1e 01 	call	0x23c	; 0x23c <Dio_WriteChannel>
- 6f0:	08 95       	ret
+	if(led > LED_NUMs)
+	{
+		return LED_UNDEFINED;
+ 6e0:	81 e0       	ldi	r24, 0x01	; 1
+	}
+	Dio_WriteChannel(LED_Config[led-1].LED_CHANNEL_ID,LED_OFF);
+	return  LED_OK;
+}
+ 6e2:	08 95       	ret
 
-000006f2 <led_Init>:
+000006e4 <led_ON>:
+LED_ERROR_type led_ON(LED_ID_type led)
+{
+	if(led > LED_NUMs)
+ 6e4:	85 30       	cpi	r24, 0x05	; 5
+ 6e6:	68 f4       	brcc	.+26     	; 0x702 <led_ON+0x1e>
+	{
+		return LED_UNDEFINED;
+	}
+	Dio_WriteChannel(LED_Config[led-1].LED_CHANNEL_ID,LED_ON);
+ 6e8:	e8 2f       	mov	r30, r24
+ 6ea:	f0 e0       	ldi	r31, 0x00	; 0
+ 6ec:	31 97       	sbiw	r30, 0x01	; 1
+ 6ee:	ee 0f       	add	r30, r30
+ 6f0:	ff 1f       	adc	r31, r31
+ 6f2:	ed 59       	subi	r30, 0x9D	; 157
+ 6f4:	ff 4f       	sbci	r31, 0xFF	; 255
+ 6f6:	61 e0       	ldi	r22, 0x01	; 1
+ 6f8:	80 81       	ld	r24, Z
+ 6fa:	0e 94 1e 01 	call	0x23c	; 0x23c <Dio_WriteChannel>
+	return  LED_OK;
+ 6fe:	80 e0       	ldi	r24, 0x00	; 0
+ 700:	08 95       	ret
+}
+LED_ERROR_type led_ON(LED_ID_type led)
+{
+	if(led > LED_NUMs)
+	{
+		return LED_UNDEFINED;
+ 702:	81 e0       	ldi	r24, 0x01	; 1
+	}
+	Dio_WriteChannel(LED_Config[led-1].LED_CHANNEL_ID,LED_ON);
+	return  LED_OK;
+ 704:	08 95       	ret
+
+00000706 <led_Init>:
 #include "led_cfg.h"
 
 
 
 void led_Init(void)
 {
- 6f2:	1f 93       	push	r17
- 6f4:	cf 93       	push	r28
- 6f6:	df 93       	push	r29
+ 706:	1f 93       	push	r17
+ 708:	cf 93       	push	r28
+ 70a:	df 93       	push	r29
 	uint8_t u8_index;
 	
 	for (u8_index = 0 ; u8_index < LED_NUMs ; u8_index++)
- 6f8:	10 e0       	ldi	r17, 0x00	; 0
- 6fa:	16 c0       	rjmp	.+44     	; 0x728 <led_Init+0x36>
+ 70c:	10 e0       	ldi	r17, 0x00	; 0
+ 70e:	16 c0       	rjmp	.+44     	; 0x73c <led_Init+0x36>
 	{
 		Dio_ChannelSetDIR((LED_Config[u8_index].LED_CHANNEL_ID) , STD_OUTPUT);
- 6fc:	c1 2f       	mov	r28, r17
- 6fe:	d0 e0       	ldi	r29, 0x00	; 0
- 700:	cc 0f       	add	r28, r28
- 702:	dd 1f       	adc	r29, r29
- 704:	cd 59       	subi	r28, 0x9D	; 157
- 706:	df 4f       	sbci	r29, 0xFF	; 255
- 708:	61 e0       	ldi	r22, 0x01	; 1
- 70a:	88 81       	ld	r24, Y
- 70c:	0e 94 76 00 	call	0xec	; 0xec <Dio_ChannelSetDIR>
+ 710:	c1 2f       	mov	r28, r17
+ 712:	d0 e0       	ldi	r29, 0x00	; 0
+ 714:	cc 0f       	add	r28, r28
+ 716:	dd 1f       	adc	r29, r29
+ 718:	cd 59       	subi	r28, 0x9D	; 157
+ 71a:	df 4f       	sbci	r29, 0xFF	; 255
+ 71c:	61 e0       	ldi	r22, 0x01	; 1
+ 71e:	88 81       	ld	r24, Y
+ 720:	0e 94 76 00 	call	0xec	; 0xec <Dio_ChannelSetDIR>
 		if (LED_Config[u8_index].LED_STATE == LED_ON)
- 710:	89 81       	ldd	r24, Y+1	; 0x01
- 712:	81 30       	cpi	r24, 0x01	; 1
- 714:	21 f4       	brne	.+8      	; 0x71e <led_Init+0x2c>
+ 724:	89 81       	ldd	r24, Y+1	; 0x01
+ 726:	81 30       	cpi	r24, 0x01	; 1
+ 728:	21 f4       	brne	.+8      	; 0x732 <led_Init+0x2c>
 		{
 			led_ON(u8_index+1);
- 716:	81 0f       	add	r24, r17
- 718:	0e 94 6d 03 	call	0x6da	; 0x6da <led_ON>
- 71c:	04 c0       	rjmp	.+8      	; 0x726 <led_Init+0x34>
+ 72a:	81 0f       	add	r24, r17
+ 72c:	0e 94 72 03 	call	0x6e4	; 0x6e4 <led_ON>
+ 730:	04 c0       	rjmp	.+8      	; 0x73a <led_Init+0x34>
 		}
 		else
 		{
 			led_OFF(u8_index+1);
- 71e:	81 e0       	ldi	r24, 0x01	; 1
- 720:	81 0f       	add	r24, r17
- 722:	0e 94 61 03 	call	0x6c2	; 0x6c2 <led_OFF>
+ 732:	81 e0       	ldi	r24, 0x01	; 1
+ 734:	81 0f       	add	r24, r17
+ 736:	0e 94 61 03 	call	0x6c2	; 0x6c2 <led_OFF>
 
 void led_Init(void)
 {
 	uint8_t u8_index;
 	
 	for (u8_index = 0 ; u8_index < LED_NUMs ; u8_index++)
- 726:	1f 5f       	subi	r17, 0xFF	; 255
- 728:	14 30       	cpi	r17, 0x04	; 4
- 72a:	40 f3       	brcs	.-48     	; 0x6fc <led_Init+0xa>
+ 73a:	1f 5f       	subi	r17, 0xFF	; 255
+ 73c:	14 30       	cpi	r17, 0x04	; 4
+ 73e:	40 f3       	brcs	.-48     	; 0x710 <led_Init+0xa>
 		{
 			led_OFF(u8_index+1);
 		}
 		
 	}
 }
- 72c:	df 91       	pop	r29
- 72e:	cf 91       	pop	r28
- 730:	1f 91       	pop	r17
- 732:	08 95       	ret
+ 740:	df 91       	pop	r29
+ 742:	cf 91       	pop	r28
+ 744:	1f 91       	pop	r17
+ 746:	08 95       	ret
 
-00000734 <_exit>:
- 734:	f8 94       	cli
+00000748 <_exit>:
+ 748:	f8 94       	cli
 
-00000736 <__stop_program>:
- 736:	ff cf       	rjmp	.-2      	; 0x736 <__stop_program>
+0000074a <__stop_program>:
+ 74a:	ff cf       	rjmp	.-2      	; 0x74a <__stop_program>

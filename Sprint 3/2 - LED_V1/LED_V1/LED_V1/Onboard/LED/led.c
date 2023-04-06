@@ -23,11 +23,21 @@ void led_Init(void)
 		
 	}
 }
-void led_OFF(LED_ID_type led)
+LED_ERROR_type led_OFF(LED_ID_type led)
 {
+	if(led > LED_NUMs)
+	{
+		return LED_UNDEFINED;
+	}
 	Dio_WriteChannel(LED_Config[led-1].LED_CHANNEL_ID,LED_OFF);
+	return  LED_OK;
 }
-void led_ON(LED_ID_type led)
+LED_ERROR_type led_ON(LED_ID_type led)
 {
+	if(led > LED_NUMs)
+	{
+		return LED_UNDEFINED;
+	}
 	Dio_WriteChannel(LED_Config[led-1].LED_CHANNEL_ID,LED_ON);
+	return  LED_OK;
 }
