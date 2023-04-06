@@ -46,7 +46,7 @@ void button_Init(void)
 		Dio_ChannelSetDIR((Button_config[u8Index].ChannelId) , STD_INPUT);
 		
 		// Enable PULLUP
-		DIO_Errors Dio_WriteChannel(Button_config[u8Index].ChannelId, STD_HIGH);
+		Dio_WriteChannel(Button_config[u8Index].ChannelId, STD_HIGH);
 		
 		strBtnInfo[u8Index].btn_state     = BT_RELEASED;
 		strBtnInfo[u8Index].u8DebounceThreshold  = ((uint8_t)0U);
