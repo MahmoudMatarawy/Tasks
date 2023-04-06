@@ -3,7 +3,6 @@
 
 #include "led_types.h"
 
-
 // Numbers of led will be used in the project
 #define  LED_NUMs		4
 

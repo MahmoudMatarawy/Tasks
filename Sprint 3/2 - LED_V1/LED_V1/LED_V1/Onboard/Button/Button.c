@@ -29,12 +29,20 @@ static void vidPreReleaseState(Button_IdType enuBtnId);
 static void vidReleaseState(Button_IdType enuBtnId);
 
 
+
+
+/******************************************************************************/
+/*********************** Public Functions Implementation **********************/
+/******************************************************************************/
+
+
 void button_Init(void)
 {
 	uint8_t u8Index;
 	
 	for(u8Index=0;u8Index<BUTTONS_NUM;u8Index++)
 	{
+		Dio_ChannelSetDIR((Button_config[u8Index].ChannelId) , STD_INPUT);
 		strBtnInfo[u8Index].btn_state     = BT_RELEASED;
 		strBtnInfo[u8Index].u8DebounceThreshold  = ((uint8_t)0U);
 		strBtnInfo[u8Index].u8HoldThreshold      = ((uint8_t)0U);
@@ -117,22 +125,11 @@ static void vidPrePushState(Button_IdType enuBtnId)
 	
 	if(u8BtnValue == BT_RELEASE_LEVEL)
 	{
-		strBtnInfo[enuBtnId].u8DebounceThreshold = ((uint8_t)0);
-		strBtnInfo[enuBtnId].btn_state    = BT_PRE_RELEASE;
+		strBtnInfo[enuBtnId].btn_state    = BT_PUSHED;
 	}
 	else
 	{
-		strBtnInfo[enuBtnId].u8DebounceThreshold++;
-		
-		if(strBtnInfo[enuBtnId].u8DebounceThreshold ==
-		Button_config[enuBtnId].u8DebounceThreshold)
-		{
-			strBtnInfo[enuBtnId].btn_state    = BT_PUSHED;
-		}
-		else
-		{
-			/* Do Nothing */
-		}
+		strBtnInfo[enuBtnId].btn_state    = BT_PRE_PUSH;
 	}
 }
 
@@ -146,13 +143,11 @@ static void vidPushState(Button_IdType enuBtnId)
 	
 	if(u8BtnValue == BT_RELEASE_LEVEL)
 	{
-		strBtnInfo[enuBtnId].u8DebounceThreshold = ((uint8_t)0);
-		strBtnInfo[enuBtnId].btn_state    = BT_PRE_RELEASE;
+		strBtnInfo[enuBtnId].btn_state    = BT_PRE_HOLD;
 	}
 	else
 	{
-		strBtnInfo[enuBtnId].u8HoldThreshold  = ((uint8_t)0);
-		strBtnInfo[enuBtnId].btn_state = BT_PRE_HOLD;
+		strBtnInfo[enuBtnId].btn_state = BT_PRE_PUSH;
 	}
 }
 
@@ -165,21 +160,11 @@ static void vidPreHoldState(Button_IdType enuBtnId)
 	
 	if(u8BtnValue == BT_RELEASE_LEVEL)
 	{
-		strBtnInfo[enuBtnId].u8DebounceThreshold = ((uint8_t)0);
-		strBtnInfo[enuBtnId].u8HoldThreshold    = BT_PRE_RELEASE;
+		strBtnInfo[enuBtnId].btn_state   = BT_HOLD;
 	}
 	else
 	{
-		strBtnInfo[enuBtnId].u8HoldThreshold++;
-		if(strBtnInfo[enuBtnId].u8HoldThreshold >=
-		Button_config[enuBtnId].u8HoldThreshold)
-		{
-			strBtnInfo[enuBtnId].btn_state = BT_HOLD;
-		}
-		else
-		{
-			/* Do Nothing */
-		}
+		strBtnInfo[enuBtnId].btn_state    = BT_PRE_PUSH;
 	}
 }
 
@@ -193,8 +178,17 @@ static void vidHoldState(Button_IdType enuBtnId)
 	
 	if(u8BtnValue == BT_RELEASE_LEVEL)
 	{
-		strBtnInfo[enuBtnId].u8DebounceThreshold = ((uint8_t)0);
-		strBtnInfo[enuBtnId].btn_state    = BT_PRE_RELEASE;
+		strBtnInfo[enuBtnId].u8DebounceThreshold++;
+		if(strBtnInfo[enuBtnId].u8DebounceThreshold == Button_config[enuBtnId].u8DebounceThreshold)
+		{
+			strBtnInfo[enuBtnId].u8DebounceThreshold = ((uint8_t)0);
+			strBtnInfo[enuBtnId].btn_state    = BT_PRE_RELEASE;
+		}
+		else
+		{
+			/* Do Nothing */
+		}
+		
 	}
 	else
 	{
@@ -213,21 +207,19 @@ static void vidPreReleaseState(Button_IdType enuBtnId)
 	if(u8BtnValue == BT_RELEASE_LEVEL)
 	{
 		strBtnInfo[enuBtnId].u8DebounceThreshold++;
-		
-		if(strBtnInfo[enuBtnId].u8DebounceThreshold ==
-		Button_config[enuBtnId].u8DebounceThreshold)
+	}
+	else
+	{
+		if(strBtnInfo[enuBtnId].u8DebounceThreshold >= Button_config[enuBtnId].u8DebounceThreshold)
 		{
 			strBtnInfo[enuBtnId].btn_state = BT_RELEASED;
 		}
 		else
 		{
-			/* Do Nothing */
+			strBtnInfo[enuBtnId].btn_state    = BT_PRE_PUSH;
 		}
-	}
-	else
-	{
 		strBtnInfo[enuBtnId].u8DebounceThreshold = ((uint8_t)0);
-		strBtnInfo[enuBtnId].btn_state    = BT_PRE_PUSH;
+		
 	}
 }
 

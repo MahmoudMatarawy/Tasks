@@ -28,8 +28,9 @@ typedef uint8_t Dio_DIRType;
 #define STD_OUTPUT					((Dio_LevelType)0x01)
 
 
+DIO_Errors Dio_ChannelSetDIR(Dio_ChannelType ChannelId, Dio_DIRType dir);
 
-void Dio_Init(void);
+//void Dio_Init(void);
 DIO_Errors Dio_ReadChannel(Dio_ChannelType ChannelId ,Dio_LevelType* level);
 DIO_Errors Dio_WriteChannel(Dio_ChannelType ChannelId, Dio_LevelType level);
 

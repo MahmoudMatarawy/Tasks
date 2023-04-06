@@ -1,11 +1,11 @@
 #ifndef _BUTTON_H_
 #define _BUTTON_H_
 
-
+#include <stdint.h>
 // Create ButtonID ENUM
 typedef uint8_t Button_IdType;
 
-#define Button_Start			(ButtonID(0x00))
+#define Button_Start			((Button_IdType)0x00)
 //#define Button_Stop				(ButtonID(0x01))
 
 
