@@ -1,7 +1,6 @@
 
 #include "app.h"
 #include <stdint.h>
-//#include <avr/io.h>
 void appStart(void)
 {
 	uint8_t u8_process = LED_ON;
@@ -10,7 +9,6 @@ void appStart(void)
 	//DDRA = 0xff;
 	 button_Init();
 	 led_Init();
-	 
 	while(1)
 	{
 		//_delay_ms(10);

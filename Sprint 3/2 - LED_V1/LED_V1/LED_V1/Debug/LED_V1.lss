@@ -3,31 +3,31 @@ LED_V1.elf:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .text         0000074c  00000000  00000000  00000094  2**1
+  0 .text         00000750  00000000  00000000  00000094  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  1 .data         0000000c  00800060  0000074c  000007e0  2**0
+  1 .data         0000000c  00800060  00000750  000007e4  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  2 .bss          00000003  0080006c  0080006c  000007ec  2**0
+  2 .bss          00000003  0080006c  0080006c  000007f0  2**0
                   ALLOC
-  3 .comment      00000030  00000000  00000000  000007ec  2**0
+  3 .comment      00000030  00000000  00000000  000007f0  2**0
                   CONTENTS, READONLY
-  4 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  0000081c  2**2
+  4 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  00000820  2**2
                   CONTENTS, READONLY
-  5 .debug_aranges 00000138  00000000  00000000  00000858  2**0
+  5 .debug_aranges 00000138  00000000  00000000  0000085c  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_info   000010db  00000000  00000000  00000990  2**0
+  6 .debug_info   000010db  00000000  00000000  00000994  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_abbrev 000009b3  00000000  00000000  00001a6b  2**0
+  7 .debug_abbrev 000009b3  00000000  00000000  00001a6f  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_line   00000bda  00000000  00000000  0000241e  2**0
+  8 .debug_line   00000be0  00000000  00000000  00002422  2**0
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_frame  00000254  00000000  00000000  00002ff8  2**2
+  9 .debug_frame  00000254  00000000  00000000  00003004  2**2
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_str    00000625  00000000  00000000  0000324c  2**0
+ 10 .debug_str    00000625  00000000  00000000  00003258  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_loc    00000b5e  00000000  00000000  00003871  2**0
+ 11 .debug_loc    00000b5e  00000000  00000000  0000387d  2**0
                   CONTENTS, READONLY, DEBUGGING
- 12 .debug_ranges 000000b8  00000000  00000000  000043cf  2**0
+ 12 .debug_ranges 000000b8  00000000  00000000  000043db  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -67,7 +67,7 @@ Disassembly of section .text:
   60:	10 e0       	ldi	r17, 0x00	; 0
   62:	a0 e6       	ldi	r26, 0x60	; 96
   64:	b0 e0       	ldi	r27, 0x00	; 0
-  66:	ec e4       	ldi	r30, 0x4C	; 76
+  66:	e0 e5       	ldi	r30, 0x50	; 80
   68:	f7 e0       	ldi	r31, 0x07	; 7
   6a:	02 c0       	rjmp	.+4      	; 0x70 <__do_copy_data+0x10>
   6c:	05 90       	lpm	r0, Z+
@@ -89,8 +89,8 @@ Disassembly of section .text:
   80:	af 36       	cpi	r26, 0x6F	; 111
   82:	b2 07       	cpc	r27, r18
   84:	e1 f7       	brne	.-8      	; 0x7e <.do_clear_bss_loop>
-  86:	0e 94 71 00 	call	0xe2	; 0xe2 <main>
-  8a:	0c 94 a4 03 	jmp	0x748	; 0x748 <_exit>
+  86:	0e 94 73 00 	call	0xe6	; 0xe6 <main>
+  8a:	0c 94 a6 03 	jmp	0x74c	; 0x74c <_exit>
 
 0000008e <__bad_interrupt>:
   8e:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
@@ -102,1455 +102,1458 @@ Disassembly of section .text:
 	uint8_t u8_btn_state = BT_PRE_HOLD;
 	//DDRA = 0xff;
 	 button_Init();
-  92:	0e 94 25 03 	call	0x64a	; 0x64a <button_Init>
+  92:	0e 94 27 03 	call	0x64e	; 0x64e <button_Init>
 	 led_Init();
-  96:	0e 94 83 03 	call	0x706	; 0x706 <led_Init>
+  96:	0e 94 85 03 	call	0x70a	; 0x70a <led_Init>
+	 PORTC = 1<<2;
+  9a:	84 e0       	ldi	r24, 0x04	; 4
+  9c:	85 bb       	out	0x15, r24	; 21
 #include <stdint.h>
-//#include <avr/io.h>
+#include <avr/io.h>
 void appStart(void)
 {
 	uint8_t u8_process = LED_ON;
 	uint8_t u8_counter = ((uint8_t)1);
-  9a:	d1 e0       	ldi	r29, 0x01	; 1
+  9e:	d1 e0       	ldi	r29, 0x01	; 1
 #include "app.h"
 #include <stdint.h>
-//#include <avr/io.h>
+#include <avr/io.h>
 void appStart(void)
 {
 	uint8_t u8_process = LED_ON;
-  9c:	c1 e0       	ldi	r28, 0x01	; 1
-  9e:	05 c0       	rjmp	.+10     	; 0xaa <appStart+0x18>
+  a0:	c1 e0       	ldi	r28, 0x01	; 1
+  a2:	05 c0       	rjmp	.+10     	; 0xae <appStart+0x1c>
 				led_ON(u8_counter);
 				//_delay_ms(300);
 				if (u8_counter == ((uint8_t)4))
 				{
 					u8_process = LED_OFF;
 					u8_counter = ((uint8_t)1);
-  a0:	d1 e0       	ldi	r29, 0x01	; 1
+  a4:	d1 e0       	ldi	r29, 0x01	; 1
 			{
 				led_ON(u8_counter);
 				//_delay_ms(300);
 				if (u8_counter == ((uint8_t)4))
 				{
 					u8_process = LED_OFF;
-  a2:	c0 e0       	ldi	r28, 0x00	; 0
-  a4:	02 c0       	rjmp	.+4      	; 0xaa <appStart+0x18>
+  a6:	c0 e0       	ldi	r28, 0x00	; 0
+  a8:	02 c0       	rjmp	.+4      	; 0xae <appStart+0x1c>
 				led_OFF(u8_counter);
 				//_delay_ms(300);
 				if (u8_counter == ((uint8_t)4))
 				{
 					u8_process = LED_ON;
 					u8_counter = ((uint8_t)1);
-  a6:	d1 e0       	ldi	r29, 0x01	; 1
+  aa:	d1 e0       	ldi	r29, 0x01	; 1
 			{
 				led_OFF(u8_counter);
 				//_delay_ms(300);
 				if (u8_counter == ((uint8_t)4))
 				{
 					u8_process = LED_ON;
-  a8:	c1 e0       	ldi	r28, 0x01	; 1
+  ac:	c1 e0       	ldi	r28, 0x01	; 1
 	 led_Init();
-	 
+	 PORTC = 1<<2;
 	while(1)
 	{
 		//_delay_ms(10);
 		button_Main_Task();
-  aa:	0e 94 47 03 	call	0x68e	; 0x68e <button_Main_Task>
+  ae:	0e 94 49 03 	call	0x692	; 0x692 <button_Main_Task>
 		if (u8_process == LED_ON)
-  ae:	c1 30       	cpi	r28, 0x01	; 1
-  b0:	61 f4       	brne	.+24     	; 0xca <appStart+0x38>
+  b2:	c1 30       	cpi	r28, 0x01	; 1
+  b4:	61 f4       	brne	.+24     	; 0xce <appStart+0x3c>
 		{
 			// set leds ON one in a press
 			u8_btn_state = getButtonState(Button_Start);
-  b2:	80 e0       	ldi	r24, 0x00	; 0
-  b4:	0e 94 52 03 	call	0x6a4	; 0x6a4 <getButtonState>
+  b6:	80 e0       	ldi	r24, 0x00	; 0
+  b8:	0e 94 54 03 	call	0x6a8	; 0x6a8 <getButtonState>
 			//PORTA = u8_btn_state;
 			if (u8_btn_state == BT_RELEASED)
-  b8:	85 30       	cpi	r24, 0x05	; 5
-  ba:	b9 f7       	brne	.-18     	; 0xaa <appStart+0x18>
+  bc:	85 30       	cpi	r24, 0x05	; 5
+  be:	b9 f7       	brne	.-18     	; 0xae <appStart+0x1c>
 			{
 				led_ON(u8_counter);
-  bc:	8d 2f       	mov	r24, r29
-  be:	0e 94 72 03 	call	0x6e4	; 0x6e4 <led_ON>
+  c0:	8d 2f       	mov	r24, r29
+  c2:	0e 94 74 03 	call	0x6e8	; 0x6e8 <led_ON>
 				//_delay_ms(300);
 				if (u8_counter == ((uint8_t)4))
-  c2:	d4 30       	cpi	r29, 0x04	; 4
-  c4:	69 f3       	breq	.-38     	; 0xa0 <appStart+0xe>
+  c6:	d4 30       	cpi	r29, 0x04	; 4
+  c8:	69 f3       	breq	.-38     	; 0xa4 <appStart+0x12>
 					u8_process = LED_OFF;
 					u8_counter = ((uint8_t)1);
 				}
 				else
 				{
 					u8_counter += ((uint8_t)1);
-  c6:	df 5f       	subi	r29, 0xFF	; 255
-  c8:	f0 cf       	rjmp	.-32     	; 0xaa <appStart+0x18>
+  ca:	df 5f       	subi	r29, 0xFF	; 255
+  cc:	f0 cf       	rjmp	.-32     	; 0xae <appStart+0x1c>
 			}
 		}
 		else
 		{
 			// set leds OFF one in a press
 			u8_btn_state = getButtonState(Button_Start);
-  ca:	80 e0       	ldi	r24, 0x00	; 0
-  cc:	0e 94 52 03 	call	0x6a4	; 0x6a4 <getButtonState>
+  ce:	80 e0       	ldi	r24, 0x00	; 0
+  d0:	0e 94 54 03 	call	0x6a8	; 0x6a8 <getButtonState>
 			//PORTA = u8_btn_state;
 			if (u8_btn_state == BT_RELEASED)
-  d0:	85 30       	cpi	r24, 0x05	; 5
-  d2:	59 f7       	brne	.-42     	; 0xaa <appStart+0x18>
+  d4:	85 30       	cpi	r24, 0x05	; 5
+  d6:	59 f7       	brne	.-42     	; 0xae <appStart+0x1c>
 			{
 				led_OFF(u8_counter);
-  d4:	8d 2f       	mov	r24, r29
-  d6:	0e 94 61 03 	call	0x6c2	; 0x6c2 <led_OFF>
+  d8:	8d 2f       	mov	r24, r29
+  da:	0e 94 63 03 	call	0x6c6	; 0x6c6 <led_OFF>
 				//_delay_ms(300);
 				if (u8_counter == ((uint8_t)4))
-  da:	d4 30       	cpi	r29, 0x04	; 4
-  dc:	21 f3       	breq	.-56     	; 0xa6 <appStart+0x14>
+  de:	d4 30       	cpi	r29, 0x04	; 4
+  e0:	21 f3       	breq	.-56     	; 0xaa <appStart+0x18>
 					u8_process = LED_ON;
 					u8_counter = ((uint8_t)1);
 				}
 				else
 				{
 					u8_counter += ((uint8_t)1);
-  de:	df 5f       	subi	r29, 0xFF	; 255
-  e0:	e4 cf       	rjmp	.-56     	; 0xaa <appStart+0x18>
+  e2:	df 5f       	subi	r29, 0xFF	; 255
+  e4:	e4 cf       	rjmp	.-56     	; 0xae <appStart+0x1c>
 
-000000e2 <main>:
+000000e6 <main>:
 
 
 #include "Application/app.h"
 int main(void)
 {
 	appStart();
-  e2:	0e 94 49 00 	call	0x92	; 0x92 <appStart>
+  e6:	0e 94 49 00 	call	0x92	; 0x92 <appStart>
 }
-  e6:	80 e0       	ldi	r24, 0x00	; 0
-  e8:	90 e0       	ldi	r25, 0x00	; 0
-  ea:	08 95       	ret
+  ea:	80 e0       	ldi	r24, 0x00	; 0
+  ec:	90 e0       	ldi	r25, 0x00	; 0
+  ee:	08 95       	ret
 
-000000ec <Dio_ChannelSetDIR>:
+000000f0 <Dio_ChannelSetDIR>:
 {
 	uint8_t pinNumber ;
 	
 	
 	
 	if (ChannelId < DIO_MAX_PINS)
-  ec:	80 32       	cpi	r24, 0x20	; 32
-  ee:	a8 f5       	brcc	.+106    	; 0x15a <Dio_ChannelSetDIR+0x6e>
+  f0:	80 32       	cpi	r24, 0x20	; 32
+  f2:	a8 f5       	brcc	.+106    	; 0x15e <Dio_ChannelSetDIR+0x6e>
 	{
 		if (ChannelId < DIO_PORTB_Channel0)
-  f0:	88 30       	cpi	r24, 0x08	; 8
-  f2:	58 f4       	brcc	.+22     	; 0x10a <Dio_ChannelSetDIR+0x1e>
+  f4:	88 30       	cpi	r24, 0x08	; 8
+  f6:	58 f4       	brcc	.+22     	; 0x10e <Dio_ChannelSetDIR+0x1e>
 		{
 			pinNumber = ChannelId;
 			DATA_DIRECTION_PORTA |= dir << pinNumber;
-  f4:	9a b3       	in	r25, 0x1a	; 26
-  f6:	70 e0       	ldi	r23, 0x00	; 0
-  f8:	02 c0       	rjmp	.+4      	; 0xfe <Dio_ChannelSetDIR+0x12>
-  fa:	66 0f       	add	r22, r22
-  fc:	77 1f       	adc	r23, r23
-  fe:	8a 95       	dec	r24
- 100:	e2 f7       	brpl	.-8      	; 0xfa <Dio_ChannelSetDIR+0xe>
- 102:	69 2b       	or	r22, r25
- 104:	6a bb       	out	0x1a, r22	; 26
+  f8:	9a b3       	in	r25, 0x1a	; 26
+  fa:	70 e0       	ldi	r23, 0x00	; 0
+  fc:	02 c0       	rjmp	.+4      	; 0x102 <Dio_ChannelSetDIR+0x12>
+  fe:	66 0f       	add	r22, r22
+ 100:	77 1f       	adc	r23, r23
+ 102:	8a 95       	dec	r24
+ 104:	e2 f7       	brpl	.-8      	; 0xfe <Dio_ChannelSetDIR+0xe>
+ 106:	69 2b       	or	r22, r25
+ 108:	6a bb       	out	0x1a, r22	; 26
 		else
 		{
 			pinNumber = ChannelId-24;
 			DATA_DIRECTION_PORTD |= dir << pinNumber;
 		}
 		return DIO_E_OK;
- 106:	80 e0       	ldi	r24, 0x00	; 0
- 108:	08 95       	ret
+ 10a:	80 e0       	ldi	r24, 0x00	; 0
+ 10c:	08 95       	ret
 		if (ChannelId < DIO_PORTB_Channel0)
 		{
 			pinNumber = ChannelId;
 			DATA_DIRECTION_PORTA |= dir << pinNumber;
 		}
 		else if (ChannelId < DIO_PORTC_Channel0)
- 10a:	80 31       	cpi	r24, 0x10	; 16
- 10c:	60 f4       	brcc	.+24     	; 0x126 <Dio_ChannelSetDIR+0x3a>
+ 10e:	80 31       	cpi	r24, 0x10	; 16
+ 110:	60 f4       	brcc	.+24     	; 0x12a <Dio_ChannelSetDIR+0x3a>
 		{
 			pinNumber = ChannelId-8;
- 10e:	88 50       	subi	r24, 0x08	; 8
+ 112:	88 50       	subi	r24, 0x08	; 8
 			DATA_DIRECTION_PORTB |= dir << pinNumber;
- 110:	97 b3       	in	r25, 0x17	; 23
- 112:	70 e0       	ldi	r23, 0x00	; 0
- 114:	02 c0       	rjmp	.+4      	; 0x11a <Dio_ChannelSetDIR+0x2e>
- 116:	66 0f       	add	r22, r22
- 118:	77 1f       	adc	r23, r23
- 11a:	8a 95       	dec	r24
- 11c:	e2 f7       	brpl	.-8      	; 0x116 <Dio_ChannelSetDIR+0x2a>
- 11e:	69 2b       	or	r22, r25
- 120:	67 bb       	out	0x17, r22	; 23
+ 114:	97 b3       	in	r25, 0x17	; 23
+ 116:	70 e0       	ldi	r23, 0x00	; 0
+ 118:	02 c0       	rjmp	.+4      	; 0x11e <Dio_ChannelSetDIR+0x2e>
+ 11a:	66 0f       	add	r22, r22
+ 11c:	77 1f       	adc	r23, r23
+ 11e:	8a 95       	dec	r24
+ 120:	e2 f7       	brpl	.-8      	; 0x11a <Dio_ChannelSetDIR+0x2a>
+ 122:	69 2b       	or	r22, r25
+ 124:	67 bb       	out	0x17, r22	; 23
 		else
 		{
 			pinNumber = ChannelId-24;
 			DATA_DIRECTION_PORTD |= dir << pinNumber;
 		}
 		return DIO_E_OK;
- 122:	80 e0       	ldi	r24, 0x00	; 0
- 124:	08 95       	ret
+ 126:	80 e0       	ldi	r24, 0x00	; 0
+ 128:	08 95       	ret
 		else if (ChannelId < DIO_PORTC_Channel0)
 		{
 			pinNumber = ChannelId-8;
 			DATA_DIRECTION_PORTB |= dir << pinNumber;
 		}
 		else if (ChannelId < DIO_PORTD_Channel0)
- 126:	88 31       	cpi	r24, 0x18	; 24
- 128:	60 f4       	brcc	.+24     	; 0x142 <Dio_ChannelSetDIR+0x56>
+ 12a:	88 31       	cpi	r24, 0x18	; 24
+ 12c:	60 f4       	brcc	.+24     	; 0x146 <Dio_ChannelSetDIR+0x56>
 		{
 			pinNumber = ChannelId-16;
- 12a:	80 51       	subi	r24, 0x10	; 16
+ 12e:	80 51       	subi	r24, 0x10	; 16
 			DATA_DIRECTION_PORTC |= dir << pinNumber;
- 12c:	94 b3       	in	r25, 0x14	; 20
- 12e:	70 e0       	ldi	r23, 0x00	; 0
- 130:	02 c0       	rjmp	.+4      	; 0x136 <Dio_ChannelSetDIR+0x4a>
- 132:	66 0f       	add	r22, r22
- 134:	77 1f       	adc	r23, r23
- 136:	8a 95       	dec	r24
- 138:	e2 f7       	brpl	.-8      	; 0x132 <Dio_ChannelSetDIR+0x46>
- 13a:	69 2b       	or	r22, r25
- 13c:	64 bb       	out	0x14, r22	; 20
+ 130:	94 b3       	in	r25, 0x14	; 20
+ 132:	70 e0       	ldi	r23, 0x00	; 0
+ 134:	02 c0       	rjmp	.+4      	; 0x13a <Dio_ChannelSetDIR+0x4a>
+ 136:	66 0f       	add	r22, r22
+ 138:	77 1f       	adc	r23, r23
+ 13a:	8a 95       	dec	r24
+ 13c:	e2 f7       	brpl	.-8      	; 0x136 <Dio_ChannelSetDIR+0x46>
+ 13e:	69 2b       	or	r22, r25
+ 140:	64 bb       	out	0x14, r22	; 20
 		else
 		{
 			pinNumber = ChannelId-24;
 			DATA_DIRECTION_PORTD |= dir << pinNumber;
 		}
 		return DIO_E_OK;
- 13e:	80 e0       	ldi	r24, 0x00	; 0
- 140:	08 95       	ret
+ 142:	80 e0       	ldi	r24, 0x00	; 0
+ 144:	08 95       	ret
 			pinNumber = ChannelId-16;
 			DATA_DIRECTION_PORTC |= dir << pinNumber;
 		}
 		else
 		{
 			pinNumber = ChannelId-24;
- 142:	88 51       	subi	r24, 0x18	; 24
+ 146:	88 51       	subi	r24, 0x18	; 24
 			DATA_DIRECTION_PORTD |= dir << pinNumber;
- 144:	91 b3       	in	r25, 0x11	; 17
- 146:	70 e0       	ldi	r23, 0x00	; 0
- 148:	02 c0       	rjmp	.+4      	; 0x14e <Dio_ChannelSetDIR+0x62>
- 14a:	66 0f       	add	r22, r22
- 14c:	77 1f       	adc	r23, r23
- 14e:	8a 95       	dec	r24
- 150:	e2 f7       	brpl	.-8      	; 0x14a <Dio_ChannelSetDIR+0x5e>
- 152:	69 2b       	or	r22, r25
- 154:	61 bb       	out	0x11, r22	; 17
+ 148:	91 b3       	in	r25, 0x11	; 17
+ 14a:	70 e0       	ldi	r23, 0x00	; 0
+ 14c:	02 c0       	rjmp	.+4      	; 0x152 <Dio_ChannelSetDIR+0x62>
+ 14e:	66 0f       	add	r22, r22
+ 150:	77 1f       	adc	r23, r23
+ 152:	8a 95       	dec	r24
+ 154:	e2 f7       	brpl	.-8      	; 0x14e <Dio_ChannelSetDIR+0x5e>
+ 156:	69 2b       	or	r22, r25
+ 158:	61 bb       	out	0x11, r22	; 17
 		}
 		return DIO_E_OK;
- 156:	80 e0       	ldi	r24, 0x00	; 0
- 158:	08 95       	ret
+ 15a:	80 e0       	ldi	r24, 0x00	; 0
+ 15c:	08 95       	ret
 	}
 	else{
 		return DIO_InvalidPin;
- 15a:	81 e0       	ldi	r24, 0x01	; 1
+ 15e:	81 e0       	ldi	r24, 0x01	; 1
 	}
 }
- 15c:	08 95       	ret
+ 160:	08 95       	ret
 
-0000015e <Dio_ReadChannel>:
+00000162 <Dio_ReadChannel>:
 DIO_Errors Dio_ReadChannel(Dio_ChannelType ChannelId ,Dio_LevelType* level)
 {
 	uint8_t pinNumber ;
 	
 	
 	if (ChannelId < DIO_MAX_PINS )
- 15e:	80 32       	cpi	r24, 0x20	; 32
- 160:	08 f0       	brcs	.+2      	; 0x164 <Dio_ReadChannel+0x6>
- 162:	6a c0       	rjmp	.+212    	; 0x238 <Dio_ReadChannel+0xda>
+ 162:	80 32       	cpi	r24, 0x20	; 32
+ 164:	08 f0       	brcs	.+2      	; 0x168 <Dio_ReadChannel+0x6>
+ 166:	6a c0       	rjmp	.+212    	; 0x23c <Dio_ReadChannel+0xda>
 	{
 		if (ChannelId < DIO_PORTB_Channel0)
- 164:	88 30       	cpi	r24, 0x08	; 8
- 166:	b8 f4       	brcc	.+46     	; 0x196 <Dio_ReadChannel+0x38>
+ 168:	88 30       	cpi	r24, 0x08	; 8
+ 16a:	b8 f4       	brcc	.+46     	; 0x19a <Dio_ReadChannel+0x38>
 		{
 			pinNumber = ChannelId;
 			*level = ((RE_PORT_A & (1U<<pinNumber))>>pinNumber); 
- 168:	99 b3       	in	r25, 0x19	; 25
- 16a:	21 e0       	ldi	r18, 0x01	; 1
- 16c:	30 e0       	ldi	r19, 0x00	; 0
- 16e:	a9 01       	movw	r20, r18
- 170:	08 2e       	mov	r0, r24
- 172:	02 c0       	rjmp	.+4      	; 0x178 <Dio_ReadChannel+0x1a>
- 174:	44 0f       	add	r20, r20
- 176:	55 1f       	adc	r21, r21
- 178:	0a 94       	dec	r0
- 17a:	e2 f7       	brpl	.-8      	; 0x174 <Dio_ReadChannel+0x16>
- 17c:	29 2f       	mov	r18, r25
- 17e:	30 e0       	ldi	r19, 0x00	; 0
- 180:	24 23       	and	r18, r20
- 182:	35 23       	and	r19, r21
- 184:	a9 01       	movw	r20, r18
- 186:	02 c0       	rjmp	.+4      	; 0x18c <Dio_ReadChannel+0x2e>
- 188:	56 95       	lsr	r21
- 18a:	47 95       	ror	r20
- 18c:	8a 95       	dec	r24
- 18e:	e2 f7       	brpl	.-8      	; 0x188 <Dio_ReadChannel+0x2a>
- 190:	fb 01       	movw	r30, r22
- 192:	40 83       	st	Z, r20
- 194:	4b c0       	rjmp	.+150    	; 0x22c <Dio_ReadChannel+0xce>
+ 16c:	99 b3       	in	r25, 0x19	; 25
+ 16e:	21 e0       	ldi	r18, 0x01	; 1
+ 170:	30 e0       	ldi	r19, 0x00	; 0
+ 172:	a9 01       	movw	r20, r18
+ 174:	08 2e       	mov	r0, r24
+ 176:	02 c0       	rjmp	.+4      	; 0x17c <Dio_ReadChannel+0x1a>
+ 178:	44 0f       	add	r20, r20
+ 17a:	55 1f       	adc	r21, r21
+ 17c:	0a 94       	dec	r0
+ 17e:	e2 f7       	brpl	.-8      	; 0x178 <Dio_ReadChannel+0x16>
+ 180:	29 2f       	mov	r18, r25
+ 182:	30 e0       	ldi	r19, 0x00	; 0
+ 184:	24 23       	and	r18, r20
+ 186:	35 23       	and	r19, r21
+ 188:	a9 01       	movw	r20, r18
+ 18a:	02 c0       	rjmp	.+4      	; 0x190 <Dio_ReadChannel+0x2e>
+ 18c:	56 95       	lsr	r21
+ 18e:	47 95       	ror	r20
+ 190:	8a 95       	dec	r24
+ 192:	e2 f7       	brpl	.-8      	; 0x18c <Dio_ReadChannel+0x2a>
+ 194:	fb 01       	movw	r30, r22
+ 196:	40 83       	st	Z, r20
+ 198:	4b c0       	rjmp	.+150    	; 0x230 <Dio_ReadChannel+0xce>
 		}
 		else if (ChannelId < DIO_PORTC_Channel0)
- 196:	80 31       	cpi	r24, 0x10	; 16
- 198:	c0 f4       	brcc	.+48     	; 0x1ca <Dio_ReadChannel+0x6c>
+ 19a:	80 31       	cpi	r24, 0x10	; 16
+ 19c:	c0 f4       	brcc	.+48     	; 0x1ce <Dio_ReadChannel+0x6c>
 		{
 			pinNumber = ChannelId-8;
- 19a:	88 50       	subi	r24, 0x08	; 8
+ 19e:	88 50       	subi	r24, 0x08	; 8
 			*level = ((RE_PORT_B & (1U<<pinNumber))>>pinNumber);
- 19c:	96 b3       	in	r25, 0x16	; 22
- 19e:	21 e0       	ldi	r18, 0x01	; 1
- 1a0:	30 e0       	ldi	r19, 0x00	; 0
- 1a2:	a9 01       	movw	r20, r18
- 1a4:	08 2e       	mov	r0, r24
- 1a6:	02 c0       	rjmp	.+4      	; 0x1ac <Dio_ReadChannel+0x4e>
- 1a8:	44 0f       	add	r20, r20
- 1aa:	55 1f       	adc	r21, r21
- 1ac:	0a 94       	dec	r0
- 1ae:	e2 f7       	brpl	.-8      	; 0x1a8 <Dio_ReadChannel+0x4a>
- 1b0:	29 2f       	mov	r18, r25
- 1b2:	30 e0       	ldi	r19, 0x00	; 0
- 1b4:	24 23       	and	r18, r20
- 1b6:	35 23       	and	r19, r21
- 1b8:	a9 01       	movw	r20, r18
- 1ba:	02 c0       	rjmp	.+4      	; 0x1c0 <Dio_ReadChannel+0x62>
- 1bc:	56 95       	lsr	r21
- 1be:	47 95       	ror	r20
- 1c0:	8a 95       	dec	r24
- 1c2:	e2 f7       	brpl	.-8      	; 0x1bc <Dio_ReadChannel+0x5e>
- 1c4:	fb 01       	movw	r30, r22
- 1c6:	40 83       	st	Z, r20
- 1c8:	31 c0       	rjmp	.+98     	; 0x22c <Dio_ReadChannel+0xce>
+ 1a0:	96 b3       	in	r25, 0x16	; 22
+ 1a2:	21 e0       	ldi	r18, 0x01	; 1
+ 1a4:	30 e0       	ldi	r19, 0x00	; 0
+ 1a6:	a9 01       	movw	r20, r18
+ 1a8:	08 2e       	mov	r0, r24
+ 1aa:	02 c0       	rjmp	.+4      	; 0x1b0 <Dio_ReadChannel+0x4e>
+ 1ac:	44 0f       	add	r20, r20
+ 1ae:	55 1f       	adc	r21, r21
+ 1b0:	0a 94       	dec	r0
+ 1b2:	e2 f7       	brpl	.-8      	; 0x1ac <Dio_ReadChannel+0x4a>
+ 1b4:	29 2f       	mov	r18, r25
+ 1b6:	30 e0       	ldi	r19, 0x00	; 0
+ 1b8:	24 23       	and	r18, r20
+ 1ba:	35 23       	and	r19, r21
+ 1bc:	a9 01       	movw	r20, r18
+ 1be:	02 c0       	rjmp	.+4      	; 0x1c4 <Dio_ReadChannel+0x62>
+ 1c0:	56 95       	lsr	r21
+ 1c2:	47 95       	ror	r20
+ 1c4:	8a 95       	dec	r24
+ 1c6:	e2 f7       	brpl	.-8      	; 0x1c0 <Dio_ReadChannel+0x5e>
+ 1c8:	fb 01       	movw	r30, r22
+ 1ca:	40 83       	st	Z, r20
+ 1cc:	31 c0       	rjmp	.+98     	; 0x230 <Dio_ReadChannel+0xce>
 		}
 		else if (ChannelId < DIO_PORTD_Channel0)
- 1ca:	88 31       	cpi	r24, 0x18	; 24
- 1cc:	c0 f4       	brcc	.+48     	; 0x1fe <Dio_ReadChannel+0xa0>
+ 1ce:	88 31       	cpi	r24, 0x18	; 24
+ 1d0:	c0 f4       	brcc	.+48     	; 0x202 <Dio_ReadChannel+0xa0>
 		{
 			pinNumber = ChannelId-16;
- 1ce:	80 51       	subi	r24, 0x10	; 16
+ 1d2:	80 51       	subi	r24, 0x10	; 16
 			*level = ((RE_PORT_C & (1U<<pinNumber))>>pinNumber);
- 1d0:	93 b3       	in	r25, 0x13	; 19
- 1d2:	21 e0       	ldi	r18, 0x01	; 1
- 1d4:	30 e0       	ldi	r19, 0x00	; 0
- 1d6:	a9 01       	movw	r20, r18
- 1d8:	08 2e       	mov	r0, r24
- 1da:	02 c0       	rjmp	.+4      	; 0x1e0 <Dio_ReadChannel+0x82>
- 1dc:	44 0f       	add	r20, r20
- 1de:	55 1f       	adc	r21, r21
- 1e0:	0a 94       	dec	r0
- 1e2:	e2 f7       	brpl	.-8      	; 0x1dc <Dio_ReadChannel+0x7e>
- 1e4:	29 2f       	mov	r18, r25
- 1e6:	30 e0       	ldi	r19, 0x00	; 0
- 1e8:	24 23       	and	r18, r20
- 1ea:	35 23       	and	r19, r21
- 1ec:	a9 01       	movw	r20, r18
- 1ee:	02 c0       	rjmp	.+4      	; 0x1f4 <Dio_ReadChannel+0x96>
- 1f0:	56 95       	lsr	r21
- 1f2:	47 95       	ror	r20
- 1f4:	8a 95       	dec	r24
- 1f6:	e2 f7       	brpl	.-8      	; 0x1f0 <Dio_ReadChannel+0x92>
- 1f8:	fb 01       	movw	r30, r22
- 1fa:	40 83       	st	Z, r20
- 1fc:	17 c0       	rjmp	.+46     	; 0x22c <Dio_ReadChannel+0xce>
+ 1d4:	93 b3       	in	r25, 0x13	; 19
+ 1d6:	21 e0       	ldi	r18, 0x01	; 1
+ 1d8:	30 e0       	ldi	r19, 0x00	; 0
+ 1da:	a9 01       	movw	r20, r18
+ 1dc:	08 2e       	mov	r0, r24
+ 1de:	02 c0       	rjmp	.+4      	; 0x1e4 <Dio_ReadChannel+0x82>
+ 1e0:	44 0f       	add	r20, r20
+ 1e2:	55 1f       	adc	r21, r21
+ 1e4:	0a 94       	dec	r0
+ 1e6:	e2 f7       	brpl	.-8      	; 0x1e0 <Dio_ReadChannel+0x7e>
+ 1e8:	29 2f       	mov	r18, r25
+ 1ea:	30 e0       	ldi	r19, 0x00	; 0
+ 1ec:	24 23       	and	r18, r20
+ 1ee:	35 23       	and	r19, r21
+ 1f0:	a9 01       	movw	r20, r18
+ 1f2:	02 c0       	rjmp	.+4      	; 0x1f8 <Dio_ReadChannel+0x96>
+ 1f4:	56 95       	lsr	r21
+ 1f6:	47 95       	ror	r20
+ 1f8:	8a 95       	dec	r24
+ 1fa:	e2 f7       	brpl	.-8      	; 0x1f4 <Dio_ReadChannel+0x92>
+ 1fc:	fb 01       	movw	r30, r22
+ 1fe:	40 83       	st	Z, r20
+ 200:	17 c0       	rjmp	.+46     	; 0x230 <Dio_ReadChannel+0xce>
 		}
 		else
 		{
 			pinNumber = ChannelId-24;
- 1fe:	88 51       	subi	r24, 0x18	; 24
+ 202:	88 51       	subi	r24, 0x18	; 24
 			*level = ((RE_PORT_D & (1U<<pinNumber))>>pinNumber);
- 200:	90 b3       	in	r25, 0x10	; 16
- 202:	21 e0       	ldi	r18, 0x01	; 1
- 204:	30 e0       	ldi	r19, 0x00	; 0
- 206:	a9 01       	movw	r20, r18
- 208:	08 2e       	mov	r0, r24
- 20a:	02 c0       	rjmp	.+4      	; 0x210 <Dio_ReadChannel+0xb2>
- 20c:	44 0f       	add	r20, r20
- 20e:	55 1f       	adc	r21, r21
- 210:	0a 94       	dec	r0
- 212:	e2 f7       	brpl	.-8      	; 0x20c <Dio_ReadChannel+0xae>
- 214:	29 2f       	mov	r18, r25
- 216:	30 e0       	ldi	r19, 0x00	; 0
- 218:	24 23       	and	r18, r20
- 21a:	35 23       	and	r19, r21
- 21c:	a9 01       	movw	r20, r18
- 21e:	02 c0       	rjmp	.+4      	; 0x224 <Dio_ReadChannel+0xc6>
- 220:	56 95       	lsr	r21
- 222:	47 95       	ror	r20
- 224:	8a 95       	dec	r24
- 226:	e2 f7       	brpl	.-8      	; 0x220 <Dio_ReadChannel+0xc2>
- 228:	fb 01       	movw	r30, r22
- 22a:	40 83       	st	Z, r20
+ 204:	90 b3       	in	r25, 0x10	; 16
+ 206:	21 e0       	ldi	r18, 0x01	; 1
+ 208:	30 e0       	ldi	r19, 0x00	; 0
+ 20a:	a9 01       	movw	r20, r18
+ 20c:	08 2e       	mov	r0, r24
+ 20e:	02 c0       	rjmp	.+4      	; 0x214 <Dio_ReadChannel+0xb2>
+ 210:	44 0f       	add	r20, r20
+ 212:	55 1f       	adc	r21, r21
+ 214:	0a 94       	dec	r0
+ 216:	e2 f7       	brpl	.-8      	; 0x210 <Dio_ReadChannel+0xae>
+ 218:	29 2f       	mov	r18, r25
+ 21a:	30 e0       	ldi	r19, 0x00	; 0
+ 21c:	24 23       	and	r18, r20
+ 21e:	35 23       	and	r19, r21
+ 220:	a9 01       	movw	r20, r18
+ 222:	02 c0       	rjmp	.+4      	; 0x228 <Dio_ReadChannel+0xc6>
+ 224:	56 95       	lsr	r21
+ 226:	47 95       	ror	r20
+ 228:	8a 95       	dec	r24
+ 22a:	e2 f7       	brpl	.-8      	; 0x224 <Dio_ReadChannel+0xc2>
+ 22c:	fb 01       	movw	r30, r22
+ 22e:	40 83       	st	Z, r20
 		}
 		*level &= 0x01; 
- 22c:	fb 01       	movw	r30, r22
- 22e:	80 81       	ld	r24, Z
- 230:	81 70       	andi	r24, 0x01	; 1
- 232:	80 83       	st	Z, r24
+ 230:	fb 01       	movw	r30, r22
+ 232:	80 81       	ld	r24, Z
+ 234:	81 70       	andi	r24, 0x01	; 1
+ 236:	80 83       	st	Z, r24
 		return DIO_E_OK;
- 234:	80 e0       	ldi	r24, 0x00	; 0
- 236:	08 95       	ret
+ 238:	80 e0       	ldi	r24, 0x00	; 0
+ 23a:	08 95       	ret
 	}
 	else{
 		return DIO_InvalidPin;
- 238:	81 e0       	ldi	r24, 0x01	; 1
+ 23c:	81 e0       	ldi	r24, 0x01	; 1
 	}
 		
 }
- 23a:	08 95       	ret
+ 23e:	08 95       	ret
 
-0000023c <Dio_WriteChannel>:
+00000240 <Dio_WriteChannel>:
 DIO_Errors Dio_WriteChannel(Dio_ChannelType ChannelId, Dio_LevelType level)
 {
 	uint8_t pinNumber ;
 	
 	
 	if (ChannelId < DIO_MAX_PINS )
- 23c:	80 32       	cpi	r24, 0x20	; 32
- 23e:	08 f0       	brcs	.+2      	; 0x242 <Dio_WriteChannel+0x6>
- 240:	85 c0       	rjmp	.+266    	; 0x34c <Dio_WriteChannel+0x110>
+ 240:	80 32       	cpi	r24, 0x20	; 32
+ 242:	08 f0       	brcs	.+2      	; 0x246 <Dio_WriteChannel+0x6>
+ 244:	85 c0       	rjmp	.+266    	; 0x350 <Dio_WriteChannel+0x110>
 	{
 		if (ChannelId < DIO_PORTB_Channel0)
- 242:	88 30       	cpi	r24, 0x08	; 8
- 244:	f8 f4       	brcc	.+62     	; 0x284 <Dio_WriteChannel+0x48>
+ 246:	88 30       	cpi	r24, 0x08	; 8
+ 248:	f8 f4       	brcc	.+62     	; 0x288 <Dio_WriteChannel+0x48>
 		{
 			pinNumber = ChannelId;
 			if (level == STD_HIGH)
- 246:	61 30       	cpi	r22, 0x01	; 1
- 248:	71 f4       	brne	.+28     	; 0x266 <Dio_WriteChannel+0x2a>
+ 24a:	61 30       	cpi	r22, 0x01	; 1
+ 24c:	71 f4       	brne	.+28     	; 0x26a <Dio_WriteChannel+0x2a>
 			{
 				WR_PORT_A |= (1U << pinNumber);
- 24a:	4b b3       	in	r20, 0x1b	; 27
- 24c:	21 e0       	ldi	r18, 0x01	; 1
- 24e:	30 e0       	ldi	r19, 0x00	; 0
- 250:	b9 01       	movw	r22, r18
- 252:	02 c0       	rjmp	.+4      	; 0x258 <Dio_WriteChannel+0x1c>
- 254:	66 0f       	add	r22, r22
- 256:	77 1f       	adc	r23, r23
- 258:	8a 95       	dec	r24
- 25a:	e2 f7       	brpl	.-8      	; 0x254 <Dio_WriteChannel+0x18>
- 25c:	cb 01       	movw	r24, r22
- 25e:	84 2b       	or	r24, r20
- 260:	8b bb       	out	0x1b, r24	; 27
+ 24e:	4b b3       	in	r20, 0x1b	; 27
+ 250:	21 e0       	ldi	r18, 0x01	; 1
+ 252:	30 e0       	ldi	r19, 0x00	; 0
+ 254:	b9 01       	movw	r22, r18
+ 256:	02 c0       	rjmp	.+4      	; 0x25c <Dio_WriteChannel+0x1c>
+ 258:	66 0f       	add	r22, r22
+ 25a:	77 1f       	adc	r23, r23
+ 25c:	8a 95       	dec	r24
+ 25e:	e2 f7       	brpl	.-8      	; 0x258 <Dio_WriteChannel+0x18>
+ 260:	cb 01       	movw	r24, r22
+ 262:	84 2b       	or	r24, r20
+ 264:	8b bb       	out	0x1b, r24	; 27
 			}
 			else{
 				WR_PORT_D &= ~(1U << pinNumber);
 			}
 		}
 		return DIO_E_OK;
- 262:	80 e0       	ldi	r24, 0x00	; 0
- 264:	08 95       	ret
+ 266:	80 e0       	ldi	r24, 0x00	; 0
+ 268:	08 95       	ret
 			if (level == STD_HIGH)
 			{
 				WR_PORT_A |= (1U << pinNumber);
 			}
 			else{
 				WR_PORT_A &= ~(1U << pinNumber);
- 266:	4b b3       	in	r20, 0x1b	; 27
- 268:	21 e0       	ldi	r18, 0x01	; 1
- 26a:	30 e0       	ldi	r19, 0x00	; 0
- 26c:	b9 01       	movw	r22, r18
- 26e:	02 c0       	rjmp	.+4      	; 0x274 <Dio_WriteChannel+0x38>
- 270:	66 0f       	add	r22, r22
- 272:	77 1f       	adc	r23, r23
- 274:	8a 95       	dec	r24
- 276:	e2 f7       	brpl	.-8      	; 0x270 <Dio_WriteChannel+0x34>
- 278:	cb 01       	movw	r24, r22
- 27a:	80 95       	com	r24
- 27c:	84 23       	and	r24, r20
- 27e:	8b bb       	out	0x1b, r24	; 27
+ 26a:	4b b3       	in	r20, 0x1b	; 27
+ 26c:	21 e0       	ldi	r18, 0x01	; 1
+ 26e:	30 e0       	ldi	r19, 0x00	; 0
+ 270:	b9 01       	movw	r22, r18
+ 272:	02 c0       	rjmp	.+4      	; 0x278 <Dio_WriteChannel+0x38>
+ 274:	66 0f       	add	r22, r22
+ 276:	77 1f       	adc	r23, r23
+ 278:	8a 95       	dec	r24
+ 27a:	e2 f7       	brpl	.-8      	; 0x274 <Dio_WriteChannel+0x34>
+ 27c:	cb 01       	movw	r24, r22
+ 27e:	80 95       	com	r24
+ 280:	84 23       	and	r24, r20
+ 282:	8b bb       	out	0x1b, r24	; 27
 			}
 			else{
 				WR_PORT_D &= ~(1U << pinNumber);
 			}
 		}
 		return DIO_E_OK;
- 280:	80 e0       	ldi	r24, 0x00	; 0
- 282:	08 95       	ret
+ 284:	80 e0       	ldi	r24, 0x00	; 0
+ 286:	08 95       	ret
 			}
 			else{
 				WR_PORT_A &= ~(1U << pinNumber);
 			}
 		}
 		else if (ChannelId < DIO_PORTC_Channel0)
- 284:	80 31       	cpi	r24, 0x10	; 16
- 286:	00 f5       	brcc	.+64     	; 0x2c8 <Dio_WriteChannel+0x8c>
+ 288:	80 31       	cpi	r24, 0x10	; 16
+ 28a:	00 f5       	brcc	.+64     	; 0x2cc <Dio_WriteChannel+0x8c>
 		{
 			pinNumber = ChannelId-8;
- 288:	88 50       	subi	r24, 0x08	; 8
+ 28c:	88 50       	subi	r24, 0x08	; 8
 			if (level == STD_HIGH)
- 28a:	61 30       	cpi	r22, 0x01	; 1
- 28c:	71 f4       	brne	.+28     	; 0x2aa <Dio_WriteChannel+0x6e>
+ 28e:	61 30       	cpi	r22, 0x01	; 1
+ 290:	71 f4       	brne	.+28     	; 0x2ae <Dio_WriteChannel+0x6e>
 			{
 				WR_PORT_B |= (1U << pinNumber);
- 28e:	48 b3       	in	r20, 0x18	; 24
- 290:	21 e0       	ldi	r18, 0x01	; 1
- 292:	30 e0       	ldi	r19, 0x00	; 0
- 294:	b9 01       	movw	r22, r18
- 296:	02 c0       	rjmp	.+4      	; 0x29c <Dio_WriteChannel+0x60>
- 298:	66 0f       	add	r22, r22
- 29a:	77 1f       	adc	r23, r23
- 29c:	8a 95       	dec	r24
- 29e:	e2 f7       	brpl	.-8      	; 0x298 <Dio_WriteChannel+0x5c>
- 2a0:	cb 01       	movw	r24, r22
- 2a2:	84 2b       	or	r24, r20
- 2a4:	88 bb       	out	0x18, r24	; 24
+ 292:	48 b3       	in	r20, 0x18	; 24
+ 294:	21 e0       	ldi	r18, 0x01	; 1
+ 296:	30 e0       	ldi	r19, 0x00	; 0
+ 298:	b9 01       	movw	r22, r18
+ 29a:	02 c0       	rjmp	.+4      	; 0x2a0 <Dio_WriteChannel+0x60>
+ 29c:	66 0f       	add	r22, r22
+ 29e:	77 1f       	adc	r23, r23
+ 2a0:	8a 95       	dec	r24
+ 2a2:	e2 f7       	brpl	.-8      	; 0x29c <Dio_WriteChannel+0x5c>
+ 2a4:	cb 01       	movw	r24, r22
+ 2a6:	84 2b       	or	r24, r20
+ 2a8:	88 bb       	out	0x18, r24	; 24
 			}
 			else{
 				WR_PORT_D &= ~(1U << pinNumber);
 			}
 		}
 		return DIO_E_OK;
- 2a6:	80 e0       	ldi	r24, 0x00	; 0
- 2a8:	08 95       	ret
+ 2aa:	80 e0       	ldi	r24, 0x00	; 0
+ 2ac:	08 95       	ret
 			if (level == STD_HIGH)
 			{
 				WR_PORT_B |= (1U << pinNumber);
 			}
 			else{
 				WR_PORT_B &= ~(1U << pinNumber);
- 2aa:	48 b3       	in	r20, 0x18	; 24
- 2ac:	21 e0       	ldi	r18, 0x01	; 1
- 2ae:	30 e0       	ldi	r19, 0x00	; 0
- 2b0:	b9 01       	movw	r22, r18
- 2b2:	02 c0       	rjmp	.+4      	; 0x2b8 <Dio_WriteChannel+0x7c>
- 2b4:	66 0f       	add	r22, r22
- 2b6:	77 1f       	adc	r23, r23
- 2b8:	8a 95       	dec	r24
- 2ba:	e2 f7       	brpl	.-8      	; 0x2b4 <Dio_WriteChannel+0x78>
- 2bc:	cb 01       	movw	r24, r22
- 2be:	80 95       	com	r24
- 2c0:	84 23       	and	r24, r20
- 2c2:	88 bb       	out	0x18, r24	; 24
+ 2ae:	48 b3       	in	r20, 0x18	; 24
+ 2b0:	21 e0       	ldi	r18, 0x01	; 1
+ 2b2:	30 e0       	ldi	r19, 0x00	; 0
+ 2b4:	b9 01       	movw	r22, r18
+ 2b6:	02 c0       	rjmp	.+4      	; 0x2bc <Dio_WriteChannel+0x7c>
+ 2b8:	66 0f       	add	r22, r22
+ 2ba:	77 1f       	adc	r23, r23
+ 2bc:	8a 95       	dec	r24
+ 2be:	e2 f7       	brpl	.-8      	; 0x2b8 <Dio_WriteChannel+0x78>
+ 2c0:	cb 01       	movw	r24, r22
+ 2c2:	80 95       	com	r24
+ 2c4:	84 23       	and	r24, r20
+ 2c6:	88 bb       	out	0x18, r24	; 24
 			}
 			else{
 				WR_PORT_D &= ~(1U << pinNumber);
 			}
 		}
 		return DIO_E_OK;
- 2c4:	80 e0       	ldi	r24, 0x00	; 0
- 2c6:	08 95       	ret
+ 2c8:	80 e0       	ldi	r24, 0x00	; 0
+ 2ca:	08 95       	ret
 			}
 			else{
 				WR_PORT_B &= ~(1U << pinNumber);
 			}
 		}
 		else if (ChannelId < DIO_PORTD_Channel0)
- 2c8:	88 31       	cpi	r24, 0x18	; 24
- 2ca:	00 f5       	brcc	.+64     	; 0x30c <Dio_WriteChannel+0xd0>
+ 2cc:	88 31       	cpi	r24, 0x18	; 24
+ 2ce:	00 f5       	brcc	.+64     	; 0x310 <Dio_WriteChannel+0xd0>
 		{
 			pinNumber = ChannelId-16;
- 2cc:	80 51       	subi	r24, 0x10	; 16
+ 2d0:	80 51       	subi	r24, 0x10	; 16
 			if (level == STD_HIGH)
- 2ce:	61 30       	cpi	r22, 0x01	; 1
- 2d0:	71 f4       	brne	.+28     	; 0x2ee <Dio_WriteChannel+0xb2>
+ 2d2:	61 30       	cpi	r22, 0x01	; 1
+ 2d4:	71 f4       	brne	.+28     	; 0x2f2 <Dio_WriteChannel+0xb2>
 			{
 				WR_PORT_C |= (1U << pinNumber);
- 2d2:	45 b3       	in	r20, 0x15	; 21
- 2d4:	21 e0       	ldi	r18, 0x01	; 1
- 2d6:	30 e0       	ldi	r19, 0x00	; 0
- 2d8:	b9 01       	movw	r22, r18
- 2da:	02 c0       	rjmp	.+4      	; 0x2e0 <Dio_WriteChannel+0xa4>
- 2dc:	66 0f       	add	r22, r22
- 2de:	77 1f       	adc	r23, r23
- 2e0:	8a 95       	dec	r24
- 2e2:	e2 f7       	brpl	.-8      	; 0x2dc <Dio_WriteChannel+0xa0>
- 2e4:	cb 01       	movw	r24, r22
- 2e6:	84 2b       	or	r24, r20
- 2e8:	85 bb       	out	0x15, r24	; 21
+ 2d6:	45 b3       	in	r20, 0x15	; 21
+ 2d8:	21 e0       	ldi	r18, 0x01	; 1
+ 2da:	30 e0       	ldi	r19, 0x00	; 0
+ 2dc:	b9 01       	movw	r22, r18
+ 2de:	02 c0       	rjmp	.+4      	; 0x2e4 <Dio_WriteChannel+0xa4>
+ 2e0:	66 0f       	add	r22, r22
+ 2e2:	77 1f       	adc	r23, r23
+ 2e4:	8a 95       	dec	r24
+ 2e6:	e2 f7       	brpl	.-8      	; 0x2e0 <Dio_WriteChannel+0xa0>
+ 2e8:	cb 01       	movw	r24, r22
+ 2ea:	84 2b       	or	r24, r20
+ 2ec:	85 bb       	out	0x15, r24	; 21
 			}
 			else{
 				WR_PORT_D &= ~(1U << pinNumber);
 			}
 		}
 		return DIO_E_OK;
- 2ea:	80 e0       	ldi	r24, 0x00	; 0
- 2ec:	08 95       	ret
+ 2ee:	80 e0       	ldi	r24, 0x00	; 0
+ 2f0:	08 95       	ret
 			if (level == STD_HIGH)
 			{
 				WR_PORT_C |= (1U << pinNumber);
 			}
 			else{
 				WR_PORT_C &= ~(1U << pinNumber);
- 2ee:	45 b3       	in	r20, 0x15	; 21
- 2f0:	21 e0       	ldi	r18, 0x01	; 1
- 2f2:	30 e0       	ldi	r19, 0x00	; 0
- 2f4:	b9 01       	movw	r22, r18
- 2f6:	02 c0       	rjmp	.+4      	; 0x2fc <Dio_WriteChannel+0xc0>
- 2f8:	66 0f       	add	r22, r22
- 2fa:	77 1f       	adc	r23, r23
- 2fc:	8a 95       	dec	r24
- 2fe:	e2 f7       	brpl	.-8      	; 0x2f8 <Dio_WriteChannel+0xbc>
- 300:	cb 01       	movw	r24, r22
- 302:	80 95       	com	r24
- 304:	84 23       	and	r24, r20
- 306:	85 bb       	out	0x15, r24	; 21
+ 2f2:	45 b3       	in	r20, 0x15	; 21
+ 2f4:	21 e0       	ldi	r18, 0x01	; 1
+ 2f6:	30 e0       	ldi	r19, 0x00	; 0
+ 2f8:	b9 01       	movw	r22, r18
+ 2fa:	02 c0       	rjmp	.+4      	; 0x300 <Dio_WriteChannel+0xc0>
+ 2fc:	66 0f       	add	r22, r22
+ 2fe:	77 1f       	adc	r23, r23
+ 300:	8a 95       	dec	r24
+ 302:	e2 f7       	brpl	.-8      	; 0x2fc <Dio_WriteChannel+0xbc>
+ 304:	cb 01       	movw	r24, r22
+ 306:	80 95       	com	r24
+ 308:	84 23       	and	r24, r20
+ 30a:	85 bb       	out	0x15, r24	; 21
 			}
 			else{
 				WR_PORT_D &= ~(1U << pinNumber);
 			}
 		}
 		return DIO_E_OK;
- 308:	80 e0       	ldi	r24, 0x00	; 0
- 30a:	08 95       	ret
+ 30c:	80 e0       	ldi	r24, 0x00	; 0
+ 30e:	08 95       	ret
 				WR_PORT_C &= ~(1U << pinNumber);
 			}
 		}
 		else
 		{
 			pinNumber = ChannelId-24;
- 30c:	88 51       	subi	r24, 0x18	; 24
+ 310:	88 51       	subi	r24, 0x18	; 24
 			if (level == STD_HIGH)
- 30e:	61 30       	cpi	r22, 0x01	; 1
- 310:	71 f4       	brne	.+28     	; 0x32e <Dio_WriteChannel+0xf2>
+ 312:	61 30       	cpi	r22, 0x01	; 1
+ 314:	71 f4       	brne	.+28     	; 0x332 <Dio_WriteChannel+0xf2>
 			{
 				WR_PORT_D |= (1U << pinNumber);
- 312:	42 b3       	in	r20, 0x12	; 18
- 314:	21 e0       	ldi	r18, 0x01	; 1
- 316:	30 e0       	ldi	r19, 0x00	; 0
- 318:	b9 01       	movw	r22, r18
- 31a:	02 c0       	rjmp	.+4      	; 0x320 <Dio_WriteChannel+0xe4>
- 31c:	66 0f       	add	r22, r22
- 31e:	77 1f       	adc	r23, r23
- 320:	8a 95       	dec	r24
- 322:	e2 f7       	brpl	.-8      	; 0x31c <Dio_WriteChannel+0xe0>
- 324:	cb 01       	movw	r24, r22
- 326:	84 2b       	or	r24, r20
- 328:	82 bb       	out	0x12, r24	; 18
+ 316:	42 b3       	in	r20, 0x12	; 18
+ 318:	21 e0       	ldi	r18, 0x01	; 1
+ 31a:	30 e0       	ldi	r19, 0x00	; 0
+ 31c:	b9 01       	movw	r22, r18
+ 31e:	02 c0       	rjmp	.+4      	; 0x324 <Dio_WriteChannel+0xe4>
+ 320:	66 0f       	add	r22, r22
+ 322:	77 1f       	adc	r23, r23
+ 324:	8a 95       	dec	r24
+ 326:	e2 f7       	brpl	.-8      	; 0x320 <Dio_WriteChannel+0xe0>
+ 328:	cb 01       	movw	r24, r22
+ 32a:	84 2b       	or	r24, r20
+ 32c:	82 bb       	out	0x12, r24	; 18
 			}
 			else{
 				WR_PORT_D &= ~(1U << pinNumber);
 			}
 		}
 		return DIO_E_OK;
- 32a:	80 e0       	ldi	r24, 0x00	; 0
- 32c:	08 95       	ret
+ 32e:	80 e0       	ldi	r24, 0x00	; 0
+ 330:	08 95       	ret
 			if (level == STD_HIGH)
 			{
 				WR_PORT_D |= (1U << pinNumber);
 			}
 			else{
 				WR_PORT_D &= ~(1U << pinNumber);
- 32e:	42 b3       	in	r20, 0x12	; 18
- 330:	21 e0       	ldi	r18, 0x01	; 1
- 332:	30 e0       	ldi	r19, 0x00	; 0
- 334:	b9 01       	movw	r22, r18
- 336:	02 c0       	rjmp	.+4      	; 0x33c <Dio_WriteChannel+0x100>
- 338:	66 0f       	add	r22, r22
- 33a:	77 1f       	adc	r23, r23
- 33c:	8a 95       	dec	r24
- 33e:	e2 f7       	brpl	.-8      	; 0x338 <Dio_WriteChannel+0xfc>
- 340:	cb 01       	movw	r24, r22
- 342:	80 95       	com	r24
- 344:	84 23       	and	r24, r20
- 346:	82 bb       	out	0x12, r24	; 18
+ 332:	42 b3       	in	r20, 0x12	; 18
+ 334:	21 e0       	ldi	r18, 0x01	; 1
+ 336:	30 e0       	ldi	r19, 0x00	; 0
+ 338:	b9 01       	movw	r22, r18
+ 33a:	02 c0       	rjmp	.+4      	; 0x340 <Dio_WriteChannel+0x100>
+ 33c:	66 0f       	add	r22, r22
+ 33e:	77 1f       	adc	r23, r23
+ 340:	8a 95       	dec	r24
+ 342:	e2 f7       	brpl	.-8      	; 0x33c <Dio_WriteChannel+0xfc>
+ 344:	cb 01       	movw	r24, r22
+ 346:	80 95       	com	r24
+ 348:	84 23       	and	r24, r20
+ 34a:	82 bb       	out	0x12, r24	; 18
 			}
 		}
 		return DIO_E_OK;
- 348:	80 e0       	ldi	r24, 0x00	; 0
- 34a:	08 95       	ret
+ 34c:	80 e0       	ldi	r24, 0x00	; 0
+ 34e:	08 95       	ret
 	}
 	else{
 		return DIO_InvalidPin;
- 34c:	81 e0       	ldi	r24, 0x01	; 1
+ 350:	81 e0       	ldi	r24, 0x01	; 1
 	}
 	
- 34e:	08 95       	ret
+ 352:	08 95       	ret
 
-00000350 <vidPrePushState>:
+00000354 <vidPrePushState>:
 
 
 
 
 static void vidPrePushState(Button_IdType enuBtnId)
 {
- 350:	0f 93       	push	r16
- 352:	1f 93       	push	r17
- 354:	cf 93       	push	r28
- 356:	df 93       	push	r29
- 358:	1f 92       	push	r1
- 35a:	cd b7       	in	r28, 0x3d	; 61
- 35c:	de b7       	in	r29, 0x3e	; 62
+ 354:	0f 93       	push	r16
+ 356:	1f 93       	push	r17
+ 358:	cf 93       	push	r28
+ 35a:	df 93       	push	r29
+ 35c:	1f 92       	push	r1
+ 35e:	cd b7       	in	r28, 0x3d	; 61
+ 360:	de b7       	in	r29, 0x3e	; 62
 	uint8_t u8BtnValue;
 	
 	Dio_ReadChannel(Button_config[enuBtnId].ChannelId,&u8BtnValue);
- 35e:	08 2f       	mov	r16, r24
- 360:	10 e0       	ldi	r17, 0x00	; 0
- 362:	f8 01       	movw	r30, r16
- 364:	ee 0f       	add	r30, r30
- 366:	ff 1f       	adc	r31, r31
- 368:	e0 0f       	add	r30, r16
- 36a:	f1 1f       	adc	r31, r17
- 36c:	e0 5a       	subi	r30, 0xA0	; 160
- 36e:	ff 4f       	sbci	r31, 0xFF	; 255
- 370:	be 01       	movw	r22, r28
- 372:	6f 5f       	subi	r22, 0xFF	; 255
- 374:	7f 4f       	sbci	r23, 0xFF	; 255
- 376:	80 81       	ld	r24, Z
- 378:	0e 94 af 00 	call	0x15e	; 0x15e <Dio_ReadChannel>
+ 362:	08 2f       	mov	r16, r24
+ 364:	10 e0       	ldi	r17, 0x00	; 0
+ 366:	f8 01       	movw	r30, r16
+ 368:	ee 0f       	add	r30, r30
+ 36a:	ff 1f       	adc	r31, r31
+ 36c:	e0 0f       	add	r30, r16
+ 36e:	f1 1f       	adc	r31, r17
+ 370:	e0 5a       	subi	r30, 0xA0	; 160
+ 372:	ff 4f       	sbci	r31, 0xFF	; 255
+ 374:	be 01       	movw	r22, r28
+ 376:	6f 5f       	subi	r22, 0xFF	; 255
+ 378:	7f 4f       	sbci	r23, 0xFF	; 255
+ 37a:	80 81       	ld	r24, Z
+ 37c:	0e 94 b1 00 	call	0x162	; 0x162 <Dio_ReadChannel>
 	
 	if(u8BtnValue == BT_RELEASE_LEVEL)
- 37c:	89 81       	ldd	r24, Y+1	; 0x01
- 37e:	81 30       	cpi	r24, 0x01	; 1
- 380:	51 f4       	brne	.+20     	; 0x396 <vidPrePushState+0x46>
+ 380:	89 81       	ldd	r24, Y+1	; 0x01
+ 382:	81 30       	cpi	r24, 0x01	; 1
+ 384:	51 f4       	brne	.+20     	; 0x39a <vidPrePushState+0x46>
 	{
 		strBtnInfo[enuBtnId].btn_state    = BT_PUSHED;
- 382:	f8 01       	movw	r30, r16
- 384:	ee 0f       	add	r30, r30
- 386:	ff 1f       	adc	r31, r31
- 388:	0e 0f       	add	r16, r30
- 38a:	1f 1f       	adc	r17, r31
- 38c:	f8 01       	movw	r30, r16
- 38e:	e4 59       	subi	r30, 0x94	; 148
- 390:	ff 4f       	sbci	r31, 0xFF	; 255
- 392:	80 83       	st	Z, r24
- 394:	09 c0       	rjmp	.+18     	; 0x3a8 <vidPrePushState+0x58>
+ 386:	f8 01       	movw	r30, r16
+ 388:	ee 0f       	add	r30, r30
+ 38a:	ff 1f       	adc	r31, r31
+ 38c:	0e 0f       	add	r16, r30
+ 38e:	1f 1f       	adc	r17, r31
+ 390:	f8 01       	movw	r30, r16
+ 392:	e4 59       	subi	r30, 0x94	; 148
+ 394:	ff 4f       	sbci	r31, 0xFF	; 255
+ 396:	80 83       	st	Z, r24
+ 398:	09 c0       	rjmp	.+18     	; 0x3ac <vidPrePushState+0x58>
 	}
 	else
 	{
 		strBtnInfo[enuBtnId].btn_state    = BT_PRE_PUSH;
- 396:	f8 01       	movw	r30, r16
- 398:	ee 0f       	add	r30, r30
- 39a:	ff 1f       	adc	r31, r31
- 39c:	0e 0f       	add	r16, r30
- 39e:	1f 1f       	adc	r17, r31
- 3a0:	f8 01       	movw	r30, r16
- 3a2:	e4 59       	subi	r30, 0x94	; 148
- 3a4:	ff 4f       	sbci	r31, 0xFF	; 255
- 3a6:	10 82       	st	Z, r1
+ 39a:	f8 01       	movw	r30, r16
+ 39c:	ee 0f       	add	r30, r30
+ 39e:	ff 1f       	adc	r31, r31
+ 3a0:	0e 0f       	add	r16, r30
+ 3a2:	1f 1f       	adc	r17, r31
+ 3a4:	f8 01       	movw	r30, r16
+ 3a6:	e4 59       	subi	r30, 0x94	; 148
+ 3a8:	ff 4f       	sbci	r31, 0xFF	; 255
+ 3aa:	10 82       	st	Z, r1
 	}
 }
- 3a8:	0f 90       	pop	r0
- 3aa:	df 91       	pop	r29
- 3ac:	cf 91       	pop	r28
- 3ae:	1f 91       	pop	r17
- 3b0:	0f 91       	pop	r16
- 3b2:	08 95       	ret
+ 3ac:	0f 90       	pop	r0
+ 3ae:	df 91       	pop	r29
+ 3b0:	cf 91       	pop	r28
+ 3b2:	1f 91       	pop	r17
+ 3b4:	0f 91       	pop	r16
+ 3b6:	08 95       	ret
 
-000003b4 <vidPushState>:
+000003b8 <vidPushState>:
 
 
 
 static void vidPushState(Button_IdType enuBtnId)
 {
- 3b4:	0f 93       	push	r16
- 3b6:	1f 93       	push	r17
- 3b8:	cf 93       	push	r28
- 3ba:	df 93       	push	r29
- 3bc:	1f 92       	push	r1
- 3be:	cd b7       	in	r28, 0x3d	; 61
- 3c0:	de b7       	in	r29, 0x3e	; 62
+ 3b8:	0f 93       	push	r16
+ 3ba:	1f 93       	push	r17
+ 3bc:	cf 93       	push	r28
+ 3be:	df 93       	push	r29
+ 3c0:	1f 92       	push	r1
+ 3c2:	cd b7       	in	r28, 0x3d	; 61
+ 3c4:	de b7       	in	r29, 0x3e	; 62
 	uint8_t u8BtnValue;
 	
 	Dio_ReadChannel(Button_config[enuBtnId].ChannelId, &u8BtnValue);
- 3c2:	08 2f       	mov	r16, r24
- 3c4:	10 e0       	ldi	r17, 0x00	; 0
- 3c6:	f8 01       	movw	r30, r16
- 3c8:	ee 0f       	add	r30, r30
- 3ca:	ff 1f       	adc	r31, r31
- 3cc:	e0 0f       	add	r30, r16
- 3ce:	f1 1f       	adc	r31, r17
- 3d0:	e0 5a       	subi	r30, 0xA0	; 160
- 3d2:	ff 4f       	sbci	r31, 0xFF	; 255
- 3d4:	be 01       	movw	r22, r28
- 3d6:	6f 5f       	subi	r22, 0xFF	; 255
- 3d8:	7f 4f       	sbci	r23, 0xFF	; 255
- 3da:	80 81       	ld	r24, Z
- 3dc:	0e 94 af 00 	call	0x15e	; 0x15e <Dio_ReadChannel>
+ 3c6:	08 2f       	mov	r16, r24
+ 3c8:	10 e0       	ldi	r17, 0x00	; 0
+ 3ca:	f8 01       	movw	r30, r16
+ 3cc:	ee 0f       	add	r30, r30
+ 3ce:	ff 1f       	adc	r31, r31
+ 3d0:	e0 0f       	add	r30, r16
+ 3d2:	f1 1f       	adc	r31, r17
+ 3d4:	e0 5a       	subi	r30, 0xA0	; 160
+ 3d6:	ff 4f       	sbci	r31, 0xFF	; 255
+ 3d8:	be 01       	movw	r22, r28
+ 3da:	6f 5f       	subi	r22, 0xFF	; 255
+ 3dc:	7f 4f       	sbci	r23, 0xFF	; 255
+ 3de:	80 81       	ld	r24, Z
+ 3e0:	0e 94 b1 00 	call	0x162	; 0x162 <Dio_ReadChannel>
 	
 	if(u8BtnValue == BT_RELEASE_LEVEL)
- 3e0:	89 81       	ldd	r24, Y+1	; 0x01
- 3e2:	81 30       	cpi	r24, 0x01	; 1
- 3e4:	59 f4       	brne	.+22     	; 0x3fc <vidPushState+0x48>
+ 3e4:	89 81       	ldd	r24, Y+1	; 0x01
+ 3e6:	81 30       	cpi	r24, 0x01	; 1
+ 3e8:	59 f4       	brne	.+22     	; 0x400 <__EEPROM_REGION_LENGTH__>
 	{
 		strBtnInfo[enuBtnId].btn_state    = BT_PRE_HOLD;
- 3e6:	f8 01       	movw	r30, r16
- 3e8:	ee 0f       	add	r30, r30
- 3ea:	ff 1f       	adc	r31, r31
- 3ec:	0e 0f       	add	r16, r30
- 3ee:	1f 1f       	adc	r17, r31
- 3f0:	f8 01       	movw	r30, r16
- 3f2:	e4 59       	subi	r30, 0x94	; 148
- 3f4:	ff 4f       	sbci	r31, 0xFF	; 255
- 3f6:	82 e0       	ldi	r24, 0x02	; 2
- 3f8:	80 83       	st	Z, r24
- 3fa:	0a c0       	rjmp	.+20     	; 0x410 <__EEPROM_REGION_LENGTH__+0x10>
+ 3ea:	f8 01       	movw	r30, r16
+ 3ec:	ee 0f       	add	r30, r30
+ 3ee:	ff 1f       	adc	r31, r31
+ 3f0:	0e 0f       	add	r16, r30
+ 3f2:	1f 1f       	adc	r17, r31
+ 3f4:	f8 01       	movw	r30, r16
+ 3f6:	e4 59       	subi	r30, 0x94	; 148
+ 3f8:	ff 4f       	sbci	r31, 0xFF	; 255
+ 3fa:	82 e0       	ldi	r24, 0x02	; 2
+ 3fc:	80 83       	st	Z, r24
+ 3fe:	0a c0       	rjmp	.+20     	; 0x414 <__EEPROM_REGION_LENGTH__+0x14>
 	}
 	else
 	{
 		strBtnInfo[enuBtnId].btn_state = BT_RELEASED;
- 3fc:	f8 01       	movw	r30, r16
- 3fe:	ee 0f       	add	r30, r30
- 400:	ff 1f       	adc	r31, r31
- 402:	0e 0f       	add	r16, r30
- 404:	1f 1f       	adc	r17, r31
- 406:	f8 01       	movw	r30, r16
- 408:	e4 59       	subi	r30, 0x94	; 148
- 40a:	ff 4f       	sbci	r31, 0xFF	; 255
- 40c:	85 e0       	ldi	r24, 0x05	; 5
- 40e:	80 83       	st	Z, r24
+ 400:	f8 01       	movw	r30, r16
+ 402:	ee 0f       	add	r30, r30
+ 404:	ff 1f       	adc	r31, r31
+ 406:	0e 0f       	add	r16, r30
+ 408:	1f 1f       	adc	r17, r31
+ 40a:	f8 01       	movw	r30, r16
+ 40c:	e4 59       	subi	r30, 0x94	; 148
+ 40e:	ff 4f       	sbci	r31, 0xFF	; 255
+ 410:	85 e0       	ldi	r24, 0x05	; 5
+ 412:	80 83       	st	Z, r24
 	}
 }
- 410:	0f 90       	pop	r0
- 412:	df 91       	pop	r29
- 414:	cf 91       	pop	r28
- 416:	1f 91       	pop	r17
- 418:	0f 91       	pop	r16
- 41a:	08 95       	ret
+ 414:	0f 90       	pop	r0
+ 416:	df 91       	pop	r29
+ 418:	cf 91       	pop	r28
+ 41a:	1f 91       	pop	r17
+ 41c:	0f 91       	pop	r16
+ 41e:	08 95       	ret
 
-0000041c <vidPreHoldState>:
+00000420 <vidPreHoldState>:
 
 
 static void vidPreHoldState(Button_IdType enuBtnId)
 {
- 41c:	0f 93       	push	r16
- 41e:	1f 93       	push	r17
- 420:	cf 93       	push	r28
- 422:	df 93       	push	r29
- 424:	1f 92       	push	r1
- 426:	cd b7       	in	r28, 0x3d	; 61
- 428:	de b7       	in	r29, 0x3e	; 62
+ 420:	0f 93       	push	r16
+ 422:	1f 93       	push	r17
+ 424:	cf 93       	push	r28
+ 426:	df 93       	push	r29
+ 428:	1f 92       	push	r1
+ 42a:	cd b7       	in	r28, 0x3d	; 61
+ 42c:	de b7       	in	r29, 0x3e	; 62
 	uint8_t u8BtnValue;
 	
 	Dio_ReadChannel(Button_config[enuBtnId].ChannelId, &u8BtnValue);
- 42a:	08 2f       	mov	r16, r24
- 42c:	10 e0       	ldi	r17, 0x00	; 0
- 42e:	f8 01       	movw	r30, r16
- 430:	ee 0f       	add	r30, r30
- 432:	ff 1f       	adc	r31, r31
- 434:	e0 0f       	add	r30, r16
- 436:	f1 1f       	adc	r31, r17
- 438:	e0 5a       	subi	r30, 0xA0	; 160
- 43a:	ff 4f       	sbci	r31, 0xFF	; 255
- 43c:	be 01       	movw	r22, r28
- 43e:	6f 5f       	subi	r22, 0xFF	; 255
- 440:	7f 4f       	sbci	r23, 0xFF	; 255
- 442:	80 81       	ld	r24, Z
- 444:	0e 94 af 00 	call	0x15e	; 0x15e <Dio_ReadChannel>
+ 42e:	08 2f       	mov	r16, r24
+ 430:	10 e0       	ldi	r17, 0x00	; 0
+ 432:	f8 01       	movw	r30, r16
+ 434:	ee 0f       	add	r30, r30
+ 436:	ff 1f       	adc	r31, r31
+ 438:	e0 0f       	add	r30, r16
+ 43a:	f1 1f       	adc	r31, r17
+ 43c:	e0 5a       	subi	r30, 0xA0	; 160
+ 43e:	ff 4f       	sbci	r31, 0xFF	; 255
+ 440:	be 01       	movw	r22, r28
+ 442:	6f 5f       	subi	r22, 0xFF	; 255
+ 444:	7f 4f       	sbci	r23, 0xFF	; 255
+ 446:	80 81       	ld	r24, Z
+ 448:	0e 94 b1 00 	call	0x162	; 0x162 <Dio_ReadChannel>
 	
 	if(u8BtnValue == BT_RELEASE_LEVEL)
- 448:	89 81       	ldd	r24, Y+1	; 0x01
- 44a:	81 30       	cpi	r24, 0x01	; 1
- 44c:	59 f4       	brne	.+22     	; 0x464 <vidPreHoldState+0x48>
+ 44c:	89 81       	ldd	r24, Y+1	; 0x01
+ 44e:	81 30       	cpi	r24, 0x01	; 1
+ 450:	59 f4       	brne	.+22     	; 0x468 <vidPreHoldState+0x48>
 	{
 		strBtnInfo[enuBtnId].btn_state   = BT_HOLD;
- 44e:	f8 01       	movw	r30, r16
- 450:	ee 0f       	add	r30, r30
- 452:	ff 1f       	adc	r31, r31
- 454:	0e 0f       	add	r16, r30
- 456:	1f 1f       	adc	r17, r31
- 458:	f8 01       	movw	r30, r16
- 45a:	e4 59       	subi	r30, 0x94	; 148
- 45c:	ff 4f       	sbci	r31, 0xFF	; 255
- 45e:	83 e0       	ldi	r24, 0x03	; 3
- 460:	80 83       	st	Z, r24
- 462:	0a c0       	rjmp	.+20     	; 0x478 <vidPreHoldState+0x5c>
+ 452:	f8 01       	movw	r30, r16
+ 454:	ee 0f       	add	r30, r30
+ 456:	ff 1f       	adc	r31, r31
+ 458:	0e 0f       	add	r16, r30
+ 45a:	1f 1f       	adc	r17, r31
+ 45c:	f8 01       	movw	r30, r16
+ 45e:	e4 59       	subi	r30, 0x94	; 148
+ 460:	ff 4f       	sbci	r31, 0xFF	; 255
+ 462:	83 e0       	ldi	r24, 0x03	; 3
+ 464:	80 83       	st	Z, r24
+ 466:	0a c0       	rjmp	.+20     	; 0x47c <vidPreHoldState+0x5c>
 	}
 	else
 	{
 		strBtnInfo[enuBtnId].btn_state    = BT_RELEASED;
- 464:	f8 01       	movw	r30, r16
- 466:	ee 0f       	add	r30, r30
- 468:	ff 1f       	adc	r31, r31
- 46a:	0e 0f       	add	r16, r30
- 46c:	1f 1f       	adc	r17, r31
- 46e:	f8 01       	movw	r30, r16
- 470:	e4 59       	subi	r30, 0x94	; 148
- 472:	ff 4f       	sbci	r31, 0xFF	; 255
- 474:	85 e0       	ldi	r24, 0x05	; 5
- 476:	80 83       	st	Z, r24
+ 468:	f8 01       	movw	r30, r16
+ 46a:	ee 0f       	add	r30, r30
+ 46c:	ff 1f       	adc	r31, r31
+ 46e:	0e 0f       	add	r16, r30
+ 470:	1f 1f       	adc	r17, r31
+ 472:	f8 01       	movw	r30, r16
+ 474:	e4 59       	subi	r30, 0x94	; 148
+ 476:	ff 4f       	sbci	r31, 0xFF	; 255
+ 478:	85 e0       	ldi	r24, 0x05	; 5
+ 47a:	80 83       	st	Z, r24
 	}
 }
- 478:	0f 90       	pop	r0
- 47a:	df 91       	pop	r29
- 47c:	cf 91       	pop	r28
- 47e:	1f 91       	pop	r17
- 480:	0f 91       	pop	r16
- 482:	08 95       	ret
+ 47c:	0f 90       	pop	r0
+ 47e:	df 91       	pop	r29
+ 480:	cf 91       	pop	r28
+ 482:	1f 91       	pop	r17
+ 484:	0f 91       	pop	r16
+ 486:	08 95       	ret
 
-00000484 <vidHoldState>:
+00000488 <vidHoldState>:
 
 
 
 static void vidHoldState(Button_IdType enuBtnId)
 {
- 484:	0f 93       	push	r16
- 486:	1f 93       	push	r17
- 488:	cf 93       	push	r28
- 48a:	df 93       	push	r29
- 48c:	1f 92       	push	r1
- 48e:	cd b7       	in	r28, 0x3d	; 61
- 490:	de b7       	in	r29, 0x3e	; 62
+ 488:	0f 93       	push	r16
+ 48a:	1f 93       	push	r17
+ 48c:	cf 93       	push	r28
+ 48e:	df 93       	push	r29
+ 490:	1f 92       	push	r1
+ 492:	cd b7       	in	r28, 0x3d	; 61
+ 494:	de b7       	in	r29, 0x3e	; 62
 	uint8_t u8BtnValue;
 	
 	Dio_ReadChannel(Button_config[enuBtnId].ChannelId, &u8BtnValue);
- 492:	08 2f       	mov	r16, r24
- 494:	10 e0       	ldi	r17, 0x00	; 0
- 496:	f8 01       	movw	r30, r16
- 498:	ee 0f       	add	r30, r30
- 49a:	ff 1f       	adc	r31, r31
- 49c:	e0 0f       	add	r30, r16
- 49e:	f1 1f       	adc	r31, r17
- 4a0:	e0 5a       	subi	r30, 0xA0	; 160
- 4a2:	ff 4f       	sbci	r31, 0xFF	; 255
- 4a4:	be 01       	movw	r22, r28
- 4a6:	6f 5f       	subi	r22, 0xFF	; 255
- 4a8:	7f 4f       	sbci	r23, 0xFF	; 255
- 4aa:	80 81       	ld	r24, Z
- 4ac:	0e 94 af 00 	call	0x15e	; 0x15e <Dio_ReadChannel>
+ 496:	08 2f       	mov	r16, r24
+ 498:	10 e0       	ldi	r17, 0x00	; 0
+ 49a:	f8 01       	movw	r30, r16
+ 49c:	ee 0f       	add	r30, r30
+ 49e:	ff 1f       	adc	r31, r31
+ 4a0:	e0 0f       	add	r30, r16
+ 4a2:	f1 1f       	adc	r31, r17
+ 4a4:	e0 5a       	subi	r30, 0xA0	; 160
+ 4a6:	ff 4f       	sbci	r31, 0xFF	; 255
+ 4a8:	be 01       	movw	r22, r28
+ 4aa:	6f 5f       	subi	r22, 0xFF	; 255
+ 4ac:	7f 4f       	sbci	r23, 0xFF	; 255
+ 4ae:	80 81       	ld	r24, Z
+ 4b0:	0e 94 b1 00 	call	0x162	; 0x162 <Dio_ReadChannel>
 	
 	if(u8BtnValue == BT_RELEASE_LEVEL)
- 4b0:	89 81       	ldd	r24, Y+1	; 0x01
- 4b2:	81 30       	cpi	r24, 0x01	; 1
- 4b4:	e1 f4       	brne	.+56     	; 0x4ee <vidHoldState+0x6a>
+ 4b4:	89 81       	ldd	r24, Y+1	; 0x01
+ 4b6:	81 30       	cpi	r24, 0x01	; 1
+ 4b8:	e1 f4       	brne	.+56     	; 0x4f2 <vidHoldState+0x6a>
 	{
 		strBtnInfo[enuBtnId].u8DebounceThreshold++;
- 4b6:	c8 01       	movw	r24, r16
- 4b8:	88 0f       	add	r24, r24
- 4ba:	99 1f       	adc	r25, r25
- 4bc:	80 0f       	add	r24, r16
- 4be:	91 1f       	adc	r25, r17
- 4c0:	fc 01       	movw	r30, r24
- 4c2:	e4 59       	subi	r30, 0x94	; 148
- 4c4:	ff 4f       	sbci	r31, 0xFF	; 255
- 4c6:	21 81       	ldd	r18, Z+1	; 0x01
- 4c8:	2f 5f       	subi	r18, 0xFF	; 255
- 4ca:	21 83       	std	Z+1, r18	; 0x01
+ 4ba:	c8 01       	movw	r24, r16
+ 4bc:	88 0f       	add	r24, r24
+ 4be:	99 1f       	adc	r25, r25
+ 4c0:	80 0f       	add	r24, r16
+ 4c2:	91 1f       	adc	r25, r17
+ 4c4:	fc 01       	movw	r30, r24
+ 4c6:	e4 59       	subi	r30, 0x94	; 148
+ 4c8:	ff 4f       	sbci	r31, 0xFF	; 255
+ 4ca:	21 81       	ldd	r18, Z+1	; 0x01
+ 4cc:	2f 5f       	subi	r18, 0xFF	; 255
+ 4ce:	21 83       	std	Z+1, r18	; 0x01
 		if(strBtnInfo[enuBtnId].u8DebounceThreshold == Button_config[enuBtnId].u8DebounceThreshold)
- 4cc:	fc 01       	movw	r30, r24
- 4ce:	e0 5a       	subi	r30, 0xA0	; 160
- 4d0:	ff 4f       	sbci	r31, 0xFF	; 255
- 4d2:	81 81       	ldd	r24, Z+1	; 0x01
- 4d4:	28 13       	cpse	r18, r24
- 4d6:	0b c0       	rjmp	.+22     	; 0x4ee <vidHoldState+0x6a>
+ 4d0:	fc 01       	movw	r30, r24
+ 4d2:	e0 5a       	subi	r30, 0xA0	; 160
+ 4d4:	ff 4f       	sbci	r31, 0xFF	; 255
+ 4d6:	81 81       	ldd	r24, Z+1	; 0x01
+ 4d8:	28 13       	cpse	r18, r24
+ 4da:	0b c0       	rjmp	.+22     	; 0x4f2 <vidHoldState+0x6a>
 		{
 			strBtnInfo[enuBtnId].u8DebounceThreshold = ((uint8_t)0);
- 4d8:	f8 01       	movw	r30, r16
- 4da:	ee 0f       	add	r30, r30
- 4dc:	ff 1f       	adc	r31, r31
- 4de:	0e 0f       	add	r16, r30
- 4e0:	1f 1f       	adc	r17, r31
- 4e2:	f8 01       	movw	r30, r16
- 4e4:	e4 59       	subi	r30, 0x94	; 148
- 4e6:	ff 4f       	sbci	r31, 0xFF	; 255
- 4e8:	11 82       	std	Z+1, r1	; 0x01
+ 4dc:	f8 01       	movw	r30, r16
+ 4de:	ee 0f       	add	r30, r30
+ 4e0:	ff 1f       	adc	r31, r31
+ 4e2:	0e 0f       	add	r16, r30
+ 4e4:	1f 1f       	adc	r17, r31
+ 4e6:	f8 01       	movw	r30, r16
+ 4e8:	e4 59       	subi	r30, 0x94	; 148
+ 4ea:	ff 4f       	sbci	r31, 0xFF	; 255
+ 4ec:	11 82       	std	Z+1, r1	; 0x01
 			strBtnInfo[enuBtnId].btn_state    = BT_PRE_RELEASE;
- 4ea:	84 e0       	ldi	r24, 0x04	; 4
- 4ec:	80 83       	st	Z, r24
+ 4ee:	84 e0       	ldi	r24, 0x04	; 4
+ 4f0:	80 83       	st	Z, r24
 	}
 	else
 	{
 		/* Do Nothing */
 	}
 }
- 4ee:	0f 90       	pop	r0
- 4f0:	df 91       	pop	r29
- 4f2:	cf 91       	pop	r28
- 4f4:	1f 91       	pop	r17
- 4f6:	0f 91       	pop	r16
- 4f8:	08 95       	ret
+ 4f2:	0f 90       	pop	r0
+ 4f4:	df 91       	pop	r29
+ 4f6:	cf 91       	pop	r28
+ 4f8:	1f 91       	pop	r17
+ 4fa:	0f 91       	pop	r16
+ 4fc:	08 95       	ret
 
-000004fa <vidPreReleaseState>:
+000004fe <vidPreReleaseState>:
 
 
 
 static void vidPreReleaseState(Button_IdType enuBtnId)
 {
- 4fa:	0f 93       	push	r16
- 4fc:	1f 93       	push	r17
- 4fe:	cf 93       	push	r28
- 500:	df 93       	push	r29
- 502:	1f 92       	push	r1
- 504:	cd b7       	in	r28, 0x3d	; 61
- 506:	de b7       	in	r29, 0x3e	; 62
+ 4fe:	0f 93       	push	r16
+ 500:	1f 93       	push	r17
+ 502:	cf 93       	push	r28
+ 504:	df 93       	push	r29
+ 506:	1f 92       	push	r1
+ 508:	cd b7       	in	r28, 0x3d	; 61
+ 50a:	de b7       	in	r29, 0x3e	; 62
 	uint8_t u8BtnValue;
 	
 	Dio_ReadChannel(Button_config[enuBtnId].ChannelId, &u8BtnValue);
- 508:	08 2f       	mov	r16, r24
- 50a:	10 e0       	ldi	r17, 0x00	; 0
- 50c:	f8 01       	movw	r30, r16
- 50e:	ee 0f       	add	r30, r30
- 510:	ff 1f       	adc	r31, r31
- 512:	e0 0f       	add	r30, r16
- 514:	f1 1f       	adc	r31, r17
- 516:	e0 5a       	subi	r30, 0xA0	; 160
- 518:	ff 4f       	sbci	r31, 0xFF	; 255
- 51a:	be 01       	movw	r22, r28
- 51c:	6f 5f       	subi	r22, 0xFF	; 255
- 51e:	7f 4f       	sbci	r23, 0xFF	; 255
- 520:	80 81       	ld	r24, Z
- 522:	0e 94 af 00 	call	0x15e	; 0x15e <Dio_ReadChannel>
+ 50c:	08 2f       	mov	r16, r24
+ 50e:	10 e0       	ldi	r17, 0x00	; 0
+ 510:	f8 01       	movw	r30, r16
+ 512:	ee 0f       	add	r30, r30
+ 514:	ff 1f       	adc	r31, r31
+ 516:	e0 0f       	add	r30, r16
+ 518:	f1 1f       	adc	r31, r17
+ 51a:	e0 5a       	subi	r30, 0xA0	; 160
+ 51c:	ff 4f       	sbci	r31, 0xFF	; 255
+ 51e:	be 01       	movw	r22, r28
+ 520:	6f 5f       	subi	r22, 0xFF	; 255
+ 522:	7f 4f       	sbci	r23, 0xFF	; 255
+ 524:	80 81       	ld	r24, Z
+ 526:	0e 94 b1 00 	call	0x162	; 0x162 <Dio_ReadChannel>
 	
 	if(u8BtnValue == BT_RELEASE_LEVEL)
- 526:	89 81       	ldd	r24, Y+1	; 0x01
- 528:	81 30       	cpi	r24, 0x01	; 1
- 52a:	61 f4       	brne	.+24     	; 0x544 <vidPreReleaseState+0x4a>
+ 52a:	89 81       	ldd	r24, Y+1	; 0x01
+ 52c:	81 30       	cpi	r24, 0x01	; 1
+ 52e:	61 f4       	brne	.+24     	; 0x548 <vidPreReleaseState+0x4a>
 	{
 		strBtnInfo[enuBtnId].u8DebounceThreshold++;
- 52c:	f8 01       	movw	r30, r16
- 52e:	ee 0f       	add	r30, r30
- 530:	ff 1f       	adc	r31, r31
- 532:	0e 0f       	add	r16, r30
- 534:	1f 1f       	adc	r17, r31
- 536:	f8 01       	movw	r30, r16
- 538:	e4 59       	subi	r30, 0x94	; 148
- 53a:	ff 4f       	sbci	r31, 0xFF	; 255
- 53c:	81 81       	ldd	r24, Z+1	; 0x01
- 53e:	8f 5f       	subi	r24, 0xFF	; 255
- 540:	81 83       	std	Z+1, r24	; 0x01
- 542:	2a c0       	rjmp	.+84     	; 0x598 <vidPreReleaseState+0x9e>
+ 530:	f8 01       	movw	r30, r16
+ 532:	ee 0f       	add	r30, r30
+ 534:	ff 1f       	adc	r31, r31
+ 536:	0e 0f       	add	r16, r30
+ 538:	1f 1f       	adc	r17, r31
+ 53a:	f8 01       	movw	r30, r16
+ 53c:	e4 59       	subi	r30, 0x94	; 148
+ 53e:	ff 4f       	sbci	r31, 0xFF	; 255
+ 540:	81 81       	ldd	r24, Z+1	; 0x01
+ 542:	8f 5f       	subi	r24, 0xFF	; 255
+ 544:	81 83       	std	Z+1, r24	; 0x01
+ 546:	2a c0       	rjmp	.+84     	; 0x59c <vidPreReleaseState+0x9e>
 	}
 	else
 	{
 		if(strBtnInfo[enuBtnId].u8DebounceThreshold >= Button_config[enuBtnId].u8DebounceThreshold)
- 544:	c8 01       	movw	r24, r16
- 546:	88 0f       	add	r24, r24
- 548:	99 1f       	adc	r25, r25
- 54a:	80 0f       	add	r24, r16
- 54c:	91 1f       	adc	r25, r17
- 54e:	fc 01       	movw	r30, r24
- 550:	e4 59       	subi	r30, 0x94	; 148
- 552:	ff 4f       	sbci	r31, 0xFF	; 255
- 554:	21 81       	ldd	r18, Z+1	; 0x01
- 556:	fc 01       	movw	r30, r24
- 558:	e0 5a       	subi	r30, 0xA0	; 160
- 55a:	ff 4f       	sbci	r31, 0xFF	; 255
- 55c:	81 81       	ldd	r24, Z+1	; 0x01
- 55e:	28 17       	cp	r18, r24
- 560:	50 f0       	brcs	.+20     	; 0x576 <vidPreReleaseState+0x7c>
+ 548:	c8 01       	movw	r24, r16
+ 54a:	88 0f       	add	r24, r24
+ 54c:	99 1f       	adc	r25, r25
+ 54e:	80 0f       	add	r24, r16
+ 550:	91 1f       	adc	r25, r17
+ 552:	fc 01       	movw	r30, r24
+ 554:	e4 59       	subi	r30, 0x94	; 148
+ 556:	ff 4f       	sbci	r31, 0xFF	; 255
+ 558:	21 81       	ldd	r18, Z+1	; 0x01
+ 55a:	fc 01       	movw	r30, r24
+ 55c:	e0 5a       	subi	r30, 0xA0	; 160
+ 55e:	ff 4f       	sbci	r31, 0xFF	; 255
+ 560:	81 81       	ldd	r24, Z+1	; 0x01
+ 562:	28 17       	cp	r18, r24
+ 564:	50 f0       	brcs	.+20     	; 0x57a <vidPreReleaseState+0x7c>
 		{
 			strBtnInfo[enuBtnId].btn_state = BT_RELEASED;
- 562:	f8 01       	movw	r30, r16
- 564:	ee 0f       	add	r30, r30
- 566:	ff 1f       	adc	r31, r31
- 568:	e0 0f       	add	r30, r16
- 56a:	f1 1f       	adc	r31, r17
- 56c:	e4 59       	subi	r30, 0x94	; 148
- 56e:	ff 4f       	sbci	r31, 0xFF	; 255
- 570:	85 e0       	ldi	r24, 0x05	; 5
- 572:	80 83       	st	Z, r24
- 574:	08 c0       	rjmp	.+16     	; 0x586 <vidPreReleaseState+0x8c>
+ 566:	f8 01       	movw	r30, r16
+ 568:	ee 0f       	add	r30, r30
+ 56a:	ff 1f       	adc	r31, r31
+ 56c:	e0 0f       	add	r30, r16
+ 56e:	f1 1f       	adc	r31, r17
+ 570:	e4 59       	subi	r30, 0x94	; 148
+ 572:	ff 4f       	sbci	r31, 0xFF	; 255
+ 574:	85 e0       	ldi	r24, 0x05	; 5
+ 576:	80 83       	st	Z, r24
+ 578:	08 c0       	rjmp	.+16     	; 0x58a <vidPreReleaseState+0x8c>
 		}
 		else
 		{
 			strBtnInfo[enuBtnId].btn_state    = BT_PRE_PUSH;
- 576:	f8 01       	movw	r30, r16
- 578:	ee 0f       	add	r30, r30
- 57a:	ff 1f       	adc	r31, r31
- 57c:	e0 0f       	add	r30, r16
- 57e:	f1 1f       	adc	r31, r17
- 580:	e4 59       	subi	r30, 0x94	; 148
- 582:	ff 4f       	sbci	r31, 0xFF	; 255
- 584:	10 82       	st	Z, r1
+ 57a:	f8 01       	movw	r30, r16
+ 57c:	ee 0f       	add	r30, r30
+ 57e:	ff 1f       	adc	r31, r31
+ 580:	e0 0f       	add	r30, r16
+ 582:	f1 1f       	adc	r31, r17
+ 584:	e4 59       	subi	r30, 0x94	; 148
+ 586:	ff 4f       	sbci	r31, 0xFF	; 255
+ 588:	10 82       	st	Z, r1
 		}
 		strBtnInfo[enuBtnId].u8DebounceThreshold = ((uint8_t)0);
- 586:	f8 01       	movw	r30, r16
- 588:	ee 0f       	add	r30, r30
- 58a:	ff 1f       	adc	r31, r31
- 58c:	0e 0f       	add	r16, r30
- 58e:	1f 1f       	adc	r17, r31
- 590:	f8 01       	movw	r30, r16
- 592:	e4 59       	subi	r30, 0x94	; 148
- 594:	ff 4f       	sbci	r31, 0xFF	; 255
- 596:	11 82       	std	Z+1, r1	; 0x01
+ 58a:	f8 01       	movw	r30, r16
+ 58c:	ee 0f       	add	r30, r30
+ 58e:	ff 1f       	adc	r31, r31
+ 590:	0e 0f       	add	r16, r30
+ 592:	1f 1f       	adc	r17, r31
+ 594:	f8 01       	movw	r30, r16
+ 596:	e4 59       	subi	r30, 0x94	; 148
+ 598:	ff 4f       	sbci	r31, 0xFF	; 255
+ 59a:	11 82       	std	Z+1, r1	; 0x01
 		
 	}
 }
- 598:	0f 90       	pop	r0
- 59a:	df 91       	pop	r29
- 59c:	cf 91       	pop	r28
- 59e:	1f 91       	pop	r17
- 5a0:	0f 91       	pop	r16
- 5a2:	08 95       	ret
+ 59c:	0f 90       	pop	r0
+ 59e:	df 91       	pop	r29
+ 5a0:	cf 91       	pop	r28
+ 5a2:	1f 91       	pop	r17
+ 5a4:	0f 91       	pop	r16
+ 5a6:	08 95       	ret
 
-000005a4 <vidReleaseState>:
+000005a8 <vidReleaseState>:
 
 
 
 
 static void vidReleaseState(Button_IdType enuBtnId)
 {
- 5a4:	0f 93       	push	r16
- 5a6:	1f 93       	push	r17
- 5a8:	cf 93       	push	r28
- 5aa:	df 93       	push	r29
- 5ac:	1f 92       	push	r1
- 5ae:	cd b7       	in	r28, 0x3d	; 61
- 5b0:	de b7       	in	r29, 0x3e	; 62
+ 5a8:	0f 93       	push	r16
+ 5aa:	1f 93       	push	r17
+ 5ac:	cf 93       	push	r28
+ 5ae:	df 93       	push	r29
+ 5b0:	1f 92       	push	r1
+ 5b2:	cd b7       	in	r28, 0x3d	; 61
+ 5b4:	de b7       	in	r29, 0x3e	; 62
 	uint8_t u8BtnValue;
 	
 	Dio_ReadChannel(Button_config[enuBtnId].ChannelId, &u8BtnValue);
- 5b2:	08 2f       	mov	r16, r24
- 5b4:	10 e0       	ldi	r17, 0x00	; 0
- 5b6:	f8 01       	movw	r30, r16
- 5b8:	ee 0f       	add	r30, r30
- 5ba:	ff 1f       	adc	r31, r31
- 5bc:	e0 0f       	add	r30, r16
- 5be:	f1 1f       	adc	r31, r17
- 5c0:	e0 5a       	subi	r30, 0xA0	; 160
- 5c2:	ff 4f       	sbci	r31, 0xFF	; 255
- 5c4:	be 01       	movw	r22, r28
- 5c6:	6f 5f       	subi	r22, 0xFF	; 255
- 5c8:	7f 4f       	sbci	r23, 0xFF	; 255
- 5ca:	80 81       	ld	r24, Z
- 5cc:	0e 94 af 00 	call	0x15e	; 0x15e <Dio_ReadChannel>
+ 5b6:	08 2f       	mov	r16, r24
+ 5b8:	10 e0       	ldi	r17, 0x00	; 0
+ 5ba:	f8 01       	movw	r30, r16
+ 5bc:	ee 0f       	add	r30, r30
+ 5be:	ff 1f       	adc	r31, r31
+ 5c0:	e0 0f       	add	r30, r16
+ 5c2:	f1 1f       	adc	r31, r17
+ 5c4:	e0 5a       	subi	r30, 0xA0	; 160
+ 5c6:	ff 4f       	sbci	r31, 0xFF	; 255
+ 5c8:	be 01       	movw	r22, r28
+ 5ca:	6f 5f       	subi	r22, 0xFF	; 255
+ 5cc:	7f 4f       	sbci	r23, 0xFF	; 255
+ 5ce:	80 81       	ld	r24, Z
+ 5d0:	0e 94 b1 00 	call	0x162	; 0x162 <Dio_ReadChannel>
 	
 	if(u8BtnValue == BT_PUSH_LEVEL)
- 5d0:	89 81       	ldd	r24, Y+1	; 0x01
- 5d2:	81 11       	cpse	r24, r1
- 5d4:	09 c0       	rjmp	.+18     	; 0x5e8 <vidReleaseState+0x44>
+ 5d4:	89 81       	ldd	r24, Y+1	; 0x01
+ 5d6:	81 11       	cpse	r24, r1
+ 5d8:	09 c0       	rjmp	.+18     	; 0x5ec <vidReleaseState+0x44>
 	{
 		//strBtnInfo[enuBtnId].u8DebounceThreshold = ((uint8_t)0);
 		strBtnInfo[enuBtnId].btn_state    = BT_PRE_PUSH;
- 5d6:	f8 01       	movw	r30, r16
- 5d8:	ee 0f       	add	r30, r30
- 5da:	ff 1f       	adc	r31, r31
- 5dc:	0e 0f       	add	r16, r30
- 5de:	1f 1f       	adc	r17, r31
- 5e0:	f8 01       	movw	r30, r16
- 5e2:	e4 59       	subi	r30, 0x94	; 148
- 5e4:	ff 4f       	sbci	r31, 0xFF	; 255
- 5e6:	10 82       	st	Z, r1
+ 5da:	f8 01       	movw	r30, r16
+ 5dc:	ee 0f       	add	r30, r30
+ 5de:	ff 1f       	adc	r31, r31
+ 5e0:	0e 0f       	add	r16, r30
+ 5e2:	1f 1f       	adc	r17, r31
+ 5e4:	f8 01       	movw	r30, r16
+ 5e6:	e4 59       	subi	r30, 0x94	; 148
+ 5e8:	ff 4f       	sbci	r31, 0xFF	; 255
+ 5ea:	10 82       	st	Z, r1
 	}
 	else
 	{
 		/* Do nothing */
 	}
- 5e8:	0f 90       	pop	r0
- 5ea:	df 91       	pop	r29
- 5ec:	cf 91       	pop	r28
- 5ee:	1f 91       	pop	r17
- 5f0:	0f 91       	pop	r16
- 5f2:	08 95       	ret
+ 5ec:	0f 90       	pop	r0
+ 5ee:	df 91       	pop	r29
+ 5f0:	cf 91       	pop	r28
+ 5f2:	1f 91       	pop	r17
+ 5f4:	0f 91       	pop	r16
+ 5f6:	08 95       	ret
 
-000005f4 <vidUpdateBtnState>:
+000005f8 <vidUpdateBtnState>:
 
 
 
 static void  vidUpdateBtnState(Button_IdType enuBtnId)
 {
 	switch(strBtnInfo[enuBtnId].btn_state)
- 5f4:	28 2f       	mov	r18, r24
- 5f6:	30 e0       	ldi	r19, 0x00	; 0
- 5f8:	f9 01       	movw	r30, r18
- 5fa:	ee 0f       	add	r30, r30
- 5fc:	ff 1f       	adc	r31, r31
- 5fe:	2e 0f       	add	r18, r30
- 600:	3f 1f       	adc	r19, r31
- 602:	f9 01       	movw	r30, r18
- 604:	e4 59       	subi	r30, 0x94	; 148
- 606:	ff 4f       	sbci	r31, 0xFF	; 255
- 608:	90 81       	ld	r25, Z
- 60a:	92 30       	cpi	r25, 0x02	; 2
- 60c:	91 f0       	breq	.+36     	; 0x632 <vidUpdateBtnState+0x3e>
- 60e:	28 f4       	brcc	.+10     	; 0x61a <vidUpdateBtnState+0x26>
- 610:	99 23       	and	r25, r25
- 612:	49 f0       	breq	.+18     	; 0x626 <vidUpdateBtnState+0x32>
- 614:	91 30       	cpi	r25, 0x01	; 1
- 616:	51 f0       	breq	.+20     	; 0x62c <vidUpdateBtnState+0x38>
- 618:	08 95       	ret
- 61a:	94 30       	cpi	r25, 0x04	; 4
- 61c:	81 f0       	breq	.+32     	; 0x63e <vidUpdateBtnState+0x4a>
- 61e:	60 f0       	brcs	.+24     	; 0x638 <vidUpdateBtnState+0x44>
- 620:	95 30       	cpi	r25, 0x05	; 5
- 622:	81 f0       	breq	.+32     	; 0x644 <vidUpdateBtnState+0x50>
- 624:	08 95       	ret
+ 5f8:	28 2f       	mov	r18, r24
+ 5fa:	30 e0       	ldi	r19, 0x00	; 0
+ 5fc:	f9 01       	movw	r30, r18
+ 5fe:	ee 0f       	add	r30, r30
+ 600:	ff 1f       	adc	r31, r31
+ 602:	2e 0f       	add	r18, r30
+ 604:	3f 1f       	adc	r19, r31
+ 606:	f9 01       	movw	r30, r18
+ 608:	e4 59       	subi	r30, 0x94	; 148
+ 60a:	ff 4f       	sbci	r31, 0xFF	; 255
+ 60c:	90 81       	ld	r25, Z
+ 60e:	92 30       	cpi	r25, 0x02	; 2
+ 610:	91 f0       	breq	.+36     	; 0x636 <vidUpdateBtnState+0x3e>
+ 612:	28 f4       	brcc	.+10     	; 0x61e <vidUpdateBtnState+0x26>
+ 614:	99 23       	and	r25, r25
+ 616:	49 f0       	breq	.+18     	; 0x62a <vidUpdateBtnState+0x32>
+ 618:	91 30       	cpi	r25, 0x01	; 1
+ 61a:	51 f0       	breq	.+20     	; 0x630 <vidUpdateBtnState+0x38>
+ 61c:	08 95       	ret
+ 61e:	94 30       	cpi	r25, 0x04	; 4
+ 620:	81 f0       	breq	.+32     	; 0x642 <vidUpdateBtnState+0x4a>
+ 622:	60 f0       	brcs	.+24     	; 0x63c <vidUpdateBtnState+0x44>
+ 624:	95 30       	cpi	r25, 0x05	; 5
+ 626:	81 f0       	breq	.+32     	; 0x648 <vidUpdateBtnState+0x50>
+ 628:	08 95       	ret
 	{
 		case BT_PRE_PUSH:
 		vidPrePushState(enuBtnId);
- 626:	0e 94 a8 01 	call	0x350	; 0x350 <vidPrePushState>
+ 62a:	0e 94 aa 01 	call	0x354	; 0x354 <vidPrePushState>
 		break;
- 62a:	08 95       	ret
+ 62e:	08 95       	ret
 		
 		case BT_PUSHED:
 		vidPushState(enuBtnId);
- 62c:	0e 94 da 01 	call	0x3b4	; 0x3b4 <vidPushState>
+ 630:	0e 94 dc 01 	call	0x3b8	; 0x3b8 <vidPushState>
 		break;
- 630:	08 95       	ret
+ 634:	08 95       	ret
 		
 		case BT_PRE_HOLD:
 		vidPreHoldState(enuBtnId);
- 632:	0e 94 0e 02 	call	0x41c	; 0x41c <vidPreHoldState>
+ 636:	0e 94 10 02 	call	0x420	; 0x420 <vidPreHoldState>
 		break;
- 636:	08 95       	ret
+ 63a:	08 95       	ret
 		
 		case BT_HOLD:
 		vidHoldState(enuBtnId);
- 638:	0e 94 42 02 	call	0x484	; 0x484 <vidHoldState>
+ 63c:	0e 94 44 02 	call	0x488	; 0x488 <vidHoldState>
 		break;
- 63c:	08 95       	ret
+ 640:	08 95       	ret
 		
 		case BT_PRE_RELEASE:
 		vidPreReleaseState(enuBtnId);
- 63e:	0e 94 7d 02 	call	0x4fa	; 0x4fa <vidPreReleaseState>
+ 642:	0e 94 7f 02 	call	0x4fe	; 0x4fe <vidPreReleaseState>
 		break;
- 642:	08 95       	ret
+ 646:	08 95       	ret
 		
 		case BT_RELEASED:
 		vidReleaseState(enuBtnId);
- 644:	0e 94 d2 02 	call	0x5a4	; 0x5a4 <vidReleaseState>
- 648:	08 95       	ret
+ 648:	0e 94 d4 02 	call	0x5a8	; 0x5a8 <vidReleaseState>
+ 64c:	08 95       	ret
 
-0000064a <button_Init>:
+0000064e <button_Init>:
 /*********************** Public Functions Implementation **********************/
 /******************************************************************************/
 
 
 void button_Init(void)
 {
- 64a:	1f 93       	push	r17
- 64c:	cf 93       	push	r28
- 64e:	df 93       	push	r29
+ 64e:	1f 93       	push	r17
+ 650:	cf 93       	push	r28
+ 652:	df 93       	push	r29
 	uint8_t u8Index;
 	
 	for(u8Index=0;u8Index<BUTTONS_NUM;u8Index++)
- 650:	10 e0       	ldi	r17, 0x00	; 0
- 652:	17 c0       	rjmp	.+46     	; 0x682 <button_Init+0x38>
+ 654:	10 e0       	ldi	r17, 0x00	; 0
+ 656:	17 c0       	rjmp	.+46     	; 0x686 <button_Init+0x38>
 	{
 		Dio_ChannelSetDIR((Button_config[u8Index].ChannelId) , STD_INPUT);
- 654:	81 2f       	mov	r24, r17
- 656:	90 e0       	ldi	r25, 0x00	; 0
- 658:	fc 01       	movw	r30, r24
- 65a:	ee 0f       	add	r30, r30
- 65c:	ff 1f       	adc	r31, r31
- 65e:	ef 01       	movw	r28, r30
- 660:	c8 0f       	add	r28, r24
- 662:	d9 1f       	adc	r29, r25
- 664:	fe 01       	movw	r30, r28
- 666:	e0 5a       	subi	r30, 0xA0	; 160
- 668:	ff 4f       	sbci	r31, 0xFF	; 255
- 66a:	60 e0       	ldi	r22, 0x00	; 0
- 66c:	80 81       	ld	r24, Z
- 66e:	0e 94 76 00 	call	0xec	; 0xec <Dio_ChannelSetDIR>
+ 658:	81 2f       	mov	r24, r17
+ 65a:	90 e0       	ldi	r25, 0x00	; 0
+ 65c:	fc 01       	movw	r30, r24
+ 65e:	ee 0f       	add	r30, r30
+ 660:	ff 1f       	adc	r31, r31
+ 662:	ef 01       	movw	r28, r30
+ 664:	c8 0f       	add	r28, r24
+ 666:	d9 1f       	adc	r29, r25
+ 668:	fe 01       	movw	r30, r28
+ 66a:	e0 5a       	subi	r30, 0xA0	; 160
+ 66c:	ff 4f       	sbci	r31, 0xFF	; 255
+ 66e:	60 e0       	ldi	r22, 0x00	; 0
+ 670:	80 81       	ld	r24, Z
+ 672:	0e 94 78 00 	call	0xf0	; 0xf0 <Dio_ChannelSetDIR>
 		strBtnInfo[u8Index].btn_state     = BT_RELEASED;
- 672:	fe 01       	movw	r30, r28
- 674:	e4 59       	subi	r30, 0x94	; 148
- 676:	ff 4f       	sbci	r31, 0xFF	; 255
- 678:	85 e0       	ldi	r24, 0x05	; 5
- 67a:	80 83       	st	Z, r24
+ 676:	fe 01       	movw	r30, r28
+ 678:	e4 59       	subi	r30, 0x94	; 148
+ 67a:	ff 4f       	sbci	r31, 0xFF	; 255
+ 67c:	85 e0       	ldi	r24, 0x05	; 5
+ 67e:	80 83       	st	Z, r24
 		strBtnInfo[u8Index].u8DebounceThreshold  = ((uint8_t)0U);
- 67c:	11 82       	std	Z+1, r1	; 0x01
+ 680:	11 82       	std	Z+1, r1	; 0x01
 		strBtnInfo[u8Index].u8HoldThreshold      = ((uint8_t)0U);
- 67e:	12 82       	std	Z+2, r1	; 0x02
+ 682:	12 82       	std	Z+2, r1	; 0x02
 
 void button_Init(void)
 {
 	uint8_t u8Index;
 	
 	for(u8Index=0;u8Index<BUTTONS_NUM;u8Index++)
- 680:	1f 5f       	subi	r17, 0xFF	; 255
- 682:	11 23       	and	r17, r17
- 684:	39 f3       	breq	.-50     	; 0x654 <button_Init+0xa>
+ 684:	1f 5f       	subi	r17, 0xFF	; 255
+ 686:	11 23       	and	r17, r17
+ 688:	39 f3       	breq	.-50     	; 0x658 <button_Init+0xa>
 		Dio_ChannelSetDIR((Button_config[u8Index].ChannelId) , STD_INPUT);
 		strBtnInfo[u8Index].btn_state     = BT_RELEASED;
 		strBtnInfo[u8Index].u8DebounceThreshold  = ((uint8_t)0U);
 		strBtnInfo[u8Index].u8HoldThreshold      = ((uint8_t)0U);
 	}
 }
- 686:	df 91       	pop	r29
- 688:	cf 91       	pop	r28
- 68a:	1f 91       	pop	r17
- 68c:	08 95       	ret
+ 68a:	df 91       	pop	r29
+ 68c:	cf 91       	pop	r28
+ 68e:	1f 91       	pop	r17
+ 690:	08 95       	ret
 
-0000068e <button_Main_Task>:
+00000692 <button_Main_Task>:
 
 
 
 void button_Main_Task(void)
 {
- 68e:	cf 93       	push	r28
+ 692:	cf 93       	push	r28
 	uint8_t u8Index;
 	
 	
 	for(u8Index=0;u8Index<BUTTONS_NUM; u8Index++)
- 690:	c0 e0       	ldi	r28, 0x00	; 0
- 692:	04 c0       	rjmp	.+8      	; 0x69c <button_Main_Task+0xe>
+ 694:	c0 e0       	ldi	r28, 0x00	; 0
+ 696:	04 c0       	rjmp	.+8      	; 0x6a0 <button_Main_Task+0xe>
 	{
 		vidUpdateBtnState((Button_IdType)u8Index);
- 694:	8c 2f       	mov	r24, r28
- 696:	0e 94 fa 02 	call	0x5f4	; 0x5f4 <vidUpdateBtnState>
+ 698:	8c 2f       	mov	r24, r28
+ 69a:	0e 94 fc 02 	call	0x5f8	; 0x5f8 <vidUpdateBtnState>
 void button_Main_Task(void)
 {
 	uint8_t u8Index;
 	
 	
 	for(u8Index=0;u8Index<BUTTONS_NUM; u8Index++)
- 69a:	cf 5f       	subi	r28, 0xFF	; 255
- 69c:	cc 23       	and	r28, r28
- 69e:	d1 f3       	breq	.-12     	; 0x694 <button_Main_Task+0x6>
+ 69e:	cf 5f       	subi	r28, 0xFF	; 255
+ 6a0:	cc 23       	and	r28, r28
+ 6a2:	d1 f3       	breq	.-12     	; 0x698 <button_Main_Task+0x6>
 	{
 		vidUpdateBtnState((Button_IdType)u8Index);
 	}
 }
- 6a0:	cf 91       	pop	r28
- 6a2:	08 95       	ret
+ 6a4:	cf 91       	pop	r28
+ 6a6:	08 95       	ret
 
-000006a4 <getButtonState>:
+000006a8 <getButtonState>:
 
 Button_StateType getButtonState(Button_IdType enmButtonId)
 {
 	Button_StateType enuReturn;
 	
 	if(enmButtonId < BUTTONS_NUM)
- 6a4:	81 11       	cpse	r24, r1
- 6a6:	0b c0       	rjmp	.+22     	; 0x6be <getButtonState+0x1a>
+ 6a8:	81 11       	cpse	r24, r1
+ 6aa:	0b c0       	rjmp	.+22     	; 0x6c2 <getButtonState+0x1a>
 	{
 		enuReturn = strBtnInfo[enmButtonId].btn_state ;
- 6a8:	90 e0       	ldi	r25, 0x00	; 0
- 6aa:	fc 01       	movw	r30, r24
- 6ac:	ee 0f       	add	r30, r30
- 6ae:	ff 1f       	adc	r31, r31
- 6b0:	8e 0f       	add	r24, r30
- 6b2:	9f 1f       	adc	r25, r31
- 6b4:	fc 01       	movw	r30, r24
- 6b6:	e4 59       	subi	r30, 0x94	; 148
- 6b8:	ff 4f       	sbci	r31, 0xFF	; 255
- 6ba:	80 81       	ld	r24, Z
- 6bc:	08 95       	ret
+ 6ac:	90 e0       	ldi	r25, 0x00	; 0
+ 6ae:	fc 01       	movw	r30, r24
+ 6b0:	ee 0f       	add	r30, r30
+ 6b2:	ff 1f       	adc	r31, r31
+ 6b4:	8e 0f       	add	r24, r30
+ 6b6:	9f 1f       	adc	r25, r31
+ 6b8:	fc 01       	movw	r30, r24
+ 6ba:	e4 59       	subi	r30, 0x94	; 148
+ 6bc:	ff 4f       	sbci	r31, 0xFF	; 255
+ 6be:	80 81       	ld	r24, Z
+ 6c0:	08 95       	ret
 	}
 	else
 	{
 		enuReturn = BT_UNDEFINED;
- 6be:	86 e0       	ldi	r24, 0x06	; 6
+ 6c2:	86 e0       	ldi	r24, 0x06	; 6
 	}
 	
 	return (enuReturn);
 }
- 6c0:	08 95       	ret
+ 6c4:	08 95       	ret
 
-000006c2 <led_OFF>:
+000006c6 <led_OFF>:
 		
 	}
 }
 LED_ERROR_type led_OFF(LED_ID_type led)
 {
 	if(led > LED_NUMs)
- 6c2:	85 30       	cpi	r24, 0x05	; 5
- 6c4:	68 f4       	brcc	.+26     	; 0x6e0 <led_OFF+0x1e>
+ 6c6:	85 30       	cpi	r24, 0x05	; 5
+ 6c8:	68 f4       	brcc	.+26     	; 0x6e4 <led_OFF+0x1e>
 	{
 		return LED_UNDEFINED;
 	}
 	Dio_WriteChannel(LED_Config[led-1].LED_CHANNEL_ID,LED_OFF);
- 6c6:	e8 2f       	mov	r30, r24
- 6c8:	f0 e0       	ldi	r31, 0x00	; 0
- 6ca:	31 97       	sbiw	r30, 0x01	; 1
- 6cc:	ee 0f       	add	r30, r30
- 6ce:	ff 1f       	adc	r31, r31
- 6d0:	ed 59       	subi	r30, 0x9D	; 157
- 6d2:	ff 4f       	sbci	r31, 0xFF	; 255
- 6d4:	60 e0       	ldi	r22, 0x00	; 0
- 6d6:	80 81       	ld	r24, Z
- 6d8:	0e 94 1e 01 	call	0x23c	; 0x23c <Dio_WriteChannel>
+ 6ca:	e8 2f       	mov	r30, r24
+ 6cc:	f0 e0       	ldi	r31, 0x00	; 0
+ 6ce:	31 97       	sbiw	r30, 0x01	; 1
+ 6d0:	ee 0f       	add	r30, r30
+ 6d2:	ff 1f       	adc	r31, r31
+ 6d4:	ed 59       	subi	r30, 0x9D	; 157
+ 6d6:	ff 4f       	sbci	r31, 0xFF	; 255
+ 6d8:	60 e0       	ldi	r22, 0x00	; 0
+ 6da:	80 81       	ld	r24, Z
+ 6dc:	0e 94 20 01 	call	0x240	; 0x240 <Dio_WriteChannel>
 	return  LED_OK;
- 6dc:	80 e0       	ldi	r24, 0x00	; 0
- 6de:	08 95       	ret
+ 6e0:	80 e0       	ldi	r24, 0x00	; 0
+ 6e2:	08 95       	ret
 }
 LED_ERROR_type led_OFF(LED_ID_type led)
 {
 	if(led > LED_NUMs)
 	{
 		return LED_UNDEFINED;
- 6e0:	81 e0       	ldi	r24, 0x01	; 1
+ 6e4:	81 e0       	ldi	r24, 0x01	; 1
 	}
 	Dio_WriteChannel(LED_Config[led-1].LED_CHANNEL_ID,LED_OFF);
 	return  LED_OK;
 }
- 6e2:	08 95       	ret
+ 6e6:	08 95       	ret
 
-000006e4 <led_ON>:
+000006e8 <led_ON>:
 LED_ERROR_type led_ON(LED_ID_type led)
 {
 	if(led > LED_NUMs)
- 6e4:	85 30       	cpi	r24, 0x05	; 5
- 6e6:	68 f4       	brcc	.+26     	; 0x702 <led_ON+0x1e>
+ 6e8:	85 30       	cpi	r24, 0x05	; 5
+ 6ea:	68 f4       	brcc	.+26     	; 0x706 <led_ON+0x1e>
 	{
 		return LED_UNDEFINED;
 	}
 	Dio_WriteChannel(LED_Config[led-1].LED_CHANNEL_ID,LED_ON);
- 6e8:	e8 2f       	mov	r30, r24
- 6ea:	f0 e0       	ldi	r31, 0x00	; 0
- 6ec:	31 97       	sbiw	r30, 0x01	; 1
- 6ee:	ee 0f       	add	r30, r30
- 6f0:	ff 1f       	adc	r31, r31
- 6f2:	ed 59       	subi	r30, 0x9D	; 157
- 6f4:	ff 4f       	sbci	r31, 0xFF	; 255
- 6f6:	61 e0       	ldi	r22, 0x01	; 1
- 6f8:	80 81       	ld	r24, Z
- 6fa:	0e 94 1e 01 	call	0x23c	; 0x23c <Dio_WriteChannel>
+ 6ec:	e8 2f       	mov	r30, r24
+ 6ee:	f0 e0       	ldi	r31, 0x00	; 0
+ 6f0:	31 97       	sbiw	r30, 0x01	; 1
+ 6f2:	ee 0f       	add	r30, r30
+ 6f4:	ff 1f       	adc	r31, r31
+ 6f6:	ed 59       	subi	r30, 0x9D	; 157
+ 6f8:	ff 4f       	sbci	r31, 0xFF	; 255
+ 6fa:	61 e0       	ldi	r22, 0x01	; 1
+ 6fc:	80 81       	ld	r24, Z
+ 6fe:	0e 94 20 01 	call	0x240	; 0x240 <Dio_WriteChannel>
 	return  LED_OK;
- 6fe:	80 e0       	ldi	r24, 0x00	; 0
- 700:	08 95       	ret
+ 702:	80 e0       	ldi	r24, 0x00	; 0
+ 704:	08 95       	ret
 }
 LED_ERROR_type led_ON(LED_ID_type led)
 {
 	if(led > LED_NUMs)
 	{
 		return LED_UNDEFINED;
- 702:	81 e0       	ldi	r24, 0x01	; 1
+ 706:	81 e0       	ldi	r24, 0x01	; 1
 	}
 	Dio_WriteChannel(LED_Config[led-1].LED_CHANNEL_ID,LED_ON);
 	return  LED_OK;
- 704:	08 95       	ret
+ 708:	08 95       	ret
 
-00000706 <led_Init>:
+0000070a <led_Init>:
 #include "led_cfg.h"
 
 
 
 void led_Init(void)
 {
- 706:	1f 93       	push	r17
- 708:	cf 93       	push	r28
- 70a:	df 93       	push	r29
+ 70a:	1f 93       	push	r17
+ 70c:	cf 93       	push	r28
+ 70e:	df 93       	push	r29
 	uint8_t u8_index;
 	
 	for (u8_index = 0 ; u8_index < LED_NUMs ; u8_index++)
- 70c:	10 e0       	ldi	r17, 0x00	; 0
- 70e:	16 c0       	rjmp	.+44     	; 0x73c <led_Init+0x36>
+ 710:	10 e0       	ldi	r17, 0x00	; 0
+ 712:	16 c0       	rjmp	.+44     	; 0x740 <led_Init+0x36>
 	{
 		Dio_ChannelSetDIR((LED_Config[u8_index].LED_CHANNEL_ID) , STD_OUTPUT);
- 710:	c1 2f       	mov	r28, r17
- 712:	d0 e0       	ldi	r29, 0x00	; 0
- 714:	cc 0f       	add	r28, r28
- 716:	dd 1f       	adc	r29, r29
- 718:	cd 59       	subi	r28, 0x9D	; 157
- 71a:	df 4f       	sbci	r29, 0xFF	; 255
- 71c:	61 e0       	ldi	r22, 0x01	; 1
- 71e:	88 81       	ld	r24, Y
- 720:	0e 94 76 00 	call	0xec	; 0xec <Dio_ChannelSetDIR>
+ 714:	c1 2f       	mov	r28, r17
+ 716:	d0 e0       	ldi	r29, 0x00	; 0
+ 718:	cc 0f       	add	r28, r28
+ 71a:	dd 1f       	adc	r29, r29
+ 71c:	cd 59       	subi	r28, 0x9D	; 157
+ 71e:	df 4f       	sbci	r29, 0xFF	; 255
+ 720:	61 e0       	ldi	r22, 0x01	; 1
+ 722:	88 81       	ld	r24, Y
+ 724:	0e 94 78 00 	call	0xf0	; 0xf0 <Dio_ChannelSetDIR>
 		if (LED_Config[u8_index].LED_STATE == LED_ON)
- 724:	89 81       	ldd	r24, Y+1	; 0x01
- 726:	81 30       	cpi	r24, 0x01	; 1
- 728:	21 f4       	brne	.+8      	; 0x732 <led_Init+0x2c>
+ 728:	89 81       	ldd	r24, Y+1	; 0x01
+ 72a:	81 30       	cpi	r24, 0x01	; 1
+ 72c:	21 f4       	brne	.+8      	; 0x736 <led_Init+0x2c>
 		{
 			led_ON(u8_index+1);
- 72a:	81 0f       	add	r24, r17
- 72c:	0e 94 72 03 	call	0x6e4	; 0x6e4 <led_ON>
- 730:	04 c0       	rjmp	.+8      	; 0x73a <led_Init+0x34>
+ 72e:	81 0f       	add	r24, r17
+ 730:	0e 94 74 03 	call	0x6e8	; 0x6e8 <led_ON>
+ 734:	04 c0       	rjmp	.+8      	; 0x73e <led_Init+0x34>
 		}
 		else
 		{
 			led_OFF(u8_index+1);
- 732:	81 e0       	ldi	r24, 0x01	; 1
- 734:	81 0f       	add	r24, r17
- 736:	0e 94 61 03 	call	0x6c2	; 0x6c2 <led_OFF>
+ 736:	81 e0       	ldi	r24, 0x01	; 1
+ 738:	81 0f       	add	r24, r17
+ 73a:	0e 94 63 03 	call	0x6c6	; 0x6c6 <led_OFF>
 
 void led_Init(void)
 {
 	uint8_t u8_index;
 	
 	for (u8_index = 0 ; u8_index < LED_NUMs ; u8_index++)
- 73a:	1f 5f       	subi	r17, 0xFF	; 255
- 73c:	14 30       	cpi	r17, 0x04	; 4
- 73e:	40 f3       	brcs	.-48     	; 0x710 <led_Init+0xa>
+ 73e:	1f 5f       	subi	r17, 0xFF	; 255
+ 740:	14 30       	cpi	r17, 0x04	; 4
+ 742:	40 f3       	brcs	.-48     	; 0x714 <led_Init+0xa>
 		{
 			led_OFF(u8_index+1);
 		}
 		
 	}
 }
- 740:	df 91       	pop	r29
- 742:	cf 91       	pop	r28
- 744:	1f 91       	pop	r17
- 746:	08 95       	ret
+ 744:	df 91       	pop	r29
+ 746:	cf 91       	pop	r28
+ 748:	1f 91       	pop	r17
+ 74a:	08 95       	ret
 
-00000748 <_exit>:
- 748:	f8 94       	cli
+0000074c <_exit>:
+ 74c:	f8 94       	cli
 
-0000074a <__stop_program>:
- 74a:	ff cf       	rjmp	.-2      	; 0x74a <__stop_program>
+0000074e <__stop_program>:
+ 74e:	ff cf       	rjmp	.-2      	; 0x74e <__stop_program>
