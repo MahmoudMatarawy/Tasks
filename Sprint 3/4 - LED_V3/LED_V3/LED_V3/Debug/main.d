@@ -1,0 +1,21 @@
+main.d main.o: .././main.c .././Application/app.h \
+ .././Application/../Onboard/Button/Button.h \
+ c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\lib\gcc\avr\5.4.0\include\stdint.h \
+ c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\stdint.h \
+ .././Application/../Onboard/LED/led.h \
+ .././Application/../MCAL/Timer/timer_app.h \
+ .././Application/../MCAL/Timer/timer_shared.h
+
+.././Application/app.h:
+
+.././Application/../Onboard/Button/Button.h:
+
+c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\lib\gcc\avr\5.4.0\include\stdint.h:
+
+c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\stdint.h:
+
+.././Application/../Onboard/LED/led.h:
+
+.././Application/../MCAL/Timer/timer_app.h:
+
+.././Application/../MCAL/Timer/timer_shared.h:
