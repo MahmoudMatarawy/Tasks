@@ -13,21 +13,21 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY
   4 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  00000894  2**2
                   CONTENTS, READONLY
-  5 .debug_aranges 000001e0  00000000  00000000  000008d0  2**0
+  5 .debug_aranges 000001d0  00000000  00000000  000008d0  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_info   000018b5  00000000  00000000  00000ab0  2**0
+  6 .debug_info   00001841  00000000  00000000  00000aa0  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_abbrev 00000bab  00000000  00000000  00002365  2**0
+  7 .debug_abbrev 00000ba2  00000000  00000000  000022e1  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_line   000013a5  00000000  00000000  00002f10  2**0
+  8 .debug_line   0000128d  00000000  00000000  00002e83  2**0
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_frame  000003b4  00000000  00000000  000042b8  2**2
+  9 .debug_frame  00000394  00000000  00000000  00004110  2**2
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_str    000007cc  00000000  00000000  0000466c  2**0
+ 10 .debug_str    000007b4  00000000  00000000  000044a4  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_loc    00001118  00000000  00000000  00004e38  2**0
+ 11 .debug_loc    00001038  00000000  00000000  00004c58  2**0
                   CONTENTS, READONLY, DEBUGGING
- 12 .debug_ranges 00000140  00000000  00000000  00005f50  2**0
+ 12 .debug_ranges 00000130  00000000  00000000  00005c90  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -1142,14 +1142,20 @@ EXT_INT_ERR_TYPE eXT_INT_Enable(EXT_INT_ID_TYPE id , EXT_INT_MODE_TYPE mode)
  5be:	08 95       	ret
 
 000005c0 <Timer_Init>:
-	}
-	else
-	{
-		return Timer_E_InvalidValue;
-	}
-}
+
+uint8_t Timers_status[Max_Timer_Numbers];
+
+Timer_Errors Timer_Init(Timer_Number Timer_Num)
+{
+		if (Timer_Num >= Max_Timer_Numbers)
  5c0:	83 30       	cpi	r24, 0x03	; 3
  5c2:	a8 f5       	brcc	.+106    	; 0x62e <Timer_Init+0x6e>
+		{
+			return Timer_E_InvalidValue;
+		}
+		else
+		{
+			if (Timers_status[Timer_Num] == Timer_S_Ready)
  5c4:	28 2f       	mov	r18, r24
  5c6:	30 e0       	ldi	r19, 0x00	; 0
  5c8:	f9 01       	movw	r30, r18
@@ -1158,58 +1164,132 @@ EXT_INT_ERR_TYPE eXT_INT_Enable(EXT_INT_ID_TYPE id , EXT_INT_MODE_TYPE mode)
  5ce:	90 81       	ld	r25, Z
  5d0:	91 30       	cpi	r25, 0x01	; 1
  5d2:	81 f1       	breq	.+96     	; 0x634 <Timer_Init+0x74>
+			{
+				return Timer_E_TRANSITION;
+			}
+			else
+			{
+				switch(Timer_Num)
  5d4:	81 30       	cpi	r24, 0x01	; 1
  5d6:	89 f0       	breq	.+34     	; 0x5fa <Timer_Init+0x3a>
  5d8:	18 f0       	brcs	.+6      	; 0x5e0 <Timer_Init+0x20>
  5da:	82 30       	cpi	r24, 0x02	; 2
  5dc:	d9 f0       	breq	.+54     	; 0x614 <Timer_Init+0x54>
  5de:	29 c0       	rjmp	.+82     	; 0x632 <Timer_Init+0x72>
+				{
+					case Timer_0 :
+									TIMER_0_CONTROL_REG |= (1U << TIMER_0_CLOCK_SELECT_BIT_0);
  5e0:	83 b7       	in	r24, 0x33	; 51
  5e2:	81 60       	ori	r24, 0x01	; 1
  5e4:	83 bf       	out	0x33, r24	; 51
+									TIMER_INTERRUPT_MASK_REG |= (1U << TIMER_0_OVERFLOW_INTERRUPT_ENABLE);
  5e6:	89 b7       	in	r24, 0x39	; 57
  5e8:	81 60       	ori	r24, 0x01	; 1
  5ea:	89 bf       	out	0x39, r24	; 57
+									Timers_status[Timer_Num] = Timer_S_Ready;
  5ec:	f9 01       	movw	r30, r18
  5ee:	eb 57       	subi	r30, 0x7B	; 123
  5f0:	ff 4f       	sbci	r31, 0xFF	; 255
  5f2:	81 e0       	ldi	r24, 0x01	; 1
  5f4:	80 83       	st	Z, r24
+					default:
+						break;
+				}
+			}
+		}
+	return Timer_E_OK;
  5f6:	90 e0       	ldi	r25, 0x00	; 0
+				{
+					case Timer_0 :
+									TIMER_0_CONTROL_REG |= (1U << TIMER_0_CLOCK_SELECT_BIT_0);
+									TIMER_INTERRUPT_MASK_REG |= (1U << TIMER_0_OVERFLOW_INTERRUPT_ENABLE);
+									Timers_status[Timer_Num] = Timer_S_Ready;
+									break;
  5f8:	1d c0       	rjmp	.+58     	; 0x634 <Timer_Init+0x74>
+					case Timer_1 :
+									TIMER_1_CONTROL_B_REG |= (1U << TIMER_1_CLOCK_SELECT_BIT_0);
  5fa:	8e b5       	in	r24, 0x2e	; 46
  5fc:	81 60       	ori	r24, 0x01	; 1
  5fe:	8e bd       	out	0x2e, r24	; 46
+									TIMER_INTERRUPT_MASK_REG |= (1U << TIMER_1_OVERFLOW_INTERRUPT_ENABLE);
  600:	89 b7       	in	r24, 0x39	; 57
  602:	84 60       	ori	r24, 0x04	; 4
  604:	89 bf       	out	0x39, r24	; 57
+									Timers_status[Timer_Num] = Timer_S_Ready;
  606:	f9 01       	movw	r30, r18
  608:	eb 57       	subi	r30, 0x7B	; 123
  60a:	ff 4f       	sbci	r31, 0xFF	; 255
  60c:	81 e0       	ldi	r24, 0x01	; 1
  60e:	80 83       	st	Z, r24
+					default:
+						break;
+				}
+			}
+		}
+	return Timer_E_OK;
  610:	90 e0       	ldi	r25, 0x00	; 0
+									break;
+					case Timer_1 :
+									TIMER_1_CONTROL_B_REG |= (1U << TIMER_1_CLOCK_SELECT_BIT_0);
+									TIMER_INTERRUPT_MASK_REG |= (1U << TIMER_1_OVERFLOW_INTERRUPT_ENABLE);
+									Timers_status[Timer_Num] = Timer_S_Ready;
+									break;
  612:	10 c0       	rjmp	.+32     	; 0x634 <Timer_Init+0x74>
+					case Timer_2 :
+									TIMER_2_CONTROL_REG |= (1U << TIMER_2_CLOCK_SELECT_BIT_0);
  614:	85 b5       	in	r24, 0x25	; 37
  616:	81 60       	ori	r24, 0x01	; 1
  618:	85 bd       	out	0x25, r24	; 37
+									TIMER_INTERRUPT_MASK_REG |= (1U << TIMER_2_OVERFLOW_INTERRUPT_ENABLE);
  61a:	89 b7       	in	r24, 0x39	; 57
  61c:	80 64       	ori	r24, 0x40	; 64
  61e:	89 bf       	out	0x39, r24	; 57
+									Timers_status[Timer_Num] = Timer_S_Ready;
  620:	f9 01       	movw	r30, r18
  622:	eb 57       	subi	r30, 0x7B	; 123
  624:	ff 4f       	sbci	r31, 0xFF	; 255
  626:	81 e0       	ldi	r24, 0x01	; 1
  628:	80 83       	st	Z, r24
+					default:
+						break;
+				}
+			}
+		}
+	return Timer_E_OK;
  62a:	90 e0       	ldi	r25, 0x00	; 0
+									break;
+					case Timer_2 :
+									TIMER_2_CONTROL_REG |= (1U << TIMER_2_CLOCK_SELECT_BIT_0);
+									TIMER_INTERRUPT_MASK_REG |= (1U << TIMER_2_OVERFLOW_INTERRUPT_ENABLE);
+									Timers_status[Timer_Num] = Timer_S_Ready;
+									break;
  62c:	03 c0       	rjmp	.+6      	; 0x634 <Timer_Init+0x74>
+
+Timer_Errors Timer_Init(Timer_Number Timer_Num)
+{
+		if (Timer_Num >= Max_Timer_Numbers)
+		{
+			return Timer_E_InvalidValue;
  62e:	94 e0       	ldi	r25, 0x04	; 4
  630:	01 c0       	rjmp	.+2      	; 0x634 <Timer_Init+0x74>
+					default:
+						break;
+				}
+			}
+		}
+	return Timer_E_OK;
  632:	90 e0       	ldi	r25, 0x00	; 0
+}
  634:	89 2f       	mov	r24, r25
  636:	08 95       	ret
 
 00000638 <Timer_Set>:
+
+
+
+Timer_Errors Timer_Set(Timer_Number Timer_Num , uint16_t Timer_value)
+{
+	if (Timer_Num < Max_Timer_Numbers		&&		Timer_value < Timers_Capacity[Timer_Num])
  638:	83 30       	cpi	r24, 0x03	; 3
  63a:	10 f5       	brcc	.+68     	; 0x680 <Timer_Set+0x48>
  63c:	28 2f       	mov	r18, r24
@@ -1224,39 +1304,113 @@ EXT_INT_ERR_TYPE eXT_INT_Enable(EXT_INT_ID_TYPE id , EXT_INT_MODE_TYPE mode)
  64e:	64 17       	cp	r22, r20
  650:	75 07       	cpc	r23, r21
  652:	c0 f4       	brcc	.+48     	; 0x684 <Timer_Set+0x4c>
+	{
+		if (Timers_status[Timer_Num] == Timer_S_Ready)
  654:	f9 01       	movw	r30, r18
  656:	eb 57       	subi	r30, 0x7B	; 123
  658:	ff 4f       	sbci	r31, 0xFF	; 255
  65a:	90 81       	ld	r25, Z
  65c:	91 30       	cpi	r25, 0x01	; 1
  65e:	a1 f4       	brne	.+40     	; 0x688 <Timer_Set+0x50>
+		{
+			switch(Timer_Num)
  660:	81 30       	cpi	r24, 0x01	; 1
  662:	39 f0       	breq	.+14     	; 0x672 <Timer_Set+0x3a>
  664:	18 f0       	brcs	.+6      	; 0x66c <Timer_Set+0x34>
  666:	82 30       	cpi	r24, 0x02	; 2
  668:	41 f0       	breq	.+16     	; 0x67a <Timer_Set+0x42>
  66a:	10 c0       	rjmp	.+32     	; 0x68c <Timer_Set+0x54>
+			{
+				case Timer_0:
+				TIMER_0_COUNTER_REG = Timer_value;
  66c:	62 bf       	out	0x32, r22	; 50
+				break;
+				
+				default:
+				break;
+			}
+			return Timer_E_OK;
  66e:	80 e0       	ldi	r24, 0x00	; 0
+		{
+			switch(Timer_Num)
+			{
+				case Timer_0:
+				TIMER_0_COUNTER_REG = Timer_value;
+				break;
  670:	08 95       	ret
+				
+				case Timer_1:
+				TIMER_1_COUNTER_REG = Timer_value;
  672:	7d bd       	out	0x2d, r23	; 45
  674:	6c bd       	out	0x2c, r22	; 44
+				break;
+				
+				default:
+				break;
+			}
+			return Timer_E_OK;
  676:	80 e0       	ldi	r24, 0x00	; 0
+				TIMER_0_COUNTER_REG = Timer_value;
+				break;
+				
+				case Timer_1:
+				TIMER_1_COUNTER_REG = Timer_value;
+				break;
  678:	08 95       	ret
+				
+				case Timer_2:
+				TIMER_2_COUNTER_REG = Timer_value;
  67a:	64 bd       	out	0x24, r22	; 36
+				break;
+				
+				default:
+				break;
+			}
+			return Timer_E_OK;
  67c:	80 e0       	ldi	r24, 0x00	; 0
+				TIMER_1_COUNTER_REG = Timer_value;
+				break;
+				
+				case Timer_2:
+				TIMER_2_COUNTER_REG = Timer_value;
+				break;
  67e:	08 95       	ret
+			return Timer_E_TRANSITION;
+		}
+	}
+	else
+	{
+		return Timer_E_InvalidValue;
  680:	84 e0       	ldi	r24, 0x04	; 4
  682:	08 95       	ret
  684:	84 e0       	ldi	r24, 0x04	; 4
  686:	08 95       	ret
+			}
+			return Timer_E_OK;
+		}
+		else
+		{
+			return Timer_E_TRANSITION;
  688:	81 e0       	ldi	r24, 0x01	; 1
  68a:	08 95       	ret
+				break;
+				
+				default:
+				break;
+			}
+			return Timer_E_OK;
  68c:	80 e0       	ldi	r24, 0x00	; 0
+	}
+	else
+	{
+		return Timer_E_InvalidValue;
+	}
+}
  68e:	08 95       	ret
 
 00000690 <timer_delay_50ms>:
-
+}
+*/
 
 
 Timer_Errors timer_delay_50ms(Timer_Number num)
