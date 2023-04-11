@@ -266,7 +266,7 @@ END GROUP
 .rela.plt
  *(.rela.plt)
 
-.text           0x00000000      0x7b6
+.text           0x00000000      0x7c2
  *(.vectors)
  .vectors       0x00000000       0x54 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.6.364/gcc/dev/atmega32/avr5/crtatmega32.o
                 0x00000000                __vector_default
@@ -354,61 +354,61 @@ END GROUP
                 0x000000d4       0x40 Application/app.o
                 0x000000d4                __vector_2
  .text.__vector_9
-                0x00000114       0x22 Application/app.o
+                0x00000114       0x2e Application/app.o
                 0x00000114                __vector_9
- .text.blink_1  0x00000136       0x36 Application/app.o
-                0x00000136                blink_1
- .text.blink_2  0x0000016c       0x36 Application/app.o
-                0x0000016c                blink_2
- .text.blink_3  0x000001a2       0x36 Application/app.o
-                0x000001a2                blink_3
- .text.blink_4  0x000001d8       0x36 Application/app.o
-                0x000001d8                blink_4
- .text.blink_5  0x0000020e       0x36 Application/app.o
-                0x0000020e                blink_5
+ .text.blink_1  0x00000142       0x36 Application/app.o
+                0x00000142                blink_1
+ .text.blink_2  0x00000178       0x36 Application/app.o
+                0x00000178                blink_2
+ .text.blink_3  0x000001ae       0x36 Application/app.o
+                0x000001ae                blink_3
+ .text.blink_4  0x000001e4       0x36 Application/app.o
+                0x000001e4                blink_4
+ .text.blink_5  0x0000021a       0x36 Application/app.o
+                0x0000021a                blink_5
  .text.blink_mode
-                0x00000244       0x42 Application/app.o
-                0x00000244                blink_mode
+                0x00000250       0x42 Application/app.o
+                0x00000250                blink_mode
  .text.appStart
-                0x00000286      0x118 Application/app.o
-                0x00000286                appStart
- .text.main     0x0000039e        0xa main.o
-                0x0000039e                main
+                0x00000292      0x118 Application/app.o
+                0x00000292                appStart
+ .text.main     0x000003aa        0xa main.o
+                0x000003aa                main
  .text.Dio_ChannelSetDIR
-                0x000003a8       0x72 MCAL/DIO/DIO.o
-                0x000003a8                Dio_ChannelSetDIR
+                0x000003b4       0x72 MCAL/DIO/DIO.o
+                0x000003b4                Dio_ChannelSetDIR
  .text.Dio_WriteChannel
-                0x0000041a      0x114 MCAL/DIO/DIO.o
-                0x0000041a                Dio_WriteChannel
+                0x00000426      0x114 MCAL/DIO/DIO.o
+                0x00000426                Dio_WriteChannel
  .text.eXT_INT_Enable
-                0x0000052e       0x92 MCAL/EXT_INT/EXT_INT.o
-                0x0000052e                eXT_INT_Enable
+                0x0000053a       0x92 MCAL/EXT_INT/EXT_INT.o
+                0x0000053a                eXT_INT_Enable
  .text.Timer_Init
-                0x000005c0       0x78 MCAL/Timer/timer.o
-                0x000005c0                Timer_Init
+                0x000005cc       0x78 MCAL/Timer/timer.o
+                0x000005cc                Timer_Init
  .text.Timer_Set
-                0x00000638       0x58 MCAL/Timer/timer.o
-                0x00000638                Timer_Set
+                0x00000644       0x58 MCAL/Timer/timer.o
+                0x00000644                Timer_Set
  .text.timer_delay_50ms
-                0x00000690       0x22 MCAL/Timer/timer.o
-                0x00000690                timer_delay_50ms
+                0x0000069c       0x22 MCAL/Timer/timer.o
+                0x0000069c                timer_delay_50ms
  .text.button_Init
-                0x000006b2       0x6e Onboard/Button/Button.o
-                0x000006b2                button_Init
- .text.led_OFF  0x00000720       0x22 Onboard/LED/led.o
-                0x00000720                led_OFF
- .text.led_ON   0x00000742       0x22 Onboard/LED/led.o
-                0x00000742                led_ON
+                0x000006be       0x6e Onboard/Button/Button.o
+                0x000006be                button_Init
+ .text.led_OFF  0x0000072c       0x22 Onboard/LED/led.o
+                0x0000072c                led_OFF
+ .text.led_ON   0x0000074e       0x22 Onboard/LED/led.o
+                0x0000074e                led_ON
  .text.led_Init
-                0x00000764       0x42 Onboard/LED/led.o
-                0x00000764                led_Init
- .text.libgcc   0x000007a6        0xc c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_tablejump2.o)
-                0x000007a6                __tablejump2__
-                0x000007b2                . = ALIGN (0x2)
+                0x00000770       0x42 Onboard/LED/led.o
+                0x00000770                led_Init
+ .text.libgcc   0x000007b2        0xc c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_tablejump2.o)
+                0x000007b2                __tablejump2__
+                0x000007be                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x000007b2        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
-                0x000007b2                _exit
-                0x000007b2                exit
+ .fini9         0x000007be        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
+                0x000007be                _exit
+                0x000007be                exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -427,11 +427,11 @@ END GROUP
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x000007b2        0x4 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
+ .fini0         0x000007be        0x4 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
  *(.fini0)
-                0x000007b6                _etext = .
+                0x000007c2                _etext = .
 
-.data           0x00800060       0x1a load address 0x000007b6
+.data           0x00800060       0x1a load address 0x000007c2
                 0x00800060                PROVIDE (__data_start, .)
  *(.data)
  *(.data*)
@@ -479,8 +479,8 @@ END GROUP
  COMMON         0x00800085        0x3 MCAL/Timer/timer.o
                 0x00800085                Timers_status
                 0x00800088                PROVIDE (__bss_end, .)
-                0x000007b6                __data_load_start = LOADADDR (.data)
-                0x000007d0                __data_load_end = (__data_load_start + SIZEOF (.data))
+                0x000007c2                __data_load_start = LOADADDR (.data)
+                0x000007dc                __data_load_end = (__data_load_start + SIZEOF (.data))
 
 .noinit         0x00800088        0x0
                 [!provide]                PROVIDE (__noinit_start, .)
@@ -583,18 +583,18 @@ END GROUP
 .debug_pubnames
  *(.debug_pubnames)
 
-.debug_info     0x00000000     0x1841
+.debug_info     0x00000000     0x184c
  *(.debug_info .gnu.linkonce.wi.*)
  .debug_info    0x00000000      0x4e6 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.6.364/gcc/dev/atmega32/avr5/crtatmega32.o
- .debug_info    0x000004e6      0x5b3 Application/app.o
- .debug_info    0x00000a99       0x97 main.o
- .debug_info    0x00000b30      0x1b9 MCAL/DIO/DIO.o
- .debug_info    0x00000ce9       0xfb MCAL/EXT_INT/EXT_INT.o
- .debug_info    0x00000de4      0x1ba MCAL/Timer/timer.o
- .debug_info    0x00000f9e      0x4cf Onboard/Button/Button.o
- .debug_info    0x0000146d       0xf6 Onboard/Button/Button_cfg.o
- .debug_info    0x00001563      0x204 Onboard/LED/led.o
- .debug_info    0x00001767       0xda Onboard/LED/led_cfg.o
+ .debug_info    0x000004e6      0x5be Application/app.o
+ .debug_info    0x00000aa4       0x97 main.o
+ .debug_info    0x00000b3b      0x1b9 MCAL/DIO/DIO.o
+ .debug_info    0x00000cf4       0xfb MCAL/EXT_INT/EXT_INT.o
+ .debug_info    0x00000def      0x1ba MCAL/Timer/timer.o
+ .debug_info    0x00000fa9      0x4cf Onboard/Button/Button.o
+ .debug_info    0x00001478       0xf6 Onboard/Button/Button_cfg.o
+ .debug_info    0x0000156e      0x204 Onboard/LED/led.o
+ .debug_info    0x00001772       0xda Onboard/LED/led_cfg.o
 
 .debug_abbrev   0x00000000      0xba2
  *(.debug_abbrev)
@@ -609,41 +609,41 @@ END GROUP
  .debug_abbrev  0x00000a20      0x109 Onboard/LED/led.o
  .debug_abbrev  0x00000b29       0x79 Onboard/LED/led_cfg.o
 
-.debug_line     0x00000000     0x128d
+.debug_line     0x00000000     0x1293
  *(.debug_line .debug_line.* .debug_line_end)
  .debug_line    0x00000000      0x116 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.6.364/gcc/dev/atmega32/avr5/crtatmega32.o
- .debug_line    0x00000116      0x431 Application/app.o
- .debug_line    0x00000547       0x5f main.o
- .debug_line    0x000005a6      0x258 MCAL/DIO/DIO.o
- .debug_line    0x000007fe      0x172 MCAL/EXT_INT/EXT_INT.o
- .debug_line    0x00000970      0x206 MCAL/Timer/timer.o
- .debug_line    0x00000b76      0x392 Onboard/Button/Button.o
- .debug_line    0x00000f08      0x113 Onboard/Button/Button_cfg.o
- .debug_line    0x0000101b      0x194 Onboard/LED/led.o
- .debug_line    0x000011af       0xde Onboard/LED/led_cfg.o
+ .debug_line    0x00000116      0x437 Application/app.o
+ .debug_line    0x0000054d       0x5f main.o
+ .debug_line    0x000005ac      0x258 MCAL/DIO/DIO.o
+ .debug_line    0x00000804      0x172 MCAL/EXT_INT/EXT_INT.o
+ .debug_line    0x00000976      0x206 MCAL/Timer/timer.o
+ .debug_line    0x00000b7c      0x392 Onboard/Button/Button.o
+ .debug_line    0x00000f0e      0x113 Onboard/Button/Button_cfg.o
+ .debug_line    0x00001021      0x194 Onboard/LED/led.o
+ .debug_line    0x000011b5       0xde Onboard/LED/led_cfg.o
 
-.debug_frame    0x00000000      0x394
+.debug_frame    0x00000000      0x398
  *(.debug_frame)
- .debug_frame   0x00000000       0xe4 Application/app.o
- .debug_frame   0x000000e4       0x24 main.o
- .debug_frame   0x00000108       0x44 MCAL/DIO/DIO.o
- .debug_frame   0x0000014c       0x24 MCAL/EXT_INT/EXT_INT.o
- .debug_frame   0x00000170       0x4c MCAL/Timer/timer.o
- .debug_frame   0x000001bc      0x184 Onboard/Button/Button.o
- .debug_frame   0x00000340       0x54 Onboard/LED/led.o
+ .debug_frame   0x00000000       0xe8 Application/app.o
+ .debug_frame   0x000000e8       0x24 main.o
+ .debug_frame   0x0000010c       0x44 MCAL/DIO/DIO.o
+ .debug_frame   0x00000150       0x24 MCAL/EXT_INT/EXT_INT.o
+ .debug_frame   0x00000174       0x4c MCAL/Timer/timer.o
+ .debug_frame   0x000001c0      0x184 Onboard/Button/Button.o
+ .debug_frame   0x00000344       0x54 Onboard/LED/led.o
 
 .debug_str      0x00000000      0x7b4
  *(.debug_str)
  .debug_str     0x00000000      0x196 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.6.364/gcc/dev/atmega32/avr5/crtatmega32.o
- .debug_str     0x00000196      0x277 Application/app.o
-                                0x2ab (size before relaxing)
- .debug_str     0x0000040d       0x11 main.o
+ .debug_str     0x00000196      0x280 Application/app.o
+                                0x2b4 (size before relaxing)
+ .debug_str     0x00000416       0x11 main.o
                                 0x19d (size before relaxing)
- .debug_str     0x0000041e       0xa8 MCAL/DIO/DIO.o
+ .debug_str     0x00000427       0xa8 MCAL/DIO/DIO.o
                                 0x233 (size before relaxing)
- .debug_str     0x000004c6       0x67 MCAL/EXT_INT/EXT_INT.o
+ .debug_str     0x000004cf       0x67 MCAL/EXT_INT/EXT_INT.o
                                 0x200 (size before relaxing)
- .debug_str     0x0000052d       0x82 MCAL/Timer/timer.o
+ .debug_str     0x00000536       0x79 MCAL/Timer/timer.o
                                 0x234 (size before relaxing)
  .debug_str     0x000005af      0x15d Onboard/Button/Button.o
                                 0x394 (size before relaxing)
@@ -654,14 +654,14 @@ END GROUP
  .debug_str     0x0000079b       0x19 Onboard/LED/led_cfg.o
                                 0x200 (size before relaxing)
 
-.debug_loc      0x00000000     0x1038
+.debug_loc      0x00000000     0x1045
  *(.debug_loc)
- .debug_loc     0x00000000      0x35d Application/app.o
- .debug_loc     0x0000035d      0x4bc MCAL/DIO/DIO.o
- .debug_loc     0x00000819      0x102 MCAL/EXT_INT/EXT_INT.o
- .debug_loc     0x0000091b       0xdd MCAL/Timer/timer.o
- .debug_loc     0x000009f8      0x571 Onboard/Button/Button.o
- .debug_loc     0x00000f69       0xcf Onboard/LED/led.o
+ .debug_loc     0x00000000      0x36a Application/app.o
+ .debug_loc     0x0000036a      0x4bc MCAL/DIO/DIO.o
+ .debug_loc     0x00000826      0x102 MCAL/EXT_INT/EXT_INT.o
+ .debug_loc     0x00000928       0xdd MCAL/Timer/timer.o
+ .debug_loc     0x00000a05      0x571 Onboard/Button/Button.o
+ .debug_loc     0x00000f76       0xcf Onboard/LED/led.o
 
 .debug_macinfo
  *(.debug_macinfo)

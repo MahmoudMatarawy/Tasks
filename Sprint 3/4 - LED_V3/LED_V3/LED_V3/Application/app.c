@@ -55,8 +55,8 @@ ISR(INT1_vect)
 
 ISR(TIMER1_OVF_vect)
 {
-	//TCNT1 = 15536 ;
 	u8_blink_counter++;
+	TCNT1 = 15536 ;
 }
 
 
