@@ -7,32 +7,34 @@
 #define DIO_MAX_PORTS	4
 
 // DIO Errors Enum
-typedef uint8_t DIO_Errors;		
+typedef enum
+{
+	DIO_E_OK = 0,
+	DIO_InvalidPin,
+	DIO_InvalidPort
+}en_dio_Errors_t;
 
-#define DIO_E_OK				((DIO_Errors)0x00)
-#define DIO_InvalidPin			((DIO_Errors)0x01)
-#define DIO_InvalidPort			((DIO_Errors)0x02)
 
 
 // DIO Level type ENUM
-typedef uint8_t Dio_LevelType;
-
-#define STD_LOW					((Dio_LevelType)0x00)
-#define STD_HIGH				((Dio_LevelType)0x01)
+typedef enum
+{
+	STD_LOW = 0,
+	STD_HIGH
+}en_dio_Level_t;
 
 
 // DIO DIR type ENUM
-typedef uint8_t Dio_DIRType;
+typedef enum
+{
+	STD_INPUT = 0,
+	STD_OUTPUT
+}en_dio_DIR_t;
 
-#define STD_INPUT					((Dio_LevelType)0x00)
-#define STD_OUTPUT					((Dio_LevelType)0x01)
+en_dio_Errors_t DIO_ChannelSetDIR(en_dio_channel_t ChannelId, en_dio_DIR_t dir);
 
-
-DIO_Errors Dio_ChannelSetDIR(Dio_ChannelType ChannelId, Dio_DIRType dir);
-
-//void Dio_Init(void);
-DIO_Errors Dio_ReadChannel(Dio_ChannelType ChannelId ,Dio_LevelType* level);
-DIO_Errors Dio_WriteChannel(Dio_ChannelType ChannelId, Dio_LevelType level);
+en_dio_Errors_t DIO_ReadChannel(en_dio_channel_t ChannelId ,en_dio_Level_t* level);
+en_dio_Errors_t DIO_WriteChannel(en_dio_channel_t ChannelId, en_dio_Level_t level);
 
 
 

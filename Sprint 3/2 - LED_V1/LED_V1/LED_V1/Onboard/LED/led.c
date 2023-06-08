@@ -11,7 +11,7 @@ void led_Init(void)
 	
 	for (u8_index = 0 ; u8_index < LED_NUMs ; u8_index++)
 	{
-		Dio_ChannelSetDIR((LED_Config[u8_index].LED_CHANNEL_ID) , STD_OUTPUT);
+		DIO_ChannelSetDIR((LED_Config[u8_index].LED_CHANNEL_ID) , STD_OUTPUT);
 		if (LED_Config[u8_index].LED_STATE == LED_ON)
 		{
 			led_ON(u8_index+1);
@@ -29,7 +29,7 @@ LED_ERROR_type led_OFF(LED_ID_type led)
 	{
 		return LED_UNDEFINED;
 	}
-	Dio_WriteChannel(LED_Config[led-1].LED_CHANNEL_ID,LED_OFF);
+	DIO_WriteChannel(LED_Config[led-1].LED_CHANNEL_ID,LED_OFF);
 	return  LED_OK;
 }
 LED_ERROR_type led_ON(LED_ID_type led)
@@ -38,6 +38,6 @@ LED_ERROR_type led_ON(LED_ID_type led)
 	{
 		return LED_UNDEFINED;
 	}
-	Dio_WriteChannel(LED_Config[led-1].LED_CHANNEL_ID,LED_ON);
+	DIO_WriteChannel(LED_Config[led-1].LED_CHANNEL_ID,LED_ON);
 	return  LED_OK;
 }

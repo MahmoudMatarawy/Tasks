@@ -43,10 +43,10 @@ void button_Init(void)
 	for(u8Index=0;u8Index<BUTTONS_NUM;u8Index++)
 	{
 		// Set button pin as input
-		Dio_ChannelSetDIR((Button_config[u8Index].ChannelId) , STD_INPUT);
+		DIO_ChannelSetDIR((Button_config[u8Index].ChannelId) , STD_INPUT);
 		
 		// Enable PULLUP
-		Dio_WriteChannel(Button_config[u8Index].ChannelId, STD_HIGH);
+		DIO_WriteChannel(Button_config[u8Index].ChannelId, STD_HIGH);
 		
 		strBtnInfo[u8Index].btn_state     = BT_RELEASED;
 		strBtnInfo[u8Index].u8DebounceThreshold  = ((uint8_t)0U);
@@ -126,7 +126,7 @@ static void vidPrePushState(Button_IdType enuBtnId)
 {
 	uint8_t u8BtnValue;
 	
-	Dio_ReadChannel(Button_config[enuBtnId].ChannelId,&u8BtnValue);
+	DIO_ReadChannel(Button_config[enuBtnId].ChannelId,&u8BtnValue);
 	
 	if(u8BtnValue == BT_RELEASE_LEVEL)
 	{
@@ -144,7 +144,7 @@ static void vidPushState(Button_IdType enuBtnId)
 {
 	uint8_t u8BtnValue;
 	
-	Dio_ReadChannel(Button_config[enuBtnId].ChannelId, &u8BtnValue);
+	DIO_ReadChannel(Button_config[enuBtnId].ChannelId, &u8BtnValue);
 	
 	if(u8BtnValue == BT_RELEASE_LEVEL)
 	{
@@ -161,7 +161,7 @@ static void vidPreHoldState(Button_IdType enuBtnId)
 {
 	uint8_t u8BtnValue;
 	
-	Dio_ReadChannel(Button_config[enuBtnId].ChannelId, &u8BtnValue);
+	DIO_ReadChannel(Button_config[enuBtnId].ChannelId, &u8BtnValue);
 	
 	if(u8BtnValue == BT_RELEASE_LEVEL)
 	{
@@ -179,7 +179,7 @@ static void vidHoldState(Button_IdType enuBtnId)
 {
 	uint8_t u8BtnValue;
 	
-	Dio_ReadChannel(Button_config[enuBtnId].ChannelId, &u8BtnValue);
+	DIO_ReadChannel(Button_config[enuBtnId].ChannelId, &u8BtnValue);
 	
 	if(u8BtnValue == BT_RELEASE_LEVEL)
 	{
@@ -207,7 +207,7 @@ static void vidPreReleaseState(Button_IdType enuBtnId)
 {
 	uint8_t u8BtnValue;
 	
-	Dio_ReadChannel(Button_config[enuBtnId].ChannelId, &u8BtnValue);
+	DIO_ReadChannel(Button_config[enuBtnId].ChannelId, &u8BtnValue);
 	
 	if(u8BtnValue == BT_RELEASE_LEVEL)
 	{
@@ -235,7 +235,7 @@ static void vidReleaseState(Button_IdType enuBtnId)
 {
 	uint8_t u8BtnValue;
 	
-	Dio_ReadChannel(Button_config[enuBtnId].ChannelId, &u8BtnValue);
+	DIO_ReadChannel(Button_config[enuBtnId].ChannelId, &u8BtnValue);
 	
 	if(u8BtnValue == BT_PUSH_LEVEL)
 	{

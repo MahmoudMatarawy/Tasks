@@ -16,7 +16,7 @@ typedef uint8_t Button_LevelType;
 
 
 typedef struct{
-	Dio_ChannelType ChannelId;
+	en_dio_channel_t ChannelId;
 	uint8_t u8DebounceThreshold;
 	uint8_t u8HoldThreshold;
 }Button_configType;
