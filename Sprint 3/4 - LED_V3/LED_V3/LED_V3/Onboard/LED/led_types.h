@@ -15,7 +15,7 @@
 
 typedef struct
 {
-	Dio_ChannelType LED_CHANNEL_ID;
+	en_dio_channel_t LED_CHANNEL_ID;
 	LED_STATE_type LED_STATE;
 }LED_Config_Type;
 

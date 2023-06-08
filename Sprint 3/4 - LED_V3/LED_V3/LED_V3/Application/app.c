@@ -76,6 +76,10 @@ void blink_1(LED_ID_type led)
 	{
 		u8_blink_counter = 0;
 	}
+	else
+	{
+		// do nothing
+	}
 }
 void blink_2(LED_ID_type led)
 {
@@ -90,6 +94,10 @@ void blink_2(LED_ID_type led)
 	else if (u8_blink_counter >= 20)
 	{
 		u8_blink_counter = 0;
+	}
+	else
+	{
+		// do nothing
 	}
 }
 void blink_3(LED_ID_type led)
@@ -106,6 +114,10 @@ void blink_3(LED_ID_type led)
 	{
 		u8_blink_counter = 0;
 	}
+	else
+	{
+		// do nothing
+	}
 }
 void blink_4(LED_ID_type led)
 {
@@ -120,6 +132,10 @@ void blink_4(LED_ID_type led)
 	else if (u8_blink_counter >= 20)
 	{
 		u8_blink_counter = 0;
+	}
+	else
+	{
+		// do nothing
 	}
 }
 void blink_5(LED_ID_type led)
@@ -136,6 +152,10 @@ void blink_5(LED_ID_type led)
 	{
 		u8_blink_counter = 0;
 	}
+	else
+	{
+		// do nothing
+	}
 }
 
 void blink_mode(uint8_t blink , uint8_t led)
@@ -143,27 +163,44 @@ void blink_mode(uint8_t blink , uint8_t led)
 	switch(blink)
 	{
 		case 0 :
-		blink_1(led);
-		break;
+		{
+			blink_1(led);
+			break;
+		}
+		
 		
 		case 1 :
-		blink_2(led);
-		break;
+		{
+			blink_2(led);
+			break;
+		}
+		
 		
 		case 2:
-		blink_3(led);
-		break;
+		{
+			blink_3(led);
+			break;
+		}
+		
 		
 		case 3 :
-		blink_4(led);
-		break;
+		{
+			blink_4(led);
+			break;
+		}
+		
 		
 		case 4 :
-		blink_5(led);
-		break;
+		{
+			blink_5(led);
+			break;
+		}
+		
 		
 		default:
-		break;
+		{
+			break;
+		}
 	}
 }
 
@@ -178,58 +215,84 @@ void appStart(void)
 		switch(u8_Full_cycle)
 		{
 			case 1:
-			blink_mode(u8_mode_counter , 1);
-			break;
+			{
+				blink_mode(u8_mode_counter , 1);
+				break;
+			}
+			
 			
 			case 2:
-			blink_mode(u8_mode_counter , 1);
-			blink_mode(u8_mode_counter , 2);
-			break;
+			{
+				blink_mode(u8_mode_counter , 1);
+				blink_mode(u8_mode_counter , 2);
+				break;
+			}
+			
 			
 			case 3 :
-			blink_mode(u8_mode_counter , 1);
-			blink_mode(u8_mode_counter , 2);
-			blink_mode(u8_mode_counter , 3);
-			break;
+			{
+				blink_mode(u8_mode_counter , 1);
+				blink_mode(u8_mode_counter , 2);
+				blink_mode(u8_mode_counter , 3);
+				break;
+			}
+			
 			
 			case 4 :
-			blink_mode(u8_mode_counter , 1);
-			blink_mode(u8_mode_counter , 2);
-			blink_mode(u8_mode_counter , 3);
-			blink_mode(u8_mode_counter , 4);
-			break;
+			{
+				blink_mode(u8_mode_counter , 1);
+				blink_mode(u8_mode_counter , 2);
+				blink_mode(u8_mode_counter , 3);
+				blink_mode(u8_mode_counter , 4);
+				break;
+			}
+			
 			
 			case 5:
-			led_OFF(1);
-			blink_mode(u8_mode_counter , 2);
-			blink_mode(u8_mode_counter , 3);
-			blink_mode(u8_mode_counter , 4);
-			break;
+			{
+				led_OFF(1);
+				blink_mode(u8_mode_counter , 2);
+				blink_mode(u8_mode_counter , 3);
+				blink_mode(u8_mode_counter , 4);
+				break;
+			}
+			
 			
 			case 6:
-			led_OFF(1);
-			led_OFF(2);
-			blink_mode(u8_mode_counter , 3);
-			blink_mode(u8_mode_counter, 4);
-			break;
+			{
+				led_OFF(1);
+				led_OFF(2);
+				blink_mode(u8_mode_counter , 3);
+				blink_mode(u8_mode_counter, 4);
+				break;
+			}
+			
+			
 			
 			case 7 :
-			led_OFF(1);
-			led_OFF(2);
-			led_OFF(3);
-			blink_mode(u8_mode_counter , 4);
-			break;
+			{
+				led_OFF(1);
+				led_OFF(2);
+				led_OFF(3);
+				blink_mode(u8_mode_counter , 4);
+				break;
+			}
+			
 			
 			case 8 :
-			led_OFF(1);
-			led_OFF(2);
-			led_OFF(3);
-			led_OFF(4);
-			u8_Full_cycle = 0;
-			break;
+			{
+				led_OFF(1);
+				led_OFF(2);
+				led_OFF(3);
+				led_OFF(4);
+				u8_Full_cycle = 0;
+				break;
+			}
 			
 			default:
-			break;
+			{
+				break;
+			}
 		}
 	}
 	

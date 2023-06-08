@@ -10,20 +10,23 @@
 #define TIMER_SHARED_H_
 
 // Timers Errors Enum
-typedef uint8_t Timer_Errors;
+typedef enum 
+{
+	Timer_E_OK = 0,
+	Timer_E_TRANSITION,
+	Timer_E_PARAM_POINTER,
+	Timer_E_INIT_FAILED,
+	Timer_E_InvalidValue
+}en_timer_Errors_t;
 
-#define Timer_E_OK				((Timer_Errors)0x00)
-#define Timer_E_TRANSITION		((Timer_Errors)0x01)
-#define Timer_E_PARAM_POINTER	((Timer_Errors)0x02)
-#define Timer_E_INIT_FAILED		((Timer_Errors)0x03)
-#define Timer_E_InvalidValue	((Timer_Errors)0x04)
 
-typedef uint8_t Timer_Number;
 
-#define Timer_0		((Timer_Number)0x00)
-#define Timer_1		((Timer_Number)0x01)
-#define Timer_2		((Timer_Number)0x02)
-
+typedef enum
+{
+	Timer_0 = 0,
+	Timer_1,
+	Timer_2
+}en_timer_Number_t;
 
 
 

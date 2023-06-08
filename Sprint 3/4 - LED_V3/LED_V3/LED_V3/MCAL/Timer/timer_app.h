@@ -11,6 +11,6 @@
 #include "timer_shared.h"
 
 
-Timer_Errors timer_delay_50ms(Timer_Number num);
+en_timer_Errors_t timer_delay_50ms(en_timer_Number_t num);
 
 #endif /* TIMER_APP_H_ */

@@ -16,7 +16,7 @@
 
 // Timer Config Structure
 typedef struct {
-	Timer_Number timer_num;
+	en_timer_Number_t timer_num;
 	uint8_t mode;
 	uint8_t com[2];
 	uint16_t clock_select;
@@ -33,8 +33,8 @@ typedef uint8_t Timer_Status;
 
 
 
-Timer_Errors Timer_Init(Timer_Number Timer_Num);
-Timer_Errors Timer_Set(Timer_Number Timer_Num , uint16_t Timer_value);
+en_timer_Errors_t Timer_Init(en_timer_Number_t Timer_Num);
+en_timer_Errors_t Timer_Set(en_timer_Number_t Timer_Num , uint16_t Timer_value);
 //Timer_Errors Timer_Read(Timer_Number Timer_Num , uint16_t* Timer_value);
 //Timer_Errors Timer_DeInit(Timer_Number Timer_Num);
 

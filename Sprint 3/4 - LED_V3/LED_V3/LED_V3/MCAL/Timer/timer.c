@@ -6,83 +6,107 @@
 
 uint8_t Timers_status[Max_Timer_Numbers];
 
-Timer_Errors Timer_Init(Timer_Number Timer_Num)
+en_timer_Errors_t Timer_Init(en_timer_Number_t Timer_Num)
 {
+	en_timer_Errors_t en_timer_Errors = Timer_E_OK;
 		if (Timer_Num >= Max_Timer_Numbers)
 		{
-			return Timer_E_InvalidValue;
+			en_timer_Errors = Timer_E_InvalidValue;
 		}
 		else
 		{
 			if (Timers_status[Timer_Num] == Timer_S_Ready)
 			{
-				return Timer_E_TRANSITION;
+				en_timer_Errors = Timer_E_TRANSITION;
 			}
 			else
 			{
 				switch(Timer_Num)
 				{
 					case Timer_0 :
+					{
 									TIMER_0_CONTROL_REG |= (1U << TIMER_0_CLOCK_SELECT_BIT_0);
 									TIMER_INTERRUPT_MASK_REG |= (1U << TIMER_0_OVERFLOW_INTERRUPT_ENABLE);
 									Timers_status[Timer_Num] = Timer_S_Ready;
 									break;
+					}
 					case Timer_1 :
+					{
 									TIMER_1_CONTROL_B_REG |= (1U << TIMER_1_CLOCK_SELECT_BIT_0);
 									TIMER_INTERRUPT_MASK_REG |= (1U << TIMER_1_OVERFLOW_INTERRUPT_ENABLE);
 									Timers_status[Timer_Num] = Timer_S_Ready;
 									break;
+					}
 					case Timer_2 :
+					{
 									TIMER_2_CONTROL_REG |= (1U << TIMER_2_CLOCK_SELECT_BIT_0);
 									TIMER_INTERRUPT_MASK_REG |= (1U << TIMER_2_OVERFLOW_INTERRUPT_ENABLE);
 									Timers_status[Timer_Num] = Timer_S_Ready;
 									break;
+					}
 					default:
+					{
 						break;
+					}
 				}
 			}
 		}
-	return Timer_E_OK;
+	return en_timer_Errors;
 }
 
 
 
 
 
-Timer_Errors Timer_Set(Timer_Number Timer_Num , uint16_t Timer_value)
+en_timer_Errors_t Timer_Set(en_timer_Number_t Timer_Num , uint16_t Timer_value)
 {
-	if (Timer_Num < Max_Timer_Numbers		&&		Timer_value < Timers_Capacity[Timer_Num])
+	en_timer_Errors_t en_timer_Errors = Timer_E_OK;
+	
+	if ((Timer_Num < Max_Timer_Numbers)		&&		
+		(Timer_value < Timers_Capacity[Timer_Num]))
 	{
 		if (Timers_status[Timer_Num] == Timer_S_Ready)
 		{
 			switch(Timer_Num)
 			{
 				case Timer_0:
-				TIMER_0_COUNTER_REG = Timer_value;
-				break;
+				{
+					TIMER_0_COUNTER_REG = Timer_value;
+					break;
+				}
 				
 				case Timer_1:
-				TIMER_1_COUNTER_REG = Timer_value;
-				break;
+				{
+					TIMER_1_COUNTER_REG = Timer_value;
+					break;
+				}
+				
 				
 				case Timer_2:
-				TIMER_2_COUNTER_REG = Timer_value;
-				break;
+				{
+					TIMER_2_COUNTER_REG = Timer_value;
+					break;
+				}
+				
 				
 				default:
-				break;
+				{
+					break;
+				}
+				
 			}
-			return Timer_E_OK;
+			en_timer_Errors = Timer_E_OK;
 		}
 		else
 		{
-			return Timer_E_TRANSITION;
+			en_timer_Errors = Timer_E_TRANSITION;
 		}
 	}
 	else
 	{
-		return Timer_E_InvalidValue;
+		en_timer_Errors = Timer_E_InvalidValue;
 	}
+	return en_timer_Errors;
 }
 
 /*
@@ -172,20 +196,20 @@ Timer_Errors Timer_DeInit(Timer_Number Timer_Num)
 */
 
 
-Timer_Errors timer_delay_50ms(Timer_Number num)
+en_timer_Errors_t timer_delay_50ms(en_timer_Number_t num)
 {
+	en_timer_Errors_t en_timer_Errors = Timer_E_OK;
 	if (num < Max_Timer_Numbers)
 	{
 		Timer_Init(num);
 		Timer_Set(num,15536);
 		sei();
 		
-		return Timer_E_OK;
+		en_timer_Errors = Timer_E_OK;
 	}
 	else
 	{
-		return Timer_E_InvalidValue;
+		en_timer_Errors = Timer_E_InvalidValue;
 	}
-	
-	return 0;
+	return en_timer_Errors;
 }
