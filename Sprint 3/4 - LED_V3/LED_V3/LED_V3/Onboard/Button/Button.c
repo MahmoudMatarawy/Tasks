@@ -4,6 +4,22 @@
 #include "Button_cfg.h"
 #include "Button.h"
 #include "../../MCAL/EXT_INT/EXT_INT.h"
+
+
+/******************************************************************************/
+/*********************** Private Functions Declaration ************************/
+/******************************************************************************/
+static void vidUpdateBtnState(Button_IdType enuBtnId);
+static void vidPrePushState(Button_IdType enuBtnId);
+static void vidPushState(Button_IdType enuBtnId);
+static void vidPreHoldState(Button_IdType enuBtnId);
+static void vidHoldState(Button_IdType enuBtnId);
+static void vidPreReleaseState(Button_IdType enuBtnId);
+static void vidReleaseState(Button_IdType enuBtnId);
+
+
+
+
 typedef struct {
 	Button_StateType btn_state;
 	uint8_t u8DebounceThreshold;
@@ -17,16 +33,7 @@ static btn_Config strBtnInfo[BUTTONS_NUM];
 
 
 
-/******************************************************************************/
-/*********************** Private Functions Declaration ************************/
-/******************************************************************************/
-static void vidUpdateBtnState(Button_IdType enuBtnId);
-static void vidPrePushState(Button_IdType enuBtnId);
-static void vidPushState(Button_IdType enuBtnId);
-static void vidPreHoldState(Button_IdType enuBtnId);
-static void vidHoldState(Button_IdType enuBtnId);
-static void vidPreReleaseState(Button_IdType enuBtnId);
-static void vidReleaseState(Button_IdType enuBtnId);
+
 
 
 
@@ -93,31 +100,52 @@ static void  vidUpdateBtnState(Button_IdType enuBtnId)
 	switch(strBtnInfo[enuBtnId].btn_state)
 	{
 		case BT_PRE_PUSH:
-		vidPrePushState(enuBtnId);
-		break;
+		{
+			vidPrePushState(enuBtnId);
+			break;
+		}
+		
 		
 		case BT_PUSHED:
-		vidPushState(enuBtnId);
-		break;
+		{
+			vidPushState(enuBtnId);
+			break;
+		}
+		
 		
 		case BT_PRE_HOLD:
-		vidPreHoldState(enuBtnId);
-		break;
+		{
+			vidPreHoldState(enuBtnId);
+			break;
+		}
+		
 		
 		case BT_HOLD:
-		vidHoldState(enuBtnId);
-		break;
+		{
+			vidHoldState(enuBtnId);
+			break;
+		}
+		
 		
 		case BT_PRE_RELEASE:
-		vidPreReleaseState(enuBtnId);
-		break;
+		{
+			vidPreReleaseState(enuBtnId);
+			break;
+		}
+		
 		
 		case BT_RELEASED:
-		vidReleaseState(enuBtnId);
-		break;
+		{
+			vidReleaseState(enuBtnId);
+			break;
+		}
+		
 		
 		default:
-		break;
+		{
+			break;
+		}
+		
 	}
 }
 
