@@ -10,6 +10,7 @@
 
 EXT_INT_ERR_TYPE eXT_INT_Enable(EXT_INT_ID_TYPE id , EXT_INT_MODE_TYPE mode)
 {
+	EXT_INT_ERR_TYPE EXT_INT_ERR = EXT_INT_ERR_OK;
 	// valid ID
 	if (id < EXT_INT_MAX_NUM	&&		mode <= EXT_INT_RISING_EDGE)
 	{
@@ -21,13 +22,19 @@ EXT_INT_ERR_TYPE eXT_INT_Enable(EXT_INT_ID_TYPE id , EXT_INT_MODE_TYPE mode)
 			switch(mode)
 			{
 				case EXT_INT_FALLING_EDGE:
-											//MCU_Control_Register_INT2 &= ~(1U << INT_2_BIT) ;
+				{
+											MCU_Control_Register_INT2 &= ~(1U << INT_2_BIT) ;
 											break;
+				}
 				case  EXT_INT_RISING_EDGE:
+				{
 											MCU_Control_Register_INT2 |= (1U << INT_2_BIT) ;
 											break;
+				}
 				default:
+				{
 						break;
+				}
 			}
 		}
 		else if(id == INT_0_ID)
@@ -35,14 +42,20 @@ EXT_INT_ERR_TYPE eXT_INT_Enable(EXT_INT_ID_TYPE id , EXT_INT_MODE_TYPE mode)
 			switch(mode)
 			{
 				case EXT_INT_FALLING_EDGE:
+				{
 											MCU_Control_Register |=  (1U << INT_0_BIT_1) ;
 											MCU_Control_Register &= ~(1U << INT_0_BIT_0) ;
 											break;
+				}
 				case  EXT_INT_RISING_EDGE:
+				{
 											MCU_Control_Register |= (1U << INT_0_BIT_0) | (1U << INT_0_BIT_1) ;
 											break;
+				}
 				default:
+				{
 						break;
+				}
 			}
 		}
 		else
@@ -50,20 +63,27 @@ EXT_INT_ERR_TYPE eXT_INT_Enable(EXT_INT_ID_TYPE id , EXT_INT_MODE_TYPE mode)
 			switch(mode)
 			{
 				case EXT_INT_FALLING_EDGE:
+				{
 											MCU_Control_Register |=  (1U << INT_1_BIT_1) ;
-											//MCU_Control_Register &= ~(1U << INT_1_BIT_0) ;
+											MCU_Control_Register &= ~(1U << INT_1_BIT_0) ;
 											break;
+				}
 				case  EXT_INT_RISING_EDGE:
+				{
 											MCU_Control_Register |= (1U << INT_1_BIT_0) | (1U << INT_1_BIT_1) ;
 											break;
+				}
 				default:
+				{
 						break;
+				}
 			}
 		}
-		return EXT_INT_ERR_OK;
+		EXT_INT_ERR = EXT_INT_ERR_OK;
 	}
 	else
 	{
-		return EXT_INT_ERR_OutOfRange;
+		EXT_INT_ERR = EXT_INT_ERR_OutOfRange;
 	}
+	return EXT_INT_ERR;
 }
