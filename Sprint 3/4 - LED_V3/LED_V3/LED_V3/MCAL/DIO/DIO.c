@@ -40,10 +40,10 @@
 *								DIO_InvalidPin if the ChannelId is valid Id*/
 /*    Requirment              : None */
 /*****************************************************************************************/
-DIO_Errors Dio_ChannelSetDIR(Dio_ChannelType ChannelId, Dio_DIRType dir)
+en_dio_Errors_t DIO_ChannelSetDIR(en_dio_channel_t ChannelId, en_dio_DIR_t dir)
 {
-	uint8_t pinNumber ;
-	
+	en_dio_Errors_t en_dio_Errors = DIO_E_OK;
+	uint8_t pinNumber = 0 ;
 	
 	
 	if (ChannelId < DIO_MAX_PINS)
@@ -55,24 +55,27 @@ DIO_Errors Dio_ChannelSetDIR(Dio_ChannelType ChannelId, Dio_DIRType dir)
 		}
 		else if (ChannelId < DIO_PORTC_Channel0)
 		{
-			pinNumber = ChannelId-8;
+			pinNumber = ChannelId-PORTA_CHANNELS;
 			DATA_DIRECTION_PORTB |= dir << pinNumber;
 		}
 		else if (ChannelId < DIO_PORTD_Channel0)
 		{
-			pinNumber = ChannelId-16;
+			pinNumber = ChannelId - PORTA_CHANNELS - PORTB_CHANNELS;
 			DATA_DIRECTION_PORTC |= dir << pinNumber;
 		}
 		else
 		{
-			pinNumber = ChannelId-24;
+			pinNumber = ChannelId - PORTA_CHANNELS - PORTB_CHANNELS - PORTC_CHANNELS;
 			DATA_DIRECTION_PORTD |= dir << pinNumber;
 		}
-		return DIO_E_OK;
+		//return DIO_E_OK;
 	}
 	else{
-		return DIO_InvalidPin;
+		en_dio_Errors =  DIO_InvalidPin;
 	}
+	
+	
+	return en_dio_Errors;
 }
 
 
@@ -86,8 +89,9 @@ DIO_Errors Dio_ChannelSetDIR(Dio_ChannelType ChannelId, Dio_DIRType dir)
 *								DIO_InvalidPin if the ChannelId is valid Id*/
 /*    Requirment              : None */
 /*****************************************************************************************/
-DIO_Errors Dio_ReadChannel(Dio_ChannelType ChannelId ,Dio_LevelType* level)
+en_dio_Errors_t DIO_ReadChannel(en_dio_channel_t ChannelId ,en_dio_Level_t* level)
 {
+	en_dio_Errors_t en_dio_Errors = DIO_E_OK;
 	uint8_t pinNumber ;
 	
 	
@@ -100,26 +104,27 @@ DIO_Errors Dio_ReadChannel(Dio_ChannelType ChannelId ,Dio_LevelType* level)
 		}
 		else if (ChannelId < DIO_PORTC_Channel0)
 		{
-			pinNumber = ChannelId-8;
+			pinNumber = ChannelId - PORTA_CHANNELS;
 			*level = ((RE_PORT_B & (1U<<pinNumber))>>pinNumber);
 		}
 		else if (ChannelId < DIO_PORTD_Channel0)
 		{
-			pinNumber = ChannelId-16;
+			pinNumber = ChannelId - PORTA_CHANNELS - PORTB_CHANNELS;
 			*level = ((RE_PORT_C & (1U<<pinNumber))>>pinNumber);
 		}
 		else
 		{
-			pinNumber = ChannelId-24;
+			pinNumber = ChannelId - PORTA_CHANNELS - PORTB_CHANNELS - PORTC_CHANNELS;
 			*level = ((RE_PORT_D & (1U<<pinNumber))>>pinNumber);
 		}
-		*level &= 0x01; 
-		return DIO_E_OK;
+		//*level &= 0x01; 
+		//return DIO_E_OK;
 	}
 	else{
-		return DIO_InvalidPin;
+		en_dio_Errors =  DIO_InvalidPin;
 	}
-		
+	
+	return en_dio_Errors;	
 }
 
 
@@ -132,8 +137,9 @@ DIO_Errors Dio_ReadChannel(Dio_ChannelType ChannelId ,Dio_LevelType* level)
 *								DIO_InvalidPin if the ChannelId is valid Id*/
 /*    Requirment              : None */
 /*****************************************************************************************/
-DIO_Errors Dio_WriteChannel(Dio_ChannelType ChannelId, Dio_LevelType level)
+en_dio_Errors_t DIO_WriteChannel(en_dio_channel_t ChannelId, en_dio_Level_t level)
 {
+	en_dio_Errors_t en_dio_Errors = DIO_E_OK;
 	uint8_t pinNumber ;
 	
 	
@@ -152,7 +158,7 @@ DIO_Errors Dio_WriteChannel(Dio_ChannelType ChannelId, Dio_LevelType level)
 		}
 		else if (ChannelId < DIO_PORTC_Channel0)
 		{
-			pinNumber = ChannelId-8;
+			pinNumber = ChannelId - PORTA_CHANNELS;
 			if (level == STD_HIGH)
 			{
 				WR_PORT_B |= (1U << pinNumber);
@@ -163,7 +169,7 @@ DIO_Errors Dio_WriteChannel(Dio_ChannelType ChannelId, Dio_LevelType level)
 		}
 		else if (ChannelId < DIO_PORTD_Channel0)
 		{
-			pinNumber = ChannelId-16;
+			pinNumber = ChannelId - PORTA_CHANNELS - PORTB_CHANNELS;
 			if (level == STD_HIGH)
 			{
 				WR_PORT_C |= (1U << pinNumber);
@@ -174,7 +180,7 @@ DIO_Errors Dio_WriteChannel(Dio_ChannelType ChannelId, Dio_LevelType level)
 		}
 		else
 		{
-			pinNumber = ChannelId-24;
+			pinNumber = ChannelId - PORTA_CHANNELS - PORTB_CHANNELS - PORTC_CHANNELS;
 			if (level == STD_HIGH)
 			{
 				WR_PORT_D |= (1U << pinNumber);
@@ -183,10 +189,11 @@ DIO_Errors Dio_WriteChannel(Dio_ChannelType ChannelId, Dio_LevelType level)
 				WR_PORT_D &= ~(1U << pinNumber);
 			}
 		}
-		return DIO_E_OK;
+		//return DIO_E_OK;
 	}
 	else{
-		return DIO_InvalidPin;
+		en_dio_Errors = DIO_InvalidPin;
 	}
 	
+	return en_dio_Errors;
 }
