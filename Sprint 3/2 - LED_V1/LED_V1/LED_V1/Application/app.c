@@ -32,6 +32,10 @@ void appStart(void)
 					u8_counter += ((uint8_t)1);
 				}
 			}
+			else
+			{
+				// do nothing
+			}
 		}
 		else
 		{
@@ -51,6 +55,10 @@ void appStart(void)
 				{
 					u8_counter += ((uint8_t)1);
 				}
+			}
+			else
+			{
+				// do nothing
 			}
 		}
 	}
